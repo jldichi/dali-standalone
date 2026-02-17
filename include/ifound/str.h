@@ -67,8 +67,8 @@ public :
 	// (in particular, compiler generated temporary strings are dangerous)
 	friend char *toCharPtr(const String &s);
 	friend const char *debugString(long s);
-	friend Int toInt(const String &s, Int base = 0);
-	friend String toString(Int v, Int length = 0, Int base = -10);
+	friend Int toInt(const String &s, Int base);
+	friend String toString(Int v, Int length, Int base);
 	friend String toString(String fmt, ...);
 	friend String toString(const char *fmt, ...);
 	friend String toStr(const char *fmt, va_list ap);
