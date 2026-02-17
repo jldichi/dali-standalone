@@ -1,25 +1,25 @@
 /*
- * dali_compat.h - Force-included BEFORE all other headers
+ * dali_compat.h - Force-included BEFORE all other headers via -include
  *
- * This ensures POSIX function declarations (getpid, chdir, sleep, etc.)
- * are resolved before IdeaFix headers can interfere with __THROW or
- * other glibc internals.
+ * This file tests that the -include flag is actually working.
+ * If you see #error below trigger, then -include is working correctly.
  */
 #ifndef DALI_COMPAT_H
 #define DALI_COMPAT_H
 
-#ifdef __cplusplus
-extern "C" {
+/* Diagnostic: uncomment to verify -include is working */
+/* #error dali_compat.h is being included - this proves -include works */
+
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
 #endif
 
-#include <unistd.h>
+#include <features.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <unistd.h>
 #include <grp.h>
 #include <stdlib.h>
-
-#ifdef __cplusplus
-}
-#endif
+#include <string.h>
 
 #endif

@@ -60,14 +60,9 @@ typedef size_t SizeT;
 #define	DLLEXPORT
 #define DLLDEPEND
 
-//Esto empieza a joder en los gcc 3.x
-//Lo defino vacio. hardaiz.
-// DALI-STANDALONE: Disabled for GCC 9+ / glibc 2.34+
-// Redefining __THROW breaks POSIX function declarations in modern glibc
-#if __GNUC__ < 9
-#undef __THROW
-#define __THROW
-#endif
+// DALI-STANDALONE: __THROW redefinition removed entirely.
+// Original code (for GCC 3.x) redefined __THROW as empty, which breaks
+// all POSIX function declarations on modern glibc (2.17+).
 
 /* Non compiler dependant capabilities */
 #define NO_NEW_HANDLER

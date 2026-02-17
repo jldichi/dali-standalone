@@ -17,16 +17,17 @@ add_compile_options(
     -fPIC
 )
 
-# Force-include POSIX headers BEFORE any IdeaFix header can interfere
-# with __THROW, getpid, chdir, etc.
-add_compile_options(-include ${CMAKE_SOURCE_DIR}/include/dali_compat.h)
-
 add_compile_definitions(
-    linux
     _GNU_SOURCE
+    linux
     HAVE_BOOL=1
     DALI_STANDALONE=1
 )
+
+# Force-include POSIX headers BEFORE any IdeaFix header can interfere
+# with __THROW, getpid, chdir, etc.
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${CMAKE_SOURCE_DIR}/include/dali_compat.h")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -include ${CMAKE_SOURCE_DIR}/include/dali_compat.h")
 
 # ---------------------------------------------------------------------------
 # Include paths - mirrors the IdeaFix build: -I. -Iinclude -I$ISRC/include
