@@ -431,6 +431,8 @@ public:
 	friend Connection &operator>>(Connection &c, Time &t);
 };
 
+// DALI-STANDALONE: Forward declaration for ADL visibility (friend function with primitive arg)
+Time osTime(Int s);
 
 // This class was documented by Oscar (/usr2/acct/oscar/doc/itypes/itypes.doc)
 class Boolean {
