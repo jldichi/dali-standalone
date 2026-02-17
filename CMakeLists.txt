@@ -45,7 +45,8 @@ include_directories(
 file(GLOB LIBIDEA_ITYPES   src/lib/itypes/*.cc)
 file(GLOB LIBIDEA_BASIC_CC src/lib/basic/*.cc)
 file(GLOB LIBIDEA_BASIC_C  src/lib/basic/*.c)
-file(GLOB LIBIDEA_BASIC_GIF src/lib/basic/gif/*.cc)
+# DALI-STANDALONE: gif/ contains IxSCA/INA auth stubs with missing headers - exclude
+# file(GLOB LIBIDEA_BASIC_GIF src/lib/basic/gif/*.cc)
 file(GLOB LIBIDEA_MISC     src/lib/misc/*.cc)
 file(GLOB LIBIDEA_REXP     src/lib/rexp/*.cc)
 file(GLOB LIBIDEA_ARRAY    src/lib/array/*.cc)
@@ -83,7 +84,6 @@ add_library(idea STATIC
     ${LIBIDEA_ITYPES}
     ${LIBIDEA_BASIC_CC}
     ${LIBIDEA_BASIC_C}
-    ${LIBIDEA_BASIC_GIF}
     ${LIBIDEA_MISC}
     ${LIBIDEA_REXP}
     ${LIBIDEA_ARRAY}
