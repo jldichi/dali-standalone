@@ -191,6 +191,15 @@ using namespace idx;
 // Date class
 
 // This class was documented by Oscar (/usr2/acct/oscar/doc/itypes/itypes.doc)
+
+// Forward declarations needed for friend functions used in inline methods
+class Date;
+class Time;
+Date toDate(Int i);
+Date toDate(const String &s);
+Date toDate(Time t);
+Int  toInt(const Date &d);
+
 class Date {
 
 	friend class Time;
@@ -313,6 +322,12 @@ public:
 
 
 // Time class
+
+// Forward declarations needed for friend functions used in inline methods
+Time toTime(Int secs);
+Time toTime(const Num &secs);
+Time toTime(const String &s);
+Time toTime(Date d);
 
 // This class was documented by Oscar (/usr2/acct/oscar/doc/itypes/itypes.doc)
 class Time {
