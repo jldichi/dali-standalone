@@ -112,8 +112,9 @@ void TextCursor::goFirstNonSp()
 	idCheck();
 
 	Int len = value().length();
-	
-	for (Int i = 0; i < len && isSpace(value()[i]); i++)
+
+	Int i;
+	for (i = 0; i < len && isSpace(value()[i]); i++)
 		;
 
 	ncol = i;

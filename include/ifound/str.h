@@ -36,6 +36,8 @@ String toString(String fmt, ...);
 String toString(const char *fmt, ...);
 String operator+(const String &s1, const String &s2);
 String operator+(const String &s1, const char *cs);
+String toStr(const char *fmt, va_list ap);
+String toStr(const String &fmt, va_list ap);
 
 // String class
 

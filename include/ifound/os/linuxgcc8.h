@@ -145,7 +145,8 @@ typedef size_t SizeT;
 #define HAVE_S_ISSOCK_WORKING_OK       1
 #define HAVE_RESTARTABLE_SYSCALLS	1
 #undef HAVE_SAVEMEM
-#define HAVE_SECURITY			1
+// DALI-STANDALONE: Disabled security/licensing for standalone editor
+#undef HAVE_SECURITY
 #define HAVE_SEMAPHORES			1
 #define HAVE_SETRLIMIT			1
 #define HAVE_SETSID				1

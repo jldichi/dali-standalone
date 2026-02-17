@@ -18,7 +18,11 @@
 #define IDEA_VERSION_STRING	"6.1.0"
 #define IDEA_RELEASE_DATE	"15/02/2016"
 
-/* typedef ixBool Bool; */
+// DALI-STANDALONE: ixBool was defined in old OS config headers.
+// It's simply a bool alias used in legacy code.
+#ifdef __cplusplus
+typedef bool ixBool;
+#endif
 
 #ifndef __cplusplus
 

@@ -37,7 +37,7 @@
 #endif
 
 /* +++ Prototypes +++ */
-extern int atoi(const char *c) __THROW;
+extern int atoi(const char *c);
 /* --- Prototypes --- */
 
 static char apl_module[LONG_MODULE];

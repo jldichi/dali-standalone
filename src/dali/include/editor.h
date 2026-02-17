@@ -24,7 +24,7 @@
 
 #include <sys/types.h>
 extern "C" {
-	DLLIMPORT TIMERETTYPE time(TIMEPARAM1TYPE) __THROW;
+	DLLIMPORT TIMERETTYPE time(TIMEPARAM1TYPE);
 }
 
 class String;

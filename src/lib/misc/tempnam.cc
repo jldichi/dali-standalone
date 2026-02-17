@@ -31,7 +31,7 @@ char* GetTmpDir()
 }
 #endif
 
-char *tempnam(TEMPNAMPARAM1TYPE pth, TEMPNAMPARAM2TYPE pfx) __THROW
+char *tempnam(TEMPNAMPARAM1TYPE pth, TEMPNAMPARAM2TYPE pfx)
 {
 	char* p;
 #ifdef HAVE_STATIC_STRING_BUG //f....ing VC++
@@ -66,7 +66,7 @@ char *tempnam(TEMPNAMPARAM1TYPE pth, TEMPNAMPARAM2TYPE pfx) __THROW
 }
 
 #ifndef __VC__ // use tmpnam and tmpfile from runtime library(msvcrt.dll | libcmt.lib)
-char *tmpnam(char  *s) __THROW
+char *tmpnam(char  *s)
 {
 	if (s != NULL)
 		return strcpy(s, tempnam(P_tmpdir, ""));

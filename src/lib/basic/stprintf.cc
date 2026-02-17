@@ -45,7 +45,7 @@ extern "C" int printf(const char *fmt, ...)
 	return ret;
 }
 
-extern "C" int fprintf(FILE *f, char const *fmt, ...) __THROW
+extern "C" int fprintf(FILE *f, char const *fmt, ...)
 {
 	va_list ap;
 	int ret;
@@ -72,7 +72,7 @@ extern "C" int aprintf(FILE *f, char const *fmt, ...)
 	return ret;
 }
 
-extern "C" SPRINTFRETTYPE sprintf(char *str, const char *fmt, ...) __THROW
+extern "C" SPRINTFRETTYPE sprintf(char *str, const char *fmt, ...)
 {
 	va_list ap;
 	int ret;

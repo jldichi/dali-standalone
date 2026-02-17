@@ -18,6 +18,11 @@
 #ifndef GN_H
 #define GN_H
 
+// DALI-STANDALONE: C files that include this header need bool type
+#ifndef __cplusplus
+#include <stdbool.h>
+#endif
+
 #include <ifound/num.h>
 
 #if	HAVE_PRAGMA_PACK
@@ -673,8 +678,8 @@ extern int ShowImage(char *,char *,int x=-1, int y=-1);
 extern int ShowImage(char *,char *,int x, int y);
 #endif
 
-extern void CloseImage(int) __THROW;
-extern void CloseAllImages(void) __THROW;
+extern void CloseImage(int);
+extern void CloseAllImages(void);
 
 /* Conversion functions */
 
@@ -717,7 +722,7 @@ extern FILE *fdopen(int, FDOPENPARAM2TYPE);
 extern DLLIMPORT FILE *popen(POPENPARAMTYPE, POPENPARAMTYPE);
 extern int pclose(FILE *);
 extern FILE *fopen(char const *, char const *);
-extern int fprintf(FILE *, const char *, ...) __THROW;
+extern int fprintf(FILE *, const char *, ...);
 extern int fclose(FILE *);
 extern int fflush(FILE *);
 extern FTELLRETTYPE ftell(FTELLPARAM1TYPE);
@@ -725,11 +730,11 @@ extern int fseek(FILE *, long, int);
 extern SizeT fread(FREADPARAM1TYPE, SizeT, SizeT, FILE *);
 extern SizeT fwrite(FWRITEPARAM1TYPE, SizeT, SizeT, FILE *);
 extern char *getpass(const char *prompt);
-extern int execl(char const *path, char const *arg1, ...) __THROW;
-extern int rmdir(char const *p) __THROW;
-extern int access(char const *f, int a) __THROW;
-extern DLLIMPORT int rand(void) __THROW;
-extern DLLIMPORT SRANDRETTYPE srand(unsigned) __THROW;
+extern int execl(char const *path, char const *arg1, ...);
+extern int rmdir(char const *p);
+extern int access(char const *f, int a);
+extern DLLIMPORT int rand(void);
+extern DLLIMPORT SRANDRETTYPE srand(unsigned);
 extern int fputc(FPUTCPARAM1TYPE, FILE *);
 extern int fputs(char const *, FILE *);
 extern char *fgets(char *, int , FILE *);
