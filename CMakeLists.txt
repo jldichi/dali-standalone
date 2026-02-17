@@ -151,6 +151,10 @@ file(GLOB WINAPP_VIEWS   src/winapp/views/*.cc)
 file(GLOB WINAPP_WINCMD  src/winapp/wincmd/*.cc)
 # histcmd.cc requires missing headers (winapp/histcmd.h, winapp/sensor.h)
 list(FILTER WINAPP_WINCMD EXCLUDE REGEX "histcmd\\.cc$")
+# adblkcmd.cc has class name mismatches with adblkcmd.h (Block* prefix)
+# cmdhist.cc requires Command class not available in standalone build
+list(FILTER WINAPP_WINCMD EXCLUDE REGEX "adblkcmd\\.cc$")
+list(FILTER WINAPP_WINCMD EXCLUDE REGEX "cmdhist\\.cc$")
 file(GLOB WINAPP_WINAPP  src/winapp/winapp/*.cc)
 file(GLOB WINAPP_LOG     src/winapp/log/*.cc)
 

@@ -717,7 +717,9 @@ extern void EndProgram();
 #endif
 
 /* ANSI Functions */
-
+// DALI-STANDALONE: On Linux, these are already declared by system headers.
+// Re-declaring them causes exception specifier mismatches with glibc.
+#ifndef linux
 extern FILE *fdopen(int, FDOPENPARAM2TYPE);
 extern DLLIMPORT FILE *popen(POPENPARAMTYPE, POPENPARAMTYPE);
 extern int pclose(FILE *);
@@ -739,6 +741,7 @@ extern int fputc(FPUTCPARAM1TYPE, FILE *);
 extern int fputs(char const *, FILE *);
 extern char *fgets(char *, int , FILE *);
 extern int fgetc(FILE *);
+#endif /* linux */
 
 #ifdef __cplusplus
 }
