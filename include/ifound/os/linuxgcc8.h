@@ -11,15 +11,6 @@
 #ifndef LINUX_H
 #define LINUX_H
 
-// DALI-STANDALONE: Include POSIX/system headers BEFORE any IdeaFix
-// redefinitions to ensure getpid, chdir, R_OK, etc. are declared.
-#if __GNUC__ >= 9
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <grp.h>
-#endif
-
 #ifndef LinuxGcc8
 #define LinuxGcc8				1
 #endif
