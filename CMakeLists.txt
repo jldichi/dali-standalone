@@ -19,6 +19,7 @@ add_compile_options(
 
 add_compile_definitions(
     linux
+    _GNU_SOURCE
     HAVE_BOOL=1
     DALI_STANDALONE=1
 )

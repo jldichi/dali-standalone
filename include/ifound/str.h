@@ -27,6 +27,16 @@ class RegExp;
 class OutputStream;
 class InputStream;
 
+// Forward declarations needed for friend functions used outside class scope
+class String;
+char *toCharPtr(const String &s);
+Int toInt(const String &s, Int base = 0);
+String toString(Int v, Int length = 0, Int base = -10);
+String toString(String fmt, ...);
+String toString(const char *fmt, ...);
+String operator+(const String &s1, const String &s2);
+String operator+(const String &s1, const char *cs);
+
 // String class
 
 class String {
