@@ -279,9 +279,7 @@ public:
 						 const bool stay = false);
 	static bool openTag(const String &str);
 	static Int execOSCommand(const String &cmd);
-	static Int execAdminCommand(const String &cmd,
-								 const String &viewname	= NULL_STRING,
-								 bool viewOnError = true);
+	// DALI-STANDALONE: Removed execAdminCommand (RCS/SCCS only)
     
 	static bool doForAllViews(BFPV func);
 

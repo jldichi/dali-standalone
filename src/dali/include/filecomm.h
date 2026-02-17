@@ -24,41 +24,13 @@
 
 class DaliView;
 
-// Version Commands
-BeginControlCommand(CheckOutFile)
- private:
-   bool firstTime;
- public:
-   void clear();
-EndControlCommand(CheckOutFile);
-
-BeginControlCommand(CheckInFile)
- private:
-   String firstComment;
- public:
-   void clear();
-EndControlCommand(CheckInFile);
-
-BeginControlCommand(VersionLog)
-EndControlCommand(VersionLog);
-
-BeginControlCommand(OpenLastVersion)
-EndControlCommand(OpenLastVersion);
+// DALI-STANDALONE: Removed RCS/SCCS version control commands
+// (CheckOutFile, CheckInFile, VersionLog, OpenLastVersion,
+//  DiffLastVersion, UndoCheckIn, UndoCheckOut)
 
 BeginControlCommand(FileDiff)
 EndControlCommand(FileDiff);
 
-BeginControlCommand(DiffLastVersion)
-EndControlCommand(DiffLastVersion);
-
-BeginControlCommand(UndoCheckIn)
-EndControlCommand(UndoCheckIn);
-
-BeginControlCommand(UndoCheckOut)
-EndControlCommand(UndoCheckOut);
-
-// End of Version Commands
-   
 BeginControlCommandNoViews(OpenFile)
 EndControlCommandNoViews(OpenFile);
 

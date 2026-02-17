@@ -68,7 +68,8 @@ file(GLOB LIBIDEA_CONN     src/lib/conn/*.cc)
 file(GLOB LIBIDEA_CRACKER  src/lib/cracker/*.cc)
 file(GLOB LIBIDEA_BOBJECT  src/lib/bobject/*.cc)
 file(GLOB LIBIDEA_GUICONN  src/lib/guiconn/*.cc)
-file(GLOB LIBIDEA_IMAGE    src/lib/image/*.cc)
+# DALI-STANDALONE: Image/GIF library removed - not needed for text editor
+# file(GLOB LIBIDEA_IMAGE    src/lib/image/*.cc)
 
 # Exclude imain.cc and libstamp.cc (they have special compilation needs)
 list(FILTER LIBIDEA_MISC EXCLUDE REGEX "imain\\.cc$")
@@ -105,7 +106,6 @@ add_library(idea STATIC
     ${LIBIDEA_CRACKER}
     ${LIBIDEA_BOBJECT}
     ${LIBIDEA_GUICONN}
-    ${LIBIDEA_IMAGE}
 )
 
 # ---------------------------------------------------------------------------

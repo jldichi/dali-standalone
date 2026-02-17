@@ -670,16 +670,7 @@ extern void MessageDisplayError(const char *module, const char *section, const c
 extern void MessageFatalError(const char *module, const char *section, const char *msg, ...);
 
 
-/* Image handling functions */
-
-#ifdef __cplusplus
-extern int ShowImage(char *,char *,int x=-1, int y=-1);
-#else
-extern int ShowImage(char *,char *,int x, int y);
-#endif
-
-extern void CloseImage(int);
-extern void CloseAllImages(void);
+/* DALI-STANDALONE: Removed image handling functions (ShowImage, CloseImage, CloseAllImages) */
 
 /* Conversion functions */
 

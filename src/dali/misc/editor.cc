@@ -1954,54 +1954,7 @@ Int	Editor::execOSCommand(const	String &cmd)
 	return 0;
 }
 
-Int	Editor::execAdminCommand(const String &cmd,const String &viewname,bool viewOnError)
-{             
-    // Imposible to continue without a command to execute
-	if	(cmd ==	NULL_STRING)
-		return ERR;
-
-	//	If viewname	not	supplied, use cmd as view`s	name
- 	String viewName; 
- 	if	(viewname != NULL_STRING)
- 		viewName = viewname;
-
-    // Build pipe, create view and added it to Editor`s view list
-	InputPipe aux(cmd);
-	addView(tr_new DaliView(aux,viewName));
-
-    // If an error ocurred delete view if required.
-	if	(aux.withError() && !viewOnError) {
-		delCurrView();                     
-		return 0;
-	}
-
-	// Get tag now, we may need it later ...
-	RegExp tag(noMetaChars(cView->getText()->value()));
-    
-	String hostFunction; 
-    cView->getFunction(hostFunction, false, false);
-
-    // Now try to find tag.
-	cView->goToBegOfFile();	              
-	
-	// Check if we have a valid RegExp ...
-	RegExp hostFunctionRX(hostFunction);
-	if((!hostFunctionRX) == true) {
-		if (cView->findForwText(
-					hostFunctionRX, 1, cView->sizeOfText(), true) == ERR) 
-		{
-			cView->goToBegOfFile();
-			return 0;
-	    }                         
-	}	    
-
-	// If we cannot find the host function, we will have to rely only in
-	// the tag expression. 
-    if ((!tag) == false)
-		cView->findForwText(tag, 1, cView->sizeOfText(), true);
-
-	return	0; // status ? ERR : OK;
-}
+// DALI-STANDALONE: Removed execAdminCommand (RCS/SCCS version control only)
 
 void Editor::gotoFile(const	String &fileName,const Int errline,	const bool stay)
 {            

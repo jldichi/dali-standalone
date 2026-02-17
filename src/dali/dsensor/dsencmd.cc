@@ -140,15 +140,8 @@ void DaliSensor::loadHelpMenu()
 
 void DaliSensor::loadToolMenu()
 {
-	*mt << MenuItem(MSG("MN_CHECKOUT"),	 	CheckOutFile::cmdId)
-		<< MenuItem(MSG("MN_CHECKIN"),		CheckInFile::cmdId)
-		<< MenuItem(MSG("MN_OPENLASTVER"),	OpenLastVersion::cmdId)
-		<< MenuItem(MSG("MN_DIFFLASTVER"),	DiffLastVersion::cmdId)
-		<< MenuItem(MSG("MN_VERSLOG"),		VersionLog::cmdId)
-		<< MenuItem(MSG("MN_UCHECKOUT"),	UndoCheckOut::cmdId)
-		<< MenuItem(MSG("MN_UCHECKIN"),		UndoCheckIn::cmdId)
-		<< NULL_STRING
-		<< MenuItem(MSG("MN_RUNDEBUGGER"),	*mrd)
+	// DALI-STANDALONE: Removed RCS/SCCS version control menu items
+	*mt << MenuItem(MSG("MN_RUNDEBUGGER"),	*mrd)
 		<< MenuItem(MSG("MN_DSPDEBUGGER"),	*mdd)
 		<< NULL_STRING
 		<< MenuItem(MSG("MN_SETPROJECT"),	SetProject::cmdId)
