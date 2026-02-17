@@ -1,0 +1,56 @@
+// -----------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: mainobj.icc,v 1.1.1.1 1996/04/16 18:51:34 gustavof Exp $
+//
+// Description:
+// Implementation of inline methods declared in mainobj.h
+// -----------------------------------------------------------------------
+
+#ifndef MAINOBJ_ICC
+#define MAINOBJ_ICC
+
+#ifdef __GNUC__
+#pragma interface
+#endif
+
+inline 
+FramedObject::FramedObject()
+:	remoteId_d(ERR)
+,	mainFrame_x(NULL)
+{
+}
+
+inline Int 
+FramedObject::remoteId() const
+{
+	return remoteId_d;
+}
+
+inline wxFrame *
+FramedObject::mainFrame() const
+{
+	return mainFrame_x;
+}
+
+inline void
+FramedObject::setRemoteId(Int id)
+{
+	assert(!mainFrame());
+	assert(id==ERR || remoteId()==ERR);
+	remoteId_d = id;
+}
+
+inline void
+FramedObject::setMainFrame(wxFrame *frame)
+{
+	assert(remoteId()==ERR);
+	assert(!mainFrame() || !frame);
+	mainFrame_x = frame;
+}
+
+#endif
+

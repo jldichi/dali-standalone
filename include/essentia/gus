@@ -1,0 +1,139 @@
+/********************************************************************
+* Copyright (c) 1992 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: gus,v 1.1.1.1 1996/04/16 18:51:49 gustavof Exp $
+*
+* DESCRIPTION
+* Class definitions for general Config File.
+*********************************************************************/
+
+#ifndef CNFFILE_H
+#define CNFFILE_H
+
+#include <ifound.h>
+
+#ifdef __GNUC__
+#pragma interface
+#endif
+
+#include <ifound/str.h>
+
+// configuracion de los directorios
+#define CONFIG_DIR		"ESSENTIA"
+#define SERVERS			"SERVERS"
+#define SV_SUBDIR		PATH_SLASH"servers"PATH_SLASH
+
+// connection types
+#define ICON			'i'
+#define RCON			'r'
+
+// server configuration file extensions
+#define IEXT			".sv"
+#define REXT			".rsv"
+
+#define SCH_SEPAR		","
+#define DBASE_SEPAR		":"
+#define SERVER_SEPAR	";"
+
+#include <stdio.h>
+
+enum Token {
+	CACHESIZE,
+	CKPOINTFREQ,
+	CKPOINTLOWBOUND,
+	CKPOINTUPBOUND,
+	CORRUPTIONTOLERANT,
+	HANDLEVERSIONS,
+	HKEEPINGMSGBOUND,
+	HOST,
+	JOURNALBUFFER,
+	JOURNALDIR,
+	LOCKS,
+	LOCKSPERCLIENT,
+	LOCKUNIFYBOUND,
+	NAMESPACES,
+	NEXTSCHEMAID,
+	NOTIFIES,
+	RUNLOGFILE,
+	SCHEMAS,
+	SERVERIDENT,
+	STATEFILE,
+	DBASE,
+	MIRRORING,
+	BACKUP,
+	JOURNALFLUSHFREQ,
+	TRANSTIMEOUT,
+	LOCKWAIT,
+	PENDLOCKNOTIFTIME,
+	MATURETIME,
+	OBJECTREPOSITORY,
+	MAXATTACHSPCLIENT,
+	LOCKUNIFYPERCENT,
+	DISKCONFIGURATION,
+};
+
+class ConfigFile {
+
+// private:
+
+    ConfigFile(const ConfigFile &);
+    void operator=(const ConfigFile &);
+	void clear();
+
+protected:
+
+	String filename;	// configuration file name
+
+	Int serverId;		// server's id
+	char ty;			// connection type
+	String host;		// server host (for remote servers)
+
+	Int nschs;			// number of schemas attended by server
+	String schemas;		// schemas attended by server
+
+	bool dirty_;		// whether it needs to be saved
+	bool is_namesp;		// whether it is a namespace or a schema
+
+	String objectRepository_;		// directory for storing objects
+	
+	static Token findToken(const String &lexeme);
+
+	bool readFile(const String &file);
+
+	virtual void resolveOthers(Token t, const String &tname,
+			const String &val, Int);
+	virtual void storeOthers(FILE *f);
+	
+	void checkNullValue(const String &tname, const String &aux, Int line) ;
+	
+public:
+
+	ConfigFile();
+	virtual ~ConfigFile();
+		
+	const String &getFileName();
+	String getServerName();
+		
+	char getType();
+	Int  getServerId();
+	const String &getHost();
+
+	Int    getNSchs();
+	String getSchName(Int i);
+	bool   isNameSpace() const;
+	const  String &getSchemas();
+	bool   delSchema(const String &schname);
+	bool   findSchema(const String &schname);
+	bool   read(const String &svname, char tt = '\0');
+	const String &objectRepository() const;
+	bool setObjectRepository(const String &d);
+	operator void*();
+	bool operator !();
+
+	void store();
+};
+
+#endif // CNFFILE_H

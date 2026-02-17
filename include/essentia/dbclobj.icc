@@ -1,0 +1,37 @@
+/********************************************************************
+* Copyright (c) 1992 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: dbclobj.icc,v 1.1.1.1 1996/04/16 18:51:48 gustavof Exp $
+*
+* DESCRIPTION
+* Inline methods for classes defined in dbclobj.h
+*********************************************************************/
+
+#ifndef DBCLOBJ_ICC
+#define DBCLOBJ_ICC
+
+DbConnection *ClientObject::getConnection()
+{
+	return con;
+}
+
+Int ClientObject::nRef() const
+{
+	return nref;
+}
+
+const String &ClientObject::name()
+{
+	return f_name;
+}
+
+Int ClientObject::objId() const
+{
+	return objectId;
+}
+
+#endif
+

@@ -1,0 +1,46 @@
+/********************************************************************
+*
+* Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: dbconn.icc,v 1.1.1.1 1996/04/16 18:51:48 gustavof Exp $
+*
+* DESCRIPTION:
+*
+*********************************************************************/
+
+void DbConnection::end()
+{
+}
+
+Int DbConnection::nMessages() const
+{
+	return nMsgs;
+}
+
+char DbConnection::getType()
+{
+	return type;
+}
+
+Int DbConnection::status()
+{
+	return status_;
+}
+
+bool DbConnection::userBegTrans() 			{ return userBeganTrans;}
+void DbConnection::userBegTrans(bool b)		{ userBeganTrans = b;	}
+
+bool DbConnection::inTransaction() const	{ return inTrans;		}
+void DbConnection::inTransaction(bool v)	{ inTrans = v;			}
+bool DbConnection::readyToEnd() const		{ return readyToEnd_;	}
+void DbConnection::readyToEnd(bool v)		{ readyToEnd_ = v;		}
+const String &DbConnection::serverName()	{ return serverName_;	}
+bool DbConnection::isValid()				{ return isValid_;		}
+void DbConnection::didLock()				{ hasLocks = true;		}
+TimeStamp &DbConnection::transTimeStamp()	{ return transTS;		}
+DbConnection *DbConnection::head()			{ return head_;			}
+DbConnection *DbConnection::next()			{ return next_;			}
+

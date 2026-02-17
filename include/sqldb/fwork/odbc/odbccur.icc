@@ -1,0 +1,163 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: odbccur.icc,v 1.10 1999/03/24 14:56:32 mariana Exp $
+// -----------------------------------------------------------------------
+
+#ifndef ODBCCUR_ICC
+#define	ODBCCUR_ICC
+
+/**
+ * This method returns the error that may have been produced by an ODBC
+ * cursor operation. This kind of error is the one produced by an instance
+ * method and not a class or static one.
+ *
+ * @return	error description.
+ */
+const String &ODBCCursorImpl::getErrorDescr() const
+{
+	return errorDescr_d;
+}
+
+/**
+ * This method returns the error that may have been produced by an ODBC
+ * cursor operation. This kind of error is the one produced by a a class
+ * or static method and not an instance one.
+ *
+ * @return	error description.
+ */
+const String &ODBCCursorImpl::getClassErrorDescr()
+{
+	return errorDescr_sd;
+}
+
+/**
+ * This method returns the table used by the cursor. This is the table
+ * traversed by the cursor.
+ *
+ * @return	the table traversed by the cursor.
+ */
+const ODBCTableImpl *ODBCCursorImpl::tableImpl() const
+{
+	return tabImpl_d;
+}
+
+/**
+ * This method returns the index used by the cursor to traverse the table.
+ *
+ * @return	the index used by the cursor.
+ */
+const IndexMetadata *ODBCCursorImpl::indexMetadata() const
+{
+	return indexMD_d;
+}
+
+/**
+ * This method returns the prepared statement created for this cursor.
+ *
+ * @return	the ODBCPreparedStmt of the cursor.
+ */
+ODBCPreparedStmt *ODBCCursorImpl::getCursorPStmt() const
+{
+	return pstmt_d;
+}
+
+/**
+ * This method returns false if any of the fetch methods has been called.
+ * False otherwise.
+ *
+ * @return	whether any of the fetch methods has not been called.
+ */
+bool ODBCCursorImpl::isFirstTime() const
+{
+	return firstTime_d;
+}
+
+/**
+ * This method returns the TableValue where the 'from' input values for
+ * the ODBC prepared statement are placed.
+ *
+ * @return	the TableValue where the 'from' input values for the ODBC
+ *			prepared stmt are placed.
+ */
+TableValue *ODBCCursorImpl::getFromInputValues() const
+{
+	return fromInputValues_d;
+}
+
+/**
+ * This method returns the TableValue where the 'to' input values for
+ * the ODBC prepared statement are placed.
+ *
+ * @return	the TableValue where the 'to' input values for the ODBC
+ *			prepared stmt are placed.
+ */
+TableValue *ODBCCursorImpl::getToInputValues() const
+{
+	return toInputValues_d;
+}
+                   
+/** 
+ * This method returns whether the last operation performed over 
+ * the cursor was a moveToLast or not.
+ *
+ * @return 	true if the last operation was a moveToLast
+ *			false otherwise
+ */                   
+bool ODBCCursorImpl::isLastLastOp() const 
+{
+	return last_d;
+}
+
+/** 
+ * This method returns whether the last operation performed over 
+ * the cursor was a moveToFirst or not.
+ *
+ * @return 	true if the last operation was a moveToFirst
+ *			false otherwise
+ */                   
+bool ODBCCursorImpl::isFirstLastOp() const 
+{
+	return first_d;
+}
+
+/**
+ * This method returns the locking mode with which the cursor was created.
+ */
+enum LockMode ODBCCursorImpl::getLockMode() 
+{
+	return lmode_d;
+}
+
+/**
+ * This method returns the cursor direction
+ */
+enum Direction ODBCCursorImpl::direction() const
+{                   
+	return direction_d;
+}
+
+/**
+ * This method returns true if the cursor reached the end, 
+ * false otherwise
+ */
+bool ODBCCursorImpl::isEOC() const
+{
+	return isEOC_d;
+}
+   
+/**
+ * This method returns true if the cursor reached the beginning,
+ * false otherwise  
+ */   
+bool ODBCCursorImpl::isBOC() const
+{
+	return isBOC_d;
+}
+
+#endif	ODBCCUR_ICC
+

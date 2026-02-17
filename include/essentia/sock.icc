@@ -1,0 +1,16 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright  1998 InterSoft Argentina S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: sock.icc,v 1.1 1998/07/30 13:25:29 damian Exp $
+// -----------------------------------------------------------------------
+
+inline
+Int
+Socket::getFileDescriptor() const
+{
+	return fd_d;
+}

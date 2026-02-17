@@ -1,0 +1,82 @@
+/*
+ * $Id: fminchk.icc,v 1.1.1.1 1996/04/16 18:51:41 gustavof Exp $
+ */
+
+#ifndef FMINCHK_ICC
+#define FMINCHK_ICC
+
+#pragma interface
+
+inline FmValueObj *FmCheck::field()
+{
+	return field_;
+}
+
+inline bool FmCheck::negated() const
+{
+	return negated_;
+}
+
+inline void FmCheck::setNegated(bool neg)
+{
+	negated_ = neg;
+}
+
+inline DisplayField::DisplayField()
+	: dbField_(ERR)
+{
+}
+
+
+inline DisplayField::DisplayField(dbfield fld,
+		const String &tblName, const String &fldName)
+	: dbField_(fld), tableName_(tblName), fieldName_(fldName)
+{
+}
+
+inline dbfield DisplayField::field() const
+{
+	return dbField_;
+}
+
+inline const String &DisplayField::tableName() const
+{
+	return tableName_;
+}
+
+inline const String &DisplayField::fieldName() const
+{
+	return fieldName_;
+}
+
+inline DbKeyValue::DbKeyValue()
+	: dbField_(ERR)
+{
+}
+
+inline FmKeyValue::FmKeyValue()
+	: fmField_(NULL)
+{
+}
+
+inline ConstKeyValue::ConstKeyValue()
+{
+}
+
+inline DbKeyValue::DbKeyValue(dbfield fld,
+		const String &tblName, const String &fldName)
+	: dbField_(fld), tableName_(tblName), fieldName_(fldName)
+{
+}
+
+inline FmKeyValue::FmKeyValue(const String &formName, const String &fldName)
+	: fmField_(NULL), formName_(formName), fieldName_(fldName)
+{
+}
+
+inline ConstKeyValue::ConstKeyValue(const String &value)
+	: value_(value)
+{
+}
+
+#endif

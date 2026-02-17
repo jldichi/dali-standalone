@@ -1,0 +1,487 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: indexmd.icc,v 1.21 2002/03/19 21:23:30 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	INDEXMD_ICC
+#define	INDEXMD_ICC
+
+#include <sqldb/metadata/tablemd.h>
+#include <sqldb/fwork/table.h>
+
+/**
+ * Set the id based on a dbindex.
+ *
+ * @param ind is the dbindex.
+ */
+void IndexMetadata::setIndId(dbindex ind)
+{
+	indId_d = ind;
+}
+
+/**
+ * This method sets the name of the index. Must be called only once (while 
+ * index creation).
+ *
+ * @param	name is the name to set to the index.
+ */
+void IndexMetadata::setIndName(const char *name)
+{
+	assert(indRep_d);
+	assert(indRep_d->d.name.strval == NULL);
+
+	indRep_d->d.name.strval = new char[strlen(name) + 1];
+	strcpy(indRep_d->d.name.strval, name);
+}
+
+/**
+ * This method sets the flags of an index.
+ *
+ * @param	kf are the flags to set.
+ */
+void IndexMetadata::setIndFlags(key_flags kf)
+{
+	assert(indRep_d);
+	indRep_d->d.flags = kf;
+}
+
+/**
+ * Sets the index length. 
+ *
+ * @param	len is the length to set.
+ */
+void IndexMetadata::setIndLen(UShort len)
+{
+	assert(indRep_d);
+	indRep_d->d.len = len;
+}
+
+/**
+ * Sets the index nodelen. We have to do this to avoid considering that
+ * the index is empty by some old CFIX routines.
+ *
+ * @param	len is the node length to set.
+ */
+void IndexMetadata::setIndNodelen(UShort len)
+{
+	assert(indRep_d);
+	indRep_d->d.nodelen = len;
+}
+
+/**
+ * Sets the number of fields in the index.
+ *
+ * @param	nFlds is the number of fields to set.
+ */
+void IndexMetadata::setIndNFlds(UShort nFlds)
+{
+	assert(indRep_d);
+	indRep_d->d.n_fields = nFlds;
+}
+
+/**
+ * This methods relates the index with a table.
+ *
+ * @param	tmd is the TableMetadata from which we get the table 
+ *			to set to the index.
+ */
+void IndexMetadata::setIndexTable(const TableMetadata &tmd)
+{
+	assert(indRep_d);
+	indRep_d->tp = tmd.tableRep();
+}
+
+/**
+ * This methods sets the fields that will compose the index.
+ *
+ * @param	ifa is the array of index fields.
+ */
+void IndexMetadata::setIndexFlds(const IndexFieldArray &ifa)
+{
+	assert(indRep_d);
+
+	// Make sure method is only called once
+	assert(indRep_d->f == NULL && indexFieldArray_d == NULL);
+
+	indRep_d->f = ifa.indexFieldArrayRep();
+	indexFieldArray_d = (IndexFieldArray *)&ifa;
+	setIndNFlds(ifa.length());
+}
+
+/**
+ * This method changes the underlying Index representation.
+ * NOTE: this method should only be used when the array of indexes is being 
+ * resized. This situation takes place when we add a new index to a table.
+ *
+ * @param	st is the new index underlying structure.
+ */
+void IndexMetadata::changeRep(struct s_index *st)
+{
+	assert(st);
+	assert(indRep_d);
+	indRep_d = st;
+}
+
+/**
+ * This method is used to known whether and index has a related physical
+ * index in the underlying DBMS. IT can happen some times, that we want
+ * to create an index whose columns are already being indexes by another
+ * index. In this situation, we create the index in metadata schema and
+ * use the existing index. When dropping this index, we only have to
+ * removed the index information from metaata schema.
+ *
+ * @param	hpi is true if the index has a unique related physical index.
+ *			false otherwise.
+ */
+void IndexMetadata::setHasUniquePhysicalIndex(bool hpi)
+{
+	hasUniquePhysicalIndex_d = hpi;
+}
+
+/**
+ * This method obtains the CFIX representation (an *s_index) of the index.
+ *
+ * @return	a pointer to an s_index structure.
+ */
+struct s_index *IndexMetadata::indexRep() const
+{
+	return indRep_d;
+}
+
+/**
+ * This method obtains the index's name.
+ *
+ * @return	the index name.
+ */
+char *IndexMetadata::nameOfIndex() const
+{
+	assert(indRep_d);
+	return indRep_d->d.name.strval;
+}
+
+/**
+ * This method gets the index flags.
+ *
+ * @return	the index flags.
+ */
+key_flags IndexMetadata::indexFlags() const
+{
+	assert(indRep_d);
+	return indRep_d->d.flags;
+}
+
+/**
+ * Gets the index length.
+ *
+ * @return	the index length.
+ */
+UShort IndexMetadata::indexLen() const
+{
+	assert(indRep_d);
+	return indRep_d->d.len;
+}
+
+/**
+ * Thsi emthod returns the number of fields in an index.
+ *
+ * @return	the index number of fields.
+ */
+UShort IndexMetadata::nFields() const
+{
+	assert(indRep_d);
+	return indRep_d->d.n_fields;
+}
+
+/**
+ * This method gets the table associated to the index.
+ *
+ * @return	a pointer to a s_table structure.
+ */
+struct s_table *IndexMetadata::indexOfTable() const
+{
+	assert(indRep_d);
+	return indRep_d->tp;
+}
+
+/**
+ * This method returns the TableMetadata object to which the index 
+ * belongs.
+ *
+ * @return	the TableMetadata object to which the index belong.
+ */
+const TableMetadata &IndexMetadata::getTableMetadata() const
+{
+	SQLFWTable *tab = (SQLFWTable *)indRep_d->tp->u.sql.table;
+	assert(tab);
+	assert(tab->tableMetadata() != NULL);
+
+	return *(tab->tableMetadata());
+}
+
+/**
+ * This method gets the fields that constitute the index.
+ *
+ * @return	an array of index fields.
+ */
+const IndexFieldArray &IndexMetadata::indexFields() const
+{
+	assert(indexFieldArray_d);
+	return *indexFieldArray_d;
+}
+
+/**
+ * Returns the associated dbindex.
+ * 
+ * @return the dbindex descriptor.
+ */
+dbindex IndexMetadata::getId() const 
+{
+	return indId_d;
+}
+
+/**
+ * Method that returns the Index object associated to the IndexMetadata.
+ *
+ * @return	the Index object associated to the IndexMetadata.
+ * @see	Index
+ */
+/*
+SQLFWIndex *IndexMetadata::getIndex() const
+{
+	assert(indRep_d->u.sql);
+	return (SQLFWIndex *)(indRep_d->u.sql->index);
+}
+*/
+
+/**
+ * This method returns the IndexFieldMetadata for the index field whose
+ * position in the index is "n".
+ *
+ * @param	n is the position of the index field in the index.
+ * @return	is the IndexFieldMetadata of the index field whose position 
+ *			in the index is "n".
+ */
+const IndexFieldMetadata &IndexMetadata::getIndexFieldMD(Int n) const
+{
+	assert(indexFieldArray_d);
+	return *indexFieldArray_d->elementAt(n);
+}
+
+/**
+ * Method that returns the "n-th" index field of the index.
+ *
+ * @return	the IndexField of the index.
+ */
+const IndexField &IndexMetadata::getIndexField(Int n) const
+{
+	assert(indexFieldArray_d);
+	IndexField *ifield = indexFieldArray_d->elementAt(n)->getIndexField();
+	assert(ifield);
+	return *ifield;
+}
+
+/**
+ * This methods returns wether the index can accept more fields or not.
+ *
+ * @return	true if the index can not accept more fields. false if not.
+ */
+bool IndexMetadata::isComplete() const
+{
+	return isComplete_d;
+}
+
+/**
+ * This method marks the index as complete.
+ */
+void IndexMetadata::setComplete()
+{
+	assert(!isComplete_d);
+	isComplete_d = true;
+}
+
+/**
+ * This method states that the index will be a primary key.
+ */
+void IndexMetadata::setIsPrimaryKey()
+{
+	isPrimaryKey_d = true;
+}
+
+/**
+ * This method marks the IndexMetadata as being created by CompleteIndex
+ * CFIX method. In the SQL Framework, these kind of index are implemented
+ * as temporary table.
+ */
+void IndexMetadata::setHasBeenCreatedWithCompleteIndex()
+{
+	hasBeenCreatedWithCompleteIndex_d = true;
+}
+
+/**
+ * This method sets the table descriptor of the index created with 
+ * CompleteIndex. Indexes finishes with CompleteIndex are stored in
+ * table instead of indexes.
+ *
+ * @param	tab is the table descriptor of the temporary index.
+ */
+void IndexMetadata::setTableDescrOfIndexCreatedWithCI(dbtable tab)
+{
+	assert(tab != ERR);
+	complIndTabDescr_d = tab;
+}
+
+/**
+ * This method sets the name of the table that the index belongs to. This
+ * is used to build the index's complete name (table_index).
+ *
+ * @param	name is the name of the table taht holds the index.
+ */
+void IndexMetadata::setFrameWorkName(const String &name)
+{
+	frameWorkName_d = name;
+}
+
+/**
+ * This method stablishes whether the index is a temporary one or not.
+ *
+ * @return  true, if the index is temporary. false otherwise.
+ */
+bool IndexMetadata::isTemporary() const
+{
+	return (IN_SET(K_TEMP, indexFlags()));
+} 
+
+/**
+ * This method stablishes whether the index has the unique clause or not.
+ *
+ * @return  true, if the index has unique clause. false otherwise.
+ */
+bool IndexMetadata::isUnique() const
+{
+	return (IN_SET(K_UNIQUE, indexFlags()));
+}
+
+/**
+ * This method returns true if the index is a primary ket. false otherwise.
+ *
+ * @return	whether the index is a primary key or not.
+ */
+bool IndexMetadata::isPrimaryKey() const
+{
+	return isPrimaryKey_d;
+}
+
+/**
+ * This method returns whether the CFIX index has been created with 
+ * CompleteIndex CFIX function.
+ *
+ * @return	true if the index has been created with CompleteIndex CFIX
+ *			function.
+ */
+bool IndexMetadata::hasIndexBeenCreatedWithCompleteIndex() const
+{
+	return hasBeenCreatedWithCompleteIndex_d;
+}
+
+/**
+ * This method returns the table descriptor of the index created with
+ * CFIX function CompleteIndex. In SQL Framework implementation, indexes
+ * created with CompleteIndex, are tables instead of indexes.
+ *
+ * @return	table descriptor of the index created with CompleteIndex.
+ */
+dbtable IndexMetadata::getTableDescrOfIndexCreatedWithCI() const
+{
+	return complIndTabDescr_d;
+}
+
+/**
+ * This method returns in a String the table to which the index belong.
+ *
+ * @return	the name of the table to which the index belong.
+ */
+String IndexMetadata::tableNameOfIndex() const
+{
+	assert(indexOfTable());
+	return String(indexOfTable()->d.name);
+}
+
+/**
+ * This method obtains the name of the table that holds the index.
+ *
+ * @return	the name of the table that hold the index.
+ */
+String IndexMetadata::frameWorkName() const
+{
+	return frameWorkName_d;
+}
+
+/**
+ * This method returns true if the index in memory has a unique physical
+ * index in the underlying DBMS. false if the index creation failed
+ * because the columns of this index were already indexed by another index.
+ */
+bool IndexMetadata::getHasUniquePhysicalIndex() const
+{
+	return hasUniquePhysicalIndex_d;
+}
+
+/**
+ * This method is used to state that the index has a field with a not null
+ * clause and the index is unique. In this case, when the index is being 
+ * generated, we should store the index information into metadata schema, but we 
+ * should not execute the SQL create index statement of the schema.
+ */
+void IndexMetadata::setHasANotNullFieldInUniqueIndex()
+{
+	hasANotNullField_d = true;
+}
+
+/**
+ * This method returns true if the index has at least one field with a not
+ * null clause and the index is unique. false if all the index fields do not 
+ * have a not null clause.
+ */
+bool IndexMetadata::hasANotNullFieldInUniqueIndex() const
+{
+	return hasANotNullField_d;
+}
+
+/**
+ * This method returns true if the index can be created in the underlying DBMS.
+ * For example, we cannot create an index that has at least a field with a not
+ * null clause and the index is unique, because there can be less records in the 
+ * index than in the table. This may cause duplicate values in unique indexes 
+ * with not null clause with the transaction abortion as a consecuense. This
+ * situation does not take place in Ideafix or Essentia.
+ */
+bool IndexMetadata::canCreateIndexInUnderlyingDBMS() const
+{
+	return (hasANotNullFieldInUniqueIndex() == false);
+}
+
+/**
+ * This method returns whether the index condition is set. In this condition
+ * we store clauses to take in account if an index field has the attribute not
+ * null
+ */
+bool IndexMetadata::isIndexConditionSet() const
+{
+    return indexCondition_d != NULL_STRING;
+}
+
+/**
+ * This method returns the index condition. In this condition we store clauses
+ * to take in account if an index field has the attribute not null
+ */
+String IndexMetadata::getIndexCondition() const
+{
+    return indexCondition_d;
+}
+
+#endif	// INDEXMD_ICC

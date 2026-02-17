@@ -1,0 +1,75 @@
+// -------------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: osfile.icc,v 1.1.1.1 1996/04/16 18:51:50 gustavof Exp $
+//
+// Description:
+// -------------------------------------------------------------------------
+
+#ifndef OSFILE_ICC
+#define OSFILE_ICC
+
+bool OsFile::ok() const
+{                
+	return (errno_d == 0);
+}   
+
+void OsFile::errNo(int err)
+{
+	errno_d = err;
+}
+
+void OsFile::bsize(Int bs)
+{
+	bsize_d = bs;
+}
+
+OsFile::operator const void *() const
+{
+	return ok() ? (void *) this : NULL;
+}
+
+int OsFile::errNo() const
+{
+	return errno_d;
+}
+
+int OsFile::operator!() const
+{
+	return !ok();
+}
+
+String OsFile::nameExt()
+{
+	return !(ext_d.isNull()) ? name_d + "." + ext_d : name_d;
+}
+
+const String &OsFile::name()
+{
+	return name_d;
+}
+
+const String &OsFile::logicalName()
+{
+	return lName_d;
+}
+
+const String &OsFile::ext()
+{
+	return ext_d;
+}
+
+void OsFile::checkMethod(const char *func) const
+{
+	if (plentry_d != NULL)
+		error(libMsg("OSFOPERNOTALLOWED"), func, &name_d);
+}
+
+Int OsFile::nparts()
+{
+	return nparts_d;
+}
+#endif

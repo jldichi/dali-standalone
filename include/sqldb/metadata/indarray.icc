@@ -1,0 +1,50 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: indarray.icc,v 1.5 2002/03/19 21:23:48 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	INDARRAY_ICC
+#define	INDARRAY_ICC
+
+/**
+ * Returns the representation of the index at position i.
+ *
+ * @param	i is the position of the index to be returned.
+ * @return	the index underlying representation.
+ */
+struct s_index *IndexArray::indexArrayRepAt(Int i) const
+{
+	if (i < 0 || i > arrayLen_d) {
+		error("INDEX_OUT_OF_BOUNDS");
+	}
+
+	return &(indexArray_d[i]);
+}
+
+/**
+ * Returns the representation of the index at position 0. This is the beginning
+ * of the IndexArray representation.
+ *
+ * @return	the underlying representation.
+ */
+struct s_index *IndexArray::indexArrayRep() const
+{
+	return indexArrayRepAt(0);
+}
+
+/**
+ * This method returns the length of the array.
+ *
+ * @return	the length of the array.
+ */
+Int IndexArray::length() const
+{
+	return arrayLen_d;
+}
+
+#endif	// INDARRAY_ICC

@@ -1,0 +1,25 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmrepwx.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmrepwx.h
+*********************************************************************/
+
+#ifndef FMREPWX_ICC
+#define FMREPWX_ICC
+
+#pragma interface
+
+inline Bool FmPanel::Shown() const
+{
+	return shown_;
+}
+
+
+#endif
+

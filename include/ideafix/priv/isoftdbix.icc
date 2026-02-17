@@ -1,0 +1,589 @@
+/********************************************************************
+*
+* Copyright (c) 1999 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: isoftdbix.icc,v 1.7 2006/02/14 20:58:17 hardaiz Exp $
+* DESCRIPTION:
+*
+********************************************************************/
+#ifndef ISOFTDBIX_ICC_
+#define ISOFTDBIX_ICC_
+//#ifndef __VC__
+#include <ideafix/priv/isoftdbdecl.h>
+
+schema IsoftDbIx::OpenSchema(char *name, UShort mode)
+{
+	return isoftix_OpenSchema(name,mode);
+}
+
+struct s_table * IsoftDbIx::_AttachTable(struct s_table *tp)
+{
+	return isoftix__AttachTable(tp);
+}
+
+int IsoftDbIx::GetRecord(dbindex ind,find_mode fmode,int mode, va_list ap)
+{
+	return isoftix_GetRecord(ind,fmode,mode, ap);
+}
+
+int IsoftDbIx::AddIndField(dbindex ind, dbfield fld, k_field_flags flags, UShort n, UShort m)
+{
+	return isoftix_AddIndField(ind, fld, flags, n, m);
+}
+
+void IsoftDbIx::AddRecord(dbtable tab)
+{
+	isoftix_AddRecord(tab);
+}
+
+void IsoftDbIx::AddRecordTS(dbtable tab, TIMESTAMP crts, TIMESTAMP modts)
+{
+	isoftix_AddRecordTS(tab, crts, modts);
+}
+
+long IsoftDbIx::AddRecordTest(dbtable tab)
+{
+	return isoftix_AddRecordTest(tab);
+}
+
+dbfield IsoftDbIx::AddTabField(dbtable tbl, char *fname, char *descr, UShort dim, type ty, sqltype sql_ty, UShort len, UChar ndec, field_flags flags, char *def, char *mask)
+{
+	return isoftix_AddTabField(tbl, fname, descr, dim, ty, sql_ty, len, ndec, flags, def, mask);
+}
+
+void IsoftDbIx::BeginTrans(int mode)
+{
+	isoftix_BeginTrans(mode);
+}
+
+long IsoftDbIx::BuildIndex(dbindex ind, int flags, va_list ap)
+{
+	return isoftix_BuildIndex(ind, flags, ap);
+}
+
+TIMESTAMP IsoftDbIx::CTimeStamp(dbtable tab)
+{
+	return isoftix_CTimeStamp(tab);
+}
+
+int IsoftDbIx::ChownSchema(schema sch, long uid)
+{
+	return isoftix_ChownSchema(sch, uid);
+}
+
+void IsoftDbIx::CloseAllSchemas(void)
+{
+	isoftix_CloseAllSchemas();
+}
+
+void IsoftDbIx::CloseSchema(schema sch)
+{
+	isoftix_CloseSchema(sch);
+}
+
+int IsoftDbIx::CompleteIndex(dbindex ind)
+{
+	return isoftix_CompleteIndex(ind);
+}
+
+int IsoftDbIx::ConvertTable(dbtable tab, dbtable newtab, bool force, bool drop, IFCPVA err_func, FCPVA msg_func, unsigned int i1, unsigned int i2, bool correctRefs)
+{
+	return isoftix_ConvertTable(tab, newtab, force, drop, err_func, msg_func,i1 , i2, correctRefs);
+}
+
+void IsoftDbIx::CopyTable(dbtable newtab, dbtable tab, dbfield *f, int flag)
+{
+	isoftix_CopyTable(newtab, tab, f, flag);
+}
+
+void IsoftDbIx::CorruptTrans(void)
+{
+	isoftix_CorruptTrans();
+}
+
+long IsoftDbIx::CountCursor(dbcursor cursor)
+{
+	return isoftix_CountCursor(cursor);
+}
+
+dbcursor IsoftDbIx::CreateCursor(dbindex ind, int mode)
+{
+	return isoftix_CreateCursor(ind, mode);
+}
+
+dbindex IsoftDbIx::CreateIndex(dbtable tbl, char *name, key_flags flags, UChar c )
+{
+	return isoftix_CreateIndex(tbl, name, flags, c);
+}
+
+schema IsoftDbIx::CreateSchema(char *name, char *descr)
+{
+	return isoftix_CreateSchema(name, descr);
+}
+
+dbtable IsoftDbIx::CreateTable(schema sch, char *name, char *descr, tab_flags flags, ULong size, UChar n_flds)
+{
+	return isoftix_CreateTable(sch, name, descr, flags, size, n_flds);
+}
+
+bool IsoftDbIx::DbCheckPoint(schema sc)
+{
+	return isoftix_DbCheckPoint(sc);
+}
+
+bool IsoftDbIx::DbFlushReq(schema sc)
+{
+	return isoftix_DbFlushReq(sc);
+}
+
+int IsoftDbIx::DelAllRecords(dbtable tab)
+{
+	return isoftix_DelAllRecords(tab);
+}
+
+void IsoftDbIx::DelRecord(dbtable tab)
+{
+	isoftix_DelRecord(tab);
+}
+
+void IsoftDbIx::DeleteCursor(dbcursor cursor)
+{
+	isoftix_DeleteCursor(cursor);
+}
+
+int IsoftDbIx::DeleteTable(dbtable tab)
+{
+	return isoftix_DeleteTable(tab);
+}
+
+void IsoftDbIx::DiscardRecord(dbtable tbl)
+{
+	isoftix_DiscardRecord(tbl);
+}
+
+int IsoftDbIx::DropIndex(dbindex ind)
+{
+	return isoftix_DropIndex(ind);
+}
+
+int IsoftDbIx::DropSchema(schema sch)
+{
+	return isoftix_DropSchema(sch);
+}
+
+int IsoftDbIx::DropTable(dbtable tab)
+{
+	return isoftix_DropTable(tab);
+}
+
+bool IsoftDbIx::EndTrans(bool syn, bool rttrans)
+{
+	return isoftix_EndTrans(syn, rttrans);
+}
+
+bool IsoftDbIx::EndTransaction(void)
+{
+	return isoftix_EndTransaction();
+}
+
+long IsoftDbIx::FindRecord(dbindex ind, find_mode fmode, va_list ap)
+{
+	return isoftix_FindRecord(ind, fmode, ap);
+}
+
+
+schema IsoftDbIx::FindSchemaVersion(char *name, long version)
+{
+	return isoftix_FindSchemaVersion(name, version);
+}
+
+void IsoftDbIx::FlushTable(dbtable tab)
+{
+	isoftix_FlushTable(tab);
+}
+
+void IsoftDbIx::FreeRecord(dbindex ind, find_mode fmode, va_list ap)
+{
+	isoftix_FreeRecord(ind, fmode, ap);
+}
+
+void IsoftDbIx::FreeSchema(schema sch)
+{
+	isoftix_FreeSchema(sch);
+}
+
+void IsoftDbIx::FreeTable(dbtable tab)
+{
+	isoftix_FreeTable(tab);
+}
+
+TIMESTAMP IsoftDbIx::GetDownLoadTS(dbtable tab)
+{
+	return isoftix_GetDownLoadTS(tab);
+}
+
+int IsoftDbIx::GetTransMode(void)
+{
+	return isoftix_GetTransMode();
+}
+
+bool IsoftDbIx::InTransaction()
+{
+	return isoftix_InTransaction();
+}
+
+void IsoftDbIx::InitRecord(dbtable tab)
+{
+	isoftix_InitRecord(tab);
+}
+
+int IsoftDbIx::LockSchema(schema sch, int lock_mode)
+{
+	return isoftix_LockSchema(sch, lock_mode);
+}
+
+int IsoftDbIx::LockTable(dbtable tab, int lock_mode)
+{
+	return isoftix_LockTable(tab, lock_mode);
+}
+
+TIMESTAMP IsoftDbIx::MTimeStamp(dbtable tab)
+{
+	return isoftix_MTimeStamp(tab);
+}
+
+schema IsoftDbIx::OpenSchemaVersion(char *name, UShort mode, long version)
+{
+	return isoftix_OpenSchemaVersion(name, mode, version);
+}
+
+void IsoftDbIx::OptimisticTransaction()
+{
+	isoftix_OptimisticTransaction();
+}
+
+long IsoftDbIx::PopRecord(dbtable tbl)
+{
+	return isoftix_PopRecord(tbl);
+}
+
+void IsoftDbIx::PushRecord(dbtable tbl)
+{
+	isoftix_PushRecord(tbl);
+}
+
+void IsoftDbIx::PutRecord(dbtable tab)
+{
+	isoftix_PutRecord(tab);
+}
+
+bool IsoftDbIx::RenameField(dbfield fld, char *name)
+{
+	return isoftix_RenameField(fld, name);
+}
+
+int IsoftDbIx::RenameTable(dbtable tab, char *name)
+{
+	return isoftix_RenameTable(tab, name);
+}
+
+int IsoftDbIx::RollBack(void)
+{
+	return isoftix_RollBack();
+}
+
+void IsoftDbIx::SaneTrans(void)
+{
+	isoftix_SaneTrans();
+}
+
+long IsoftDbIx::SchemaVersion(schema sch)
+{
+	return isoftix_SchemaVersion(sch);
+}
+
+int IsoftDbIx::SetCollateSet(dbfield fld, const char *cs)
+{
+	return isoftix_SetCollateSet(fld, cs);
+}
+
+int IsoftDbIx::SetDataCache(dbtable tab, UShort n, int mode)
+{
+	return isoftix_SetDataCache(tab, n, mode);
+}
+
+int IsoftDbIx::SetDeflt(dbfield fld, struct DbExpr *expr)
+{
+	return isoftix_SetDeflt(fld, expr);
+}
+
+void IsoftDbIx::SetDescrSchema(schema sch, char *descr)
+{
+	isoftix_SetDescrSchema(sch, descr);
+}
+
+void IsoftDbIx::SetDownLoadTS(dbtable tab, TIMESTAMP ts)
+{
+	isoftix_SetDownLoadTS(tab, ts);
+}
+
+int IsoftDbIx::SetInCheck(dbfield fld, struct InCheck *inchk)
+{
+	return isoftix_SetInCheck(fld, inchk);
+}
+
+void IsoftDbIx::SetIndexCache(dbindex ind, UShort n)
+{
+	isoftix_SetIndexCache(ind, n);
+}
+
+int IsoftDbIx::SetRelCheck(dbfield fld, struct DbExpr *expr)
+{
+	return isoftix_SetRelCheck(fld, expr);
+}
+
+int IsoftDbIx::SetTabRelCheck(dbtable tab, struct DbExpr *expr)
+{
+	return isoftix_SetTabRelCheck(tab, expr);
+}
+
+int IsoftDbIx::SetTableCache(dbtable t, long l)
+{
+	return isoftix_SetTableCache(t , l );
+}
+
+schema IsoftDbIx::SwitchToSchema(schema sch)
+{
+	return isoftix_SwitchToSchema(sch);
+}
+
+long IsoftDbIx::TabActualSize(dbtable tab)
+{
+	return isoftix_TabActualSize(tab);
+}
+
+long IsoftDbIx::TabNRecords(dbtable tab)
+{
+	return isoftix_TabNRecords(tab);
+}
+
+TIMESTAMP IsoftDbIx::TableTimeStamp(dbtable tab)
+{
+	return isoftix_TableTimeStamp(tab);
+}
+
+bool IsoftDbIx::TransOk(void)
+{
+	return isoftix_TransOk();
+}
+
+///void IsoftDbIx::UpdateRecord(dbtable tab, va_list ap)
+///{
+///	isoftix_UpdateRecord(tab, ap);
+///}
+int IsoftDbIx::UpdateRecord(dbtable tab) /*JC: BZ 3368 */
+{
+	return isoftix_UpdateRecord(tab);
+}
+
+long IsoftDbIx::VersionNumber(char *name, DATE d)
+{
+	return isoftix_VersionNumber(name, d);
+}
+
+long IsoftDbIx::_AddKey(struct s_index *ip, long recno, char *rec_buff, struct tab_array *ta, dbindex ind)
+{
+	return isoftix__AddKey(ip, recno, rec_buff, ta, ind);
+}
+
+long IsoftDbIx::_FindKey(struct tab_array *tap, struct s_index *ip, char *rec_buff, find_mode fmode, UShort nparts, char **p,int i)
+{
+	return isoftix__FindKey(tap, ip, rec_buff, fmode, nparts, p,i);
+}
+
+bool IsoftDbIx::_FlushSchPrivileges(struct s_schema *sp)
+{
+	return isoftix__FlushSchPrivileges(sp);
+}
+
+bool IsoftDbIx::_FlushTabPrivileges(struct s_schema *sp)
+{
+	return isoftix__FlushTabPrivileges(sp);
+}
+
+void IsoftDbIx::_FlushTable(struct tab_array *tap, int ind)
+{
+	isoftix__FlushTable(tap, ind);
+}
+
+void IsoftDbIx::_FreeCursorCache(struct s_dbcur *cp)
+{
+	isoftix__FreeCursorCache(cp);
+}
+
+long IsoftDbIx::_GetNextBlock(struct s_dbcur *cp)
+{
+	return isoftix__GetNextBlock(cp);
+}
+
+long IsoftDbIx::_GetPrevBlock(struct s_dbcur *cp)
+{
+	return isoftix__GetPrevBlock(cp);
+}
+
+void IsoftDbIx::_ModifySchema(struct s_schema *sp)
+{
+	isoftix__ModifySchema(sp);
+}
+
+dbtable IsoftDbIx::_ReCreateTable(schema sch, char *name, char *descr, tab_flags flags, ULong size, UChar n_flds)
+{
+	return isoftix__ReCreateTable(sch, name, descr, flags, size, n_flds);
+}
+
+void IsoftDbIx::_ReOpenSchema(schema sch)
+{
+	isoftix__ReOpenSchema(sch);
+}
+
+void IsoftDbIx::_SendRangeCursor(struct s_dbcur *cp)
+{
+	isoftix__SendRangeCursor(cp);
+}
+
+struct s_schema * IsoftDbIx::_GetSchPtr(schema sch)
+{
+	return isoftix__GetSchPtr(sch);
+}
+
+int IsoftDbIx::_TabSeqNumber(dbtable tbl)
+{
+	return isoftix__TabSeqNumber(tbl);
+}
+
+int IsoftDbIx::dbmsType(void)
+{
+	return isoftix_dbmsType();
+}
+
+char*	IsoftDbIx::_StrValPutOrAlloc(struct s_schema *schptr,char *s,char *prev)
+{
+	return isoftix__StrValPutOrAlloc(schptr,s,prev);
+}
+
+char*	IsoftDbIx::_MemValPutOrAlloc(struct s_schema *schptr,void *s,UShort len,void *prev)
+{
+	return isoftix__MemValPutOrAlloc(schptr,s,len,prev);
+}
+
+void IsoftDbIx::TurnSQLFilterOn(void)
+{
+	
+}
+
+void IsoftDbIx::TurnSQLFilterOff(void)
+{
+
+}
+
+sqlcursor IsoftDbIx::CreateSQLCursor(schema sch, const char *sentence, int paramsCount)
+{
+  // @DIEGOS
+  return isoftix__CreateSQLCursor( sch, sentence, paramsCount ) ;
+}
+
+int IsoftDbIx::FetchSQLNext(sqlcursor cur)
+{
+  return isoftix__FetchSQLNext( cur ) ;
+}
+
+void  IsoftDbIx::AddSQLCursorParameter(sqlcursor cur, type ty, UShort len, UShort ndec)
+{
+  isoftix__AddSQLCursorParameter( cur, ty, len, ndec ) ;
+}
+
+//extern "C" int  isoftsql__SetSQLCursorParameters(sqlcursor cur, ...)
+int  IsoftDbIx::SetSQLCursorParameters(sqlcursor cur, va_list av)
+{
+  return isoftix__SetSQLCursorParameters( cur, av ) ;
+}
+
+int  IsoftDbIx::SetSQLCursorParameter(sqlcursor cur, int fldIndex, char *value)
+{
+	return isoftix__SetSQLCursorParameter( cur, fldIndex, value ) ;
+}
+
+void IsoftDbIx::RestartSQLCursor(sqlcursor cur)
+{
+	isoftix__RestartSQLCursor( cur ) ;
+}
+
+int  IsoftDbIx::GetSQLIFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLIFld( cur, fldIndex ) ;
+}
+
+long  IsoftDbIx::GetSQLLFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLLFld( cur, fldIndex ) ;
+}
+
+char *IsoftDbIx::GetSQLSFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLSFld( cur, fldIndex ) ;
+}
+
+double  IsoftDbIx::GetSQLFFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLFFld( cur, fldIndex ) ;
+}
+
+DATE  IsoftDbIx::GetSQLDFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLDFld( cur, fldIndex ) ;
+}
+
+TIME  IsoftDbIx::GetSQLTFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLTFld( cur, fldIndex ) ;
+}
+
+NUM  IsoftDbIx::GetSQLNFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftix__GetSQLNFld( cur, fldIndex ) ;
+}
+
+void IsoftDbIx::DeleteSQLCursor(sqlcursor cur)
+{
+	isoftix__DeleteSQLCursor( cur ) ;
+}
+
+// @DIEGOS
+// @WARNING
+// En la API original el ultimo parametro de este metodo es 'dbfield'
+
+void IsoftDbIx::AddSQLFieldTarget(sqlcursor cur, UShort fldIndex, dbfield fld, int column)
+{
+  isoftix__AddSQLFieldTarget( cur, fldIndex, fld, column ) ; 
+}
+
+int IsoftDbIx::FetchSQLLevel(sqlcursor cur, int level)
+{
+	assert(0);
+	return -1;
+}
+
+void IsoftDbIx::SetSQLLevel(sqlcursor cur, int level, dbtable tab)
+{
+	assert(0);
+}
+
+int IsoftDbIx::ExecuteSQL(sqlcursor cur)
+{
+	return isoftix__ExecuteSQL( cur ) ;
+}
+//#endif
+#endif

@@ -1,0 +1,24 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: passmgr.icc,v 1.3 2002/03/19 21:14:53 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	PASSMGR_ICC
+#define	PASSMGR_ICC
+
+String	SQLFWRcFileEntry::getInstance() const
+{
+	return instance_d;
+}
+
+String	SQLFWRcFileEntry::getUser() const
+{
+	return user_d;
+}
+
+#endif	// PASSMGR_ICC

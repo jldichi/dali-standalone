@@ -1,0 +1,140 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmbuff.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* inline method of classes defined in ideafix/priv/fmbuff.h
+*********************************************************************/
+
+#ifndef FMBUFF_ICC
+#define FMBUFF_ICC
+
+#pragma interface
+
+//////////////////////////////////////////////////////////////////
+//     FmBuffer
+//////////////////////////////////////////////////////////////////
+
+inline FmObjContainer *FmBuffer::object() const
+{
+	return object_;
+}
+
+inline Int FmBuffer::numRows() const
+{
+	return buffer_.dim();
+}
+
+inline void FmBuffer::addRow()
+{
+	insRow(numRows());
+}
+
+inline char *FmBuffer::rowBuffer(Int row)
+{
+	return buffer_.isValid(row)?buffer_.elem(row):NULL;
+}
+
+//////////////////////////////////////////////////////////////////
+//     FmBufferRow
+//////////////////////////////////////////////////////////////////
+
+inline FmBufferRow::FmBufferRow()
+	: buffer_(NULL), row_(0)
+{
+}
+
+inline FmBufferRow::FmBufferRow(FmBuffer *theBuffer, Int theRow)
+	: buffer_(theBuffer), row_(theRow)
+{
+}
+
+inline FmBufferRow::FmBufferRow(const FmBufferRow &buffRow)
+	: buffer_(buffRow.buffer_), row_(buffRow.row_)
+{
+}
+
+inline FmBufferRow::FmBufferRow(const FmBufferRow &buffRow, Int theRow)
+	: buffer_(buffRow.buffer_), row_(theRow)
+{
+}
+	
+inline FmBuffer *FmBufferRow::buffer() const
+{
+	return buffer_;
+}
+
+inline Int FmBufferRow::row() const
+{
+	return row_;
+}
+	
+inline bool FmBufferRow::operator==(const FmBufferRow &buffRow) const
+{
+	return buffer_==buffRow.buffer_ && row_==buffRow.row_;
+}
+
+inline bool FmBufferRow::operator!=(const FmBufferRow &buffRow) const
+{
+	return buffer_!=buffRow.buffer_ || row_!=buffRow.row_;
+}
+	
+inline FmBufferRow &FmBufferRow::operator=(const FmBufferRow &buffRow)
+{
+	buffer_ = buffRow.buffer_; row_ = buffRow.row_; return *this;
+}
+	
+inline FmObjContainer *FmBufferRow::object() const
+{
+	return buffer_==NULL?NULL:buffer_->object();
+}
+
+inline void FmBufferRow::onChange(FmFieldObj *object)
+{
+	buffer_->onChange(object,row_);
+}
+	
+//////////////////////////////////////////////////////////////////
+//     FmField
+//////////////////////////////////////////////////////////////////
+
+#if 0
+inline bool FmField::equalTo(const String &str) const
+	{ return *this == str; }
+
+inline bool FmField::operator==(const FmField &fld) const
+{
+	return equalTo(fld);
+}
+
+inline bool FmField::operator==(const char *str) const
+{
+	return equalTo(str);
+}
+
+inline bool FmField::operator==(const String &str) const
+{
+	return equalTo(str);
+}
+
+inline FmField &FmField::operator=(const FmField &fld)
+{
+	return assign(fld);
+}
+
+inline FmField &FmField::operator=(const char *str)
+{
+	return assign(str);
+}
+
+inline FmField &FmField::operator=(const String &str)
+{
+	return assign(str);
+}
+#endif
+
+#endif

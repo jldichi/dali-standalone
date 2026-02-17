@@ -1,0 +1,38 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: conslist.icc,v 1.5 2002/03/19 20:45:46 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	CONSLIST_ICC
+#define	CONSLIST_ICC
+
+/**
+ * Method that adds a constraint at the end of the list of constraint
+ * list. the objects inserted in this list will be destroyed by ObjectList
+ * destructor.
+ *
+ * @param	c is the Constraint object to be added in the list.
+ */
+void ConstraintList::add(const Constraint *c)
+{
+	ObjectList::add(c);	
+}
+
+// Get Information methods.
+/**
+ * Method that returns the constraint in the "i-th" position of the list.
+ *
+ * @param	i is the position of the constraint in the list.
+ * @return	the Constraint in position "i".
+ */
+const Constraint &ConstraintList::getConstraint(Int i) const
+{
+	return (Constraint&)ObjectList::get(i);
+}
+
+#endif	// CONSLIST_ICC
+

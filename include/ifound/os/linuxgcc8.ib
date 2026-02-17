@@ -1,0 +1,28 @@
+//
+// $Id: linuxgcc8.ib,v 1.1.1.1 2020/11/26 12:53:23 josec Exp $
+// ib linux gcc 8 settings
+
+CC	            = " gcc ";
+CPP		        = " g++ ";
+CPPFLAGS	    = $CPPFLAGS + " -fno-exceptions -fpermissive -ffriend-injection -Wno-narrowing -Wno-literal-suffix -Wno-write-strings";
+CFLAGS		    = $CFLAGS;
+SHAREDFLAGS	    = " -m64 ";
+LD		        = "g++";
+
+
+LPIDEA      	= "$(IDEAFIX)/SH$(IDEAVERSION)/";
+
+LIDEA   		= " -lidea -liext -ldb -lsql -lix -lm ";
+
+TCPLIBS		    = ""; //-lsocket -lnsl";
+RANLIB		    = "ranlib";
+ranlib		    = true;
+ldrunpath	    = true;
+BLDSHCFLAGS	    = "-fPIC";
+BLDSHCPPFLAGS	= "-fPIC";
+SH		        = "bash";
+
+LIBCURSES	    = "-ltinfo -lncurses ";
+LIBCRYPT 	    = " -lcrypt ";
+OPTIMIZELEVEL   = " -O0 ";
+CHECKSGCC8      = true;

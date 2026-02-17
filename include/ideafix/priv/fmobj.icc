@@ -1,0 +1,275 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmobj.icc,v 1.1.1.1 1996/04/16 18:51:42 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmrep.h
+*********************************************************************/
+
+#ifndef FMOBJ_ICC
+#define FMOBJ_ICC
+
+#pragma interface
+
+////////////////////////////////////////////////////////////////
+//            global
+////////////////////////////////////////////////////////////////
+
+inline FmFieldObj *fieldObj(FmObject *obj)
+{
+	return obj?obj->getFieldObj():NULL;
+}
+
+inline FmValueObj *valueObj(FmObject *obj)
+{
+	return obj?obj->getValueObj():NULL;
+}
+
+inline FmMultiLine *multiLine(FmObject *obj)
+{
+	return obj?obj->getMultiLine():NULL;
+}
+
+inline const String *Sname(const FmObject *obj)
+{
+	extern String nullObjectName_;
+	return obj?&obj->name():&nullObjectName_;
+}
+
+inline const char *sname(const FmObject *obj)
+{
+	return toCharPtr(*Sname(obj));
+}
+
+////////////////////////////////////////////////////////////////
+//            FmObject
+////////////////////////////////////////////////////////////////
+
+inline FmObjCollection *FmObject::parent() const
+{
+	return parent_;
+}
+
+inline FmObjContainer *FmObject::container() const
+{
+	return container_;
+}
+
+inline FormRep *FmObject::formRep() const
+{
+	return fm_;
+}
+
+inline const String &FmObject::name() const
+{
+	return name_; 
+}
+
+inline bool FmObject::realized() const
+{
+	return container()!=0;
+}
+
+inline bool FmObject::EnumerateObjectsRows::operator()
+		(FmObject *obj, FmBufferRow theBr)
+{
+	br = theBr;
+	return operator()(obj);
+}
+
+inline Int FmObject::style() const
+{
+	return style_; 
+}
+
+inline Int FmObject::geom_X() const
+{
+	return geom_X_; 
+}
+
+inline Int FmObject::geom_Y() const
+{
+	return geom_Y_; 
+}
+
+inline Int FmObject::geom_W() const
+{
+	return geom_W_; 
+}
+
+inline Int FmObject::geom_H() const
+{
+	return geom_H_; 
+}
+
+inline const ColorVal *FmObject::getBackground() const
+{
+	return background_;
+}
+
+inline const ColorVal *FmObject::getForeground() const
+{
+	return foreground_;
+}
+
+inline Int FmObject::numItems() const
+{
+	return container()->childNumItems();
+}
+
+inline bool FmObject::inMult() const
+{
+	return numItems() > 1;
+}
+
+inline Int FmObject::deltaY() const
+{
+	return container()->childDeltaY();
+}
+
+inline Int FmObject::firstRow() const
+{
+	return container()->childFirstRow();
+}
+
+inline Int FmObject::_itemToRow(Int item) const
+{
+	return item+firstRow(); 
+}
+
+inline Int FmObject::_rowToItem(Int row) const
+{
+	return row-firstRow(); 
+}
+
+////////////////////////////////////////////////////////////////
+//            FmFieldObj
+////////////////////////////////////////////////////////////////
+
+inline Int FmFieldObj::offsetInBuffer() const
+{
+	return offsetInBuffer_; 
+}
+
+inline Int FmFieldObj::objectId() const
+{
+	return objectId_;
+}
+
+inline bool FmFieldObj::notNull() const
+{
+	return notNull_;
+}
+
+inline void FmFieldObj::notNull(bool v)
+{
+	notNull_ = v;
+}
+
+inline bool FmFieldObj::unique() const
+{
+	return unique_; 
+}
+
+inline void FmFieldObj::unique(bool v)
+{
+	unique_ = v; 
+}
+
+inline bool FmFieldObj::dspOnly() const
+{
+	return dspOnly_;
+}
+
+inline bool FmFieldObj::alwaysSkip() const
+{
+	return alwaysSkip_;
+}
+
+inline FmExpr *FmFieldObj::isExpr() const
+{
+	return isExpr_;
+}
+
+inline bool FmFieldObj::hasIs() const
+{
+	return isExpr_!=NULL;
+}
+
+inline void FmFieldObj::value(const String &val, FmBuffer *formBuff, Int row)
+{
+	_value(val,buffer(formBuff,row)); 
+}
+
+inline void FmFieldObj::value(const String &val, Int row)
+{
+	_value(val,buffer(row)); 
+}
+
+inline String FmFieldObj::value(FmBuffer *formBuff, Int row)
+{
+	return _value(buffer(formBuff,row)); 
+}
+
+inline String FmFieldObj::value(Int row)
+{
+	return _value(buffer(row)); 
+}
+
+inline void FmFieldObj::clear(FmBuffer *formBuff, Int row)
+{
+	_clear(buffer(formBuff,row)); 
+}
+
+inline void FmFieldObj::clear(Int row)
+{
+	_clear(buffer(row)); 
+}
+
+inline bool FmFieldObj::isNull(FmBuffer *formBuff, Int row) const
+{
+	return _isNull(buffer(formBuff,row)); 
+}
+
+inline bool FmFieldObj::isNull(Int row) const
+{
+	return _isNull(buffer(row)); 
+}
+
+inline Int FmFieldObj::numRows(FmBufferRow br) const
+{
+	return container()->childNumRows(br);
+}
+
+inline Int FmFieldObj::currNumRows() const
+{
+	return numRows(buffer(currentRow()));
+}
+
+inline Int FmFieldObj::rowFrom(const FmFieldObj *obj, Int row) const
+{
+	if (container()==obj->container())
+		return row;
+	else
+		return 0;
+}
+
+////////////////////////////////////////////////////////////////
+//            FmObjCollection
+////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////
+//            FmObjContainer
+////////////////////////////////////////////////////////////////
+
+inline Int FmObjContainer::rowSize() const
+{
+	return rowSize_; 
+}
+
+#endif
+

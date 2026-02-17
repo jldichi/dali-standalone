@@ -1,0 +1,27 @@
+//
+// $Id: linuxgcc4.ib,v 1.1.1.1 2012/04/03 18:47:46 hardaiz Exp $
+// ib linux gcc 4 settings
+
+CC		= " gcc ";
+CPP		= " g++ ";
+CPPFLAGS	= $CPPFLAGS + " -fno-exceptions -fpermissive -ffriend-injection  ";
+CFLAGS		= $CFLAGS;
+SHAREDFLAGS	= " -m64 ";
+LD		= "g++";
+
+
+LPIDEA	= "$(IDEAFIX)/SH$(IDEAVERSION)/";
+
+LIDEA		= " -lidea -liext -ldb -lsql -lix -lm ";
+
+TCPLIBS		= ""; //-lsocket -lnsl";
+RANLIB		= "ranlib";
+ranlib		= true;
+ldrunpath	= true;
+BLDSHCFLAGS	= "-fPIC";
+BLDSHCPPFLAGS	= "-fPIC";
+SH		= "bash";
+
+LIBCURSES	= " -lncurses ";
+LIBCRYPT 	= " -lcrypt ";
+OPTIMIZELEVEL   = " -O0 ";

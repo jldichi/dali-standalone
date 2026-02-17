@@ -1,0 +1,120 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: permission.icc,v 1.8 2002/03/20 15:09:17 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef PERMISSION_ICC
+#define PERMISSION_ICC
+
+// Get Information methods for TablePermission.
+/**
+ * Method that returns the table privilege.
+ *
+ * @return	table privilege.
+ */
+const TblPerm::Perm TablePermission::privilege() const
+{
+	return priv_d;
+}
+
+/**
+ * Method that returns who this TablePermission will be applied on.
+ *
+ * @return	to whom this TablePermission will be given.
+ */
+String TablePermission::on() const
+{
+	return on_d;
+}
+
+// Get Information methods for GrantTablePermission.
+/**
+ * Method that returns who this TablePermission will be given to.
+ *
+ * @return	to whom the permission has been granted to.
+ */
+String GrantTablePermission::to() const
+{
+	return to_d;
+}
+
+/**
+ * Method that returns true if the grant operation has grant option.
+ *
+ * @return	whether this operation has grant option.
+ */
+bool GrantTablePermission::hasGrantOption() const
+{
+	return grantOp_d;
+}
+
+// Get Information methods for RevokeTablePermission
+/**
+ * Method that returns who this permission will be taken off from.
+ *
+ * @return	who the permission will be taken off from.
+ */
+String RevokeTablePermission::from() const
+{
+	return from_d;
+}
+
+// Get Information methods for DbPermission.
+/**
+ * Method that returns the privilege of the database.
+ *
+ * @return	database privilege.
+ */
+const DbPerm::Perm DbPermission::privilege() const
+{
+	return perm_d;
+}
+
+/**
+ * This method returns in a String to which objects the permission will be
+ * applied to.
+ *
+ * @return	to whom the permission will be applied.
+ */
+String DbPermission::on() const
+{
+	return on_d;
+}
+
+// Get Information methods for GrantDbPermission.
+/**
+ * Method that returns who this database permission will be given to.
+ *
+ * @return	who this permission will be given to.
+ */
+String GrantDbPermission::to() const
+{
+	return to_d;
+}
+
+/**
+ * This method is used to know whether the DB permission can be granted by the
+ * to whom the permission is being assigned.
+ */
+bool GrantDbPermission::canGrant() const
+{
+	return canGrant_d;
+}
+
+// Get Information methods for RevokeDbPermission.
+/**
+ * Method that returns who this permission will be taken off from.
+ *
+ * @return who this permission will be taken off from.
+ */
+String RevokeDbPermission::from() const
+{
+	return from_d;
+}
+
+#endif	// PERMISSION_ICC
+

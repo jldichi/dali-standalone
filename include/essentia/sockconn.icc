@@ -1,0 +1,74 @@
+/*
+   Convertion handlers
+      Notes:
+   - Function convert() does not considere convType == NO_CONVERT
+     for not to do a validation every call (optimization)
+   - In future could be more than 2 conversion types
+     (so function convert() should have a switch instead of return inv())
+*/
+bool SocketConnection::needConvert()
+{
+	assert(convType != NULL_TYPE);
+	return convType != NO_CONVERT;
+}
+
+short SocketConnection::convert(short i)
+{
+	assert(convType != NULL_TYPE && convType != NO_CONVERT);
+	return invS(i);
+}
+
+Int SocketConnection::convert(Int i)
+{
+	assert(convType != NULL_TYPE && convType != NO_CONVERT);
+	return invI(i);
+}
+
+Status SocketConnection::status() const
+{
+	return status_;
+}
+
+// Needed by RemoteExecD
+SOCKET SocketConnection::sockDescr() const
+{
+	return sockDescr_;
+}
+
+// Needed by RemoteExecD
+int SocketConnection::fDescr() const
+{
+	return fDescr_;
+}
+
+bool SocketConnection::isSocket(SOCKET sd)
+{
+	errno = 0;
+#ifdef HAVE_WINSOCK
+	DWORD ftype = GetFileType((HANDLE)sd);
+	return (sd != FILE_TYPE_DISK && sd != FILE_TYPE_PIPE);
+#else
+	sockaddr name;
+#if defined(__sun__)
+	int nameLen = sizeof(sockaddr);
+#else
+	unsigned int nameLen = sizeof(sockaddr);
+#endif
+	return getpeername(sd, &name, (GETPEERNAMEPARAM3TYPE)&nameLen) == 0;
+#endif
+}
+
+/*
+	This constructor has sense just as a clone (or copy)
+	of an existent SocketConnection; so the SOCKET must be
+	the source SocketConnection one.
+	Needed by irexecd (RemoteExecD) child.
+*/
+/*
+
+SocketConnection::SocketConnection(SOCKET sd, ConvType ct)
+: sockDescr_(sd), convType(ct)
+{
+	status_ = isSocket(sd) ? OKEY : INVALID_SOCK_ID;
+}
+*/

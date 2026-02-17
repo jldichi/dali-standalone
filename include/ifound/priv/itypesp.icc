@@ -1,0 +1,53 @@
+#ifndef ITYPESP_ICC
+#define ITYPESP_ICC
+
+// static member function to create an srep with len = len.
+// The end zero is not included in len
+srep *srep::build(UnShort len)
+{
+	if (len == 0) return NULL;
+	srep *aux = (srep *) (tr_new char[sizeof(srep) + BYTESALLOC(len)]);
+	aux->n_ = 1;
+	aux->len_  = len;
+	aux->s_[len] = 0;
+	aux->start();
+	return aux;
+}
+
+void srep::destroy()
+{
+	idCheck();
+	char *cp = (char *) this;
+	tr_delete_vec(cp);
+}
+
+bool srep::notEmpty() const
+{
+	// no idCheck() here!!!  This is a very special class!
+	return VALID_PTR((char *) this);
+}
+
+UnShort &srep::n()
+{
+	idCheck();
+	return n_;
+}
+
+UnShort &srep::len()
+{
+	idCheck();
+	return len_;
+}
+
+char *srep::s()
+{
+	idCheck();
+	return s_;
+}
+
+void srep::start()
+{
+	idStart();
+}
+
+#endif

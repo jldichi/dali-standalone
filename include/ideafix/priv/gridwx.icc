@@ -1,0 +1,41 @@
+// -------------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: gridwx.icc,v 1.1.1.1 1996/04/16 18:51:42 gustavof Exp $
+//
+// Description:
+// Inline definitions for classes declared in <ideafix/priv/gridwx.h>
+// -------------------------------------------------------------------------
+
+#ifndef GRIDWX_ICC
+#define GRIDWX_ICC
+
+GridFrame *WxGridDev::gridFrame(void)
+{
+	return gridFrame_;
+}
+
+GridCanvas *WxGridDev::gridCanvas()
+{
+	return gridCanvas_;
+}
+
+LGridCanvas *WxGridDev::lGridCanvas()
+{
+	return lGridCanvas_;
+}
+
+HeadCanvas *WxGridDev::headCanvas()
+{
+	return headCanvas_;
+}
+
+LHeadCanvas *WxGridDev::lHeadCanvas()
+{
+	return lHeadCanvas_;
+}
+
+#endif

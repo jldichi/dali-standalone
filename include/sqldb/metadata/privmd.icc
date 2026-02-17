@@ -1,0 +1,67 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: privmd.icc,v 1.2 2002/03/19 21:21:47 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef PRIVMD_ICC
+#define	PRIVMD_ICC
+
+/**
+ * This method returns the underlying privilege structure.
+ *
+ * @return	underlying privilege structure.
+ */
+struct dbprivg *PrivilegesMetadata::privilegesRep() const
+{
+	return priv_d;
+}
+
+/**
+ * This method returns the length of the allocated array of privileges.
+ *
+ * @return	length of the allocated array of privileges.
+ */
+Int PrivilegesMetadata::nPrivs() const
+{
+	return nPriv_d;
+
+}
+
+/**
+ * This method returns the number of the last occupied slot in the array 
+ * of privileges.
+ *
+ * @return	last slot occupied in the array of privileges.
+ */
+Int PrivilegesMetadata::lastPriv() const
+{
+	return lastPriv_d;
+}
+
+/**
+ * This method returns the TableMetadata related to the TablePrivilegeMetadata.
+ *
+ * @return	TableMetadata of the TablePrivilegeMetadata.
+ */
+TableMetadata *TablePrivilegesMetadata::tableMetadata() const
+{
+	return tmd_d;
+}
+
+/**
+ * This method returns the SchemaMetadata related to this
+ * SchemaPrivilegeMetadata.
+ *
+ * @return	SchemaMetadata of the SchemaPrivilegeMetadata.
+ */
+SchemaMetadata *SchemaPrivilegesMetadata::schemaMetadata() const
+{
+	return smd_d;
+}
+
+#endif	// PRIVMD_ICC

@@ -1,0 +1,23 @@
+/********************************************************************
+*
+* Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: shdw.icc,v 1.1.1.1 1996/04/16 18:51:51 gustavof Exp $
+*
+* DESCRIPTION:
+*
+*********************************************************************/
+
+Int Shadow::objectType()  const { return SHADOW; }
+String Shadow::nodeName() const { return nname; }
+String Shadow::userName() const { return uname; }
+
+Int  Shadow::debug()    { return debug_; }
+bool Shadow::verbose()  { return verbose_; }
+Int  Shadow::usersrv()  { return usersrv_; }
+const String &Shadow::svname() { return serverName; }
+Int  Shadow::tubeid()   { return shTubeId; }
+

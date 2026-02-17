@@ -1,0 +1,518 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: fieldmd.icc,v 1.20 2002/07/31 19:06:33 albertoi Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	FIELDMD_ICC
+#define	FIELDMD_ICC
+
+/**
+ * Method that gets the field identifier.
+ *
+ * @return	the field identifier of the this FieldMetadata.
+ */
+dbfield FieldMetadata::getId() const
+{
+	return fldid_d;
+}
+
+/**
+ * Method that sets the Field identifier as the one provided as argument.
+ *
+ * @param	id is the field identifier for the FieldMetadata.
+ */
+void FieldMetadata::setFldId(dbfield id)
+{
+	fldid_d = id;
+}
+
+/**
+ * Method that sets the dimension of the field. If it is a simple field, then
+ * its dimension is 0. In case the field is a vector one, then dim >= 0.
+ *
+ * @param	dim is the field dimension.
+ */
+void FieldMetadata::setFldDim(UShort dim)
+{
+	assert(fRep_d);
+	fRep_d->d.dim = dim;
+}
+
+/**
+ * Method that sets the field offset inside table's buffer.
+ *                                                              
+ * @param	offset is the offset of the field inside the table's buffer.
+ */
+void FieldMetadata::setFldOffset(UShort offset)
+{
+	assert(fRep_d);
+	fRep_d->d.offset = offset;
+}
+
+/**                            
+ * Method that sets the field's type.
+ *
+ * @param	t is the type of the field.
+ */
+void FieldMetadata::setFldType(type t)
+{
+	assert(fRep_d);
+	fRep_d->d.f_type = t;
+}
+
+/**
+ * Method that sets the field's internal type.
+ *
+ * @param	it is the internal type of the field.
+ */
+void FieldMetadata::setFldInternalType(itype it)
+{
+	assert(fRep_d);
+	fRep_d->d.f_itype = it;
+}
+
+/**
+ * Method that sets the sqltype of the field.
+ *
+ * @param	st is the sqltype of the field.
+ */
+void FieldMetadata::setFldSqlType(sqltype st)
+{
+	assert(fRep_d);
+	fRep_d->d.f_sqltype = st;
+}
+
+/**
+ * Method that sets the field flags.
+ *
+ * @param	ff is the field flags.
+ */
+void FieldMetadata::setFldFlags(field_flags ff)
+{
+	assert(fRep_d);
+	fRep_d->d.flags = ff;
+}
+
+/**
+ * Method that sets the field length. This one is the size specified when
+ * creating the table's field. eg:  char(20), then len is "20".
+ *
+ * @param	flen is the length of the field.
+ */
+void FieldMetadata::setFldLen(UShort flen)
+{
+	assert(fRep_d);
+	fRep_d->d.len = flen;
+}
+
+/**
+ * Method that sets the number of decimals for the field. It can be greater
+ * than 0 if it is a numerical field.
+ *
+ * @param	nDec is the number of decimals for the field.
+ */
+void FieldMetadata::setFldNDec(UShort nDec)
+{
+	assert(fRep_d);
+	fRep_d->d.ndec = nDec;
+}
+
+/**
+ * Method that returns the number of decimals for the field. It can be greater
+ * than 0 if it is a numerical field.
+ *
+ * @param	nDec is the number of decimals for the field.
+ */
+UShort FieldMetadata::fieldNDec() const
+{
+	assert(fRep_d);
+	return fRep_d->d.ndec;
+}
+
+/**
+ * This method returns the underlying CFIX structured wrapped by 
+ * FieldMetadata. This method is necesarry for all functions in libidea that
+ * used the metadata of a specific Database. For example forms and reports
+ * interfaces need this method.
+ *
+ * @return	the s_field structure of this field.
+ */
+struct s_field *FieldMetadata::fieldRep() const
+{
+	return fRep_d;
+}
+
+/**
+ * This method returns the field's name for this field.
+ *
+ * @return	field's name.
+ */
+char *FieldMetadata::fieldName() const
+{
+	assert(fRep_d);
+	return fRep_d->d.name.strval;
+}
+
+/**
+ * This method returns the field description of the field. This is the
+ * field description set when defining the field.
+ *
+ * @return	field's description.
+ */
+char *FieldMetadata::fieldDescr() const
+{
+	assert(fRep_d);
+	return fRep_d->d.descr.strval;
+}
+
+/**
+ * This method returns the field dimension of the field. It is not a vector
+ * field, then the dimension for the filed is 0. If the field is a vector
+ * one, then the dimension must be greater than 0.
+ *
+ * @return	field's dimension.
+ */
+UShort FieldMetadata::fieldDimension() const
+{
+	assert(fRep_d);
+	return fRep_d->d.dim;
+}
+
+/**
+ * This method returns the field's offset. This is the offset starting from 
+ * the begining of the buffer. The first field has offset zero, but the
+ * following ones depend on the length of the fields defined before this one.
+ *
+ * @return	field's offset in the CFIX's buffer.
+ */
+UShort FieldMetadata::fieldOffset() const
+{
+	assert(fRep_d);
+	return fRep_d->d.offset;
+}
+
+/**
+ * This method returns the Ideafix TYPE. This one is the one specified when
+ * defining the field in the ".sc".
+ *                
+ * @return	field's type. This one is the one specified when defining the
+ *			field.
+ */
+type FieldMetadata::fieldType() const
+{
+	assert(fRep_d);
+	return fRep_d->d.f_type;
+}
+
+/**
+ * This method returns the internal field of this field. This is the type
+ * used to store the values in the CFIX's buffer. The size of this type can
+ * be smaller than the Ideafix type. If we have defined a field with num(4),
+ * then we can store all values for a numeric value with 4 digits in a short.
+ *
+ * @return	field's internal type.
+ */
+itype FieldMetadata::internalFieldType() const
+{
+	assert(fRep_d);
+	return fRep_d->d.f_itype;
+}
+
+/**
+ * This method returns the SQL type related to Ideafix's type.
+ *
+ * @return	SQL type of this field.
+ */
+sqltype FieldMetadata::fieldSQLType() const
+{
+	assert(fRep_d);
+	return fRep_d->d.f_sqltype;
+}
+
+/**
+ * This method returns the field's flags.
+ *
+ * @return	the fields of this field.
+ */
+field_flags FieldMetadata::fieldFlags() const
+{
+	assert(fRep_d);
+	return fRep_d->d.flags;
+}
+
+/**
+ * This method returns the length of the field. If we have defined a field
+ * as num(10), then the length is 10. If we have defined a field as char(5),
+ * then the length is 5.
+ *
+ * @return	field's length.
+ */
+UShort FieldMetadata::fieldLen() const
+{
+	assert(fRep_d);
+	return fRep_d->d.len;
+}
+
+/**
+ * This method returns the number of decimals of the field. This is only
+ * relevant for numerical fields. For all other fields, the returned value
+ * is zero.
+ *
+ * @return	number of decimals for this numerical field.
+ */
+UChar FieldMetadata::nDec() const
+{
+	assert(fRep_d);
+	return fRep_d->d.ndec;
+}
+
+/**
+ * This method returns the mask of the field. This is a char pointer that
+ * contains the mask in ASCII.
+ *
+ * @return	field's mask.
+ */
+char *FieldMetadata::fieldMask() const
+{
+	assert(fRep_d);
+	return fRep_d->d.mask.strval;
+}
+
+/**
+ * This method returns the rel check (check expression) for the field.
+ * The returned value is the compiled expression.
+ *
+ * @return	field's check expression.
+ */
+char *FieldMetadata::fieldRelCheck() const
+{
+	assert(fRep_d);
+	return fRep_d->d.relcheck.strval;
+}
+
+/**
+ * This method returns the in check expression structure of the field. This
+ * is a compiled expression structure.
+ *                
+ * @return	field's in check.
+ */
+char *FieldMetadata::fieldInCheck() const
+{
+	assert(fRep_d);
+	return fRep_d->d.incheck.strval;
+}
+
+/**
+ * This method returns the default expression of the field. This is a 
+ * compiled expression.
+ *
+ * @return	field's default expression.
+ */
+char *FieldMetadata::fieldDefault() const
+{
+	assert(fRep_d);
+	return fRep_d->d.deflt.strval;
+}
+
+/**
+ * This method returns the field's compiled mask.
+ *
+ * @return	field's compiled mask.
+ */
+char *FieldMetadata::fieldCompiledMask() const
+{
+	assert(fRep_d);
+	return fRep_d->cmask;
+}
+
+/**
+ * This method returns the validate or check compiled expression related to
+ * this field.
+ *                 
+ * @return	field's check expression.
+ */
+STRUCT DbExpr *FieldMetadata::validateCompiledExpr() const
+{
+	assert(fRep_d);
+	return fRep_d->e;
+}
+
+/**
+ * This method returns the field's default compiled expression.
+ *                 
+ * @return	field's defuault compiled expression.
+ */
+STRUCT DbExpr *FieldMetadata::defCompiledExpr() const
+{
+	assert(fRep_d);
+	return fRep_d->deflt;
+}
+
+/**
+ * This is the field's in check compiled expression.
+ *
+ * @return	field's in check compiled expression.
+ */
+STRUCT InCheck *FieldMetadata::inCheckCompiledExpr() const
+{
+	assert(fRep_d);
+	return fRep_d->inchk;
+}
+
+/**
+ * This method sets true if the field is in a primary key. false otherwise.
+ */
+void FieldMetadata::setIsInPrimaryKey(bool isInPrimaryKey)
+{
+	isInPrimaryKey_d = isInPrimaryKey;
+}
+
+/**
+ * This method returns true if the field is in an index. false otherwise.
+ *
+ * @return	true if this field is in an index. false otherwise.
+ */
+bool FieldMetadata::isInPrimaryKey() const
+{
+	return isInPrimaryKey_d;
+}
+
+/**
+ * This method checks whether the field has the NOT NULL cosntraint active.
+ * If this is the case, true is returned. false otherwise.
+ *
+ * @return	true if the not null flags in the field is on. false otherwise.
+ */
+bool FieldMetadata::isNotNull() const
+{
+	return (fieldFlags()&F_NOT_NULL);
+}
+
+/**
+ * This method checks whether there is an "in" in the field.
+ */
+bool FieldMetadata::hasInTable() const
+{
+	if (inCheckCompiledExpr() != NULL) {
+		return (inCheckCompiledExpr()->getType() == IC_INTEGRITY);
+	}
+
+	return false;
+}
+
+/**
+ * This method is used to obtain the table descriptor of the table that
+ * is being referenced by this field.
+ *
+ * @param	table descriptor of the table being referenced.
+ */
+dbtable FieldMetadata::getInTableTableDescriptor() const
+{
+	assert(hasInTable() == true);
+	Integrity *i = (Integrity *)inCheckCompiledExpr();
+	ObjectId oid = i->index();
+	return oid.instId();
+}
+
+/**
+ * This method sets the position for the field inside the table.
+ * For the first field is 1, for the second is 2, etc.
+ * Note that for vector fields this change. If we have this table:
+ *
+ * table kk {	f1 num(2)[10]
+ *				f2 num(3) };
+ * 
+ * then f2 is field number 11.
+ */
+void FieldMetadata::setFieldPos(Int pos)
+{
+	pos_d = pos;
+}
+
+/**
+ * This method sets the value for null values for this field.
+ *
+ * @param	new value for null values for this field.
+ */
+void FieldMetadata::setValueForNullValue(const AnyValue &newNullValue)
+{
+	if (nullValue_d != NULL) {
+		delete nullValue_d;
+		nullValue_d = NULL;
+	}
+	nullValue_d = new AnyValue(newNullValue);
+}
+
+/**
+ * This method gets the field's position inside the table.
+ */
+Int FieldMetadata::getFieldPos() const
+{
+	return pos_d;
+}
+
+/**
+ * This method returns the value assigned to null values for this field.
+ *
+ * @return	value for null for this field.
+ */
+AnyValue *FieldMetadata::getNullValue() const
+{
+	return nullValue_d;
+}
+
+/**
+ * This method is used to know whether a field is a vector one.
+ *
+ * @return	true if the field is a vector one. false otherwise.
+ */
+bool FieldMetadata::isVectorField() const
+{
+	return (fieldDimension() > 0);
+}
+
+/**
+ * This method returns the table of the vector field of this FieldMetadata.
+ */
+SQLFWTable &FieldMetadata::getVectorTable() const
+{
+	assert(isVectorField() == true);
+	assert(vecTable_d != NULL);
+	return *vecTable_d;
+}
+
+/**
+ * This method returns the AliasDictionary structure of this FieldMetadata.
+ * We will only have SQLFWTable of vector field alias tables.
+ *
+ * @return	AliasDictionary of this FieldMetadata.
+ */
+AliasDictionary *FieldMetadata::aliasDictionary() const
+{
+	return ad_d;
+}
+
+void FieldMetadata::setVectorRange(int begin, int end)
+{
+	rngBegin_d = begin;
+	rngEnd_d = end;
+}
+
+int FieldMetadata::getVectorFieldBegin()
+{
+	return rngBegin_d;
+}
+
+int FieldMetadata::getVectorFieldEnd()
+{
+	return rngEnd_d;
+}
+
+
+#endif	// FIELDMD_ICC
+

@@ -1,0 +1,84 @@
+/********************************************************************
+* Copyright (c) 1991 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: expr.icc,v 1.1.1.1 1996/04/16 18:51:34 gustavof Exp $
+*
+* DESCRIPTION
+* Inline methods for classes defined in <ifound/expr.h>
+*********************************************************************/
+
+#ifndef EXPR_ICC
+#define EXPR_ICC
+
+bool ExprStack::wasExecuted() const
+{
+	return status == finished;
+}
+
+bool ExprStack::noMoreArgs() const
+{
+	return status == noargs;
+}
+
+ExprFunction::ExprFunction(const String &fname, FPES f, BFPES r)
+:	name(fname),
+	fp(f),
+	resolve(r)
+{
+} 
+
+ExprFunction::ExprFunction(const ExprFunction &ef)
+:	name(ef.name),
+	fp(ef.fp),
+	resolve(ef.resolve)
+{
+} 
+
+void Expr::operator=(const Expr&)
+{
+	assert(0);
+}
+
+const String &Expr::getExpr() const
+{
+	return expr;
+}
+
+Int Expr::storeLength() const
+{
+	return stlen;
+}
+
+bool Expr::isComplex() const
+{
+	return flags & HAVE_COMPLEX;
+}
+
+bool Expr::haveLValue()	const
+{
+	return flags & HAVE_LVALUE;
+}
+
+bool Expr::haveEnvVars() const
+{
+	return flags & HAVE_ENVVARS;
+}
+
+bool Expr::canBeVoid() const
+{
+	return flags & HAVE_VOID;
+}
+
+bool Expr::haveMsgs() const
+{
+	return flags & HAVE_MSG;
+}
+
+#else
+
+#error "ifound/expr.icc included twice!"
+
+#endif // EXPR_ICC

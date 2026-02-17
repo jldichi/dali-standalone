@@ -1,0 +1,145 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: cbuffany.icc,v 1.8 1999/05/12 14:02:05 mariana Exp $
+// -----------------------------------------------------------------------
+
+#ifndef CBUFFANY_ICC
+#define CBUFFANY_ICC
+
+/**
+ * This method returns the AnyValue stored in the object.
+ */
+const AnyValue* CharBuffAnyValue::getAnyValue()
+{
+	return any_d;
+}
+
+/**
+ * Sets the type of the object (ie: TY_BOOL, TY_STRING). This method is used
+ * when we don't have an AnyValue to ask it's type.
+ *
+ * @param	type is the type to set.
+ */
+void CharBuffAnyValue::setType(Int type)
+{
+	this->type_d = type;
+}
+
+/**
+ * This method returns the char buffer stored in the object.
+ *
+ * @return	a pointer to the char buffer.
+ */
+char* CharBuffAnyValue::getBuff() const
+{
+	return buff_d;
+}
+
+/**
+ * This method returns the buffer length.
+ *
+ * @return	the buffer length.
+ */
+Int CharBuffAnyValue::getBuffLen() const
+{
+	assert(isInitialized());
+	return length_d;
+}
+
+/**
+ * This method returns the numbers of bytes used in the buffer.
+ * NOTE: in case the object represents the NULL value (ie: we want to insert
+ * a null into the DB), the method will return 1 because some restrictions of
+ * the ODBC function SQLBindParameter.(Maybe we should move this evaluation
+ * into the odbc source...)
+ *
+ * @return	the number of buffer bytes used.
+ */
+Int CharBuffAnyValue::getBuffUsedLen() const
+{
+	return used_d;
+}
+
+/**
+ * This method returns a pointer to the variable holding the number of bytes
+ * of the buffer occupied. It is used to allow ODBC to store the number of
+ * bytes that were read.
+ *
+ * @return	a pointer to the variable.
+ */
+Int *CharBuffAnyValue::getBuffUsedLenPtr() const
+{
+	return (Int *) &(used_d);
+}
+
+/**
+ * This method returns the number of decimals of the object.
+ *
+ * @return	If the object is a TY_NUMERIC, then return the number of decimals.
+ *			Otherwise the number of decimals should be 0.
+ */
+Int CharBuffAnyValue::getNDec() const
+{
+	return nDec_d;
+}
+
+/**
+ * This method sets the number of decimals of the object.
+ * NOTE: If the AbyValue is a TY_NUMERIC then nDec_d will hold the number
+ * of decimals. Otherwise it should store a 0.
+ */
+void CharBuffAnyValue::setNDec(Int dec) 
+{
+	if (type_d != TY_NUMERIC)
+		assert(dec == 0);
+
+	nDec_d = dec;
+}
+
+/**
+ * This method determines wether the object represents a NULL value or not.
+ *
+ * @return	true if the value stored in this object is null.
+ *			false otherwise.
+ */
+bool CharBuffAnyValue::isNull() const
+{
+	return (isNull_d || any_d->isNull());
+}                                        
+
+/**
+ * This method is executed in order to make the object represent a NULL value.
+ */
+void CharBuffAnyValue::nullify() 
+{	
+	isNull_d = true;
+	anyToBuff();
+}
+
+/**
+ * This method determines wether a char buffer has been allocated or not.
+ *
+ * @return	true is the object has been initialized. false otherwise.
+ */
+bool CharBuffAnyValue::isInitialized() const
+{
+	return (buff_d != NULL);
+}
+
+/**
+ * This method returns the FieldMetadata structure whose value will be
+ * stored in this CharBuffAnyValue.
+ *
+ * @return	the FieldMetadata of the value stored in this object.
+ */
+FieldMetadata *CharBuffAnyValue::fieldMetadata() const
+{
+	return fmd_d;
+}
+
+#endif CBUFFANY_ICC

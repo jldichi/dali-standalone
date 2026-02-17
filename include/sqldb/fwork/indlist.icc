@@ -1,0 +1,36 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: indlist.icc,v 1.4 2002/03/20 17:16:17 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	INDEXLIST_ICC
+#define	INDEXLIST_ICC
+
+// Set methods.
+/**
+ * Method that adds a new SQLFWIndex to the list of indices.
+ *
+ * @param	i is the SQLFWIndex to be added to the list of indices.
+ */
+void IndexList::add(const SQLFWIndex *i)
+{
+	ObjectList::add(i);
+}
+
+// Get Information methods.
+/**
+ * Method that returns the SQLFWIndex in position "i" of the array.
+ *
+ * @param	i is the position of the SQLFWIndex to be retrieved.
+ * @return	the SQLFWIndex in position "i" of the list of indices.
+ */
+const SQLFWIndex &IndexList::getIndex(Int i)
+{
+	return (SQLFWIndex&)ObjectList::get(i);
+}
+
+#endif	// INDEXLIST_ICC

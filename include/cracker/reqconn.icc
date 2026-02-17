@@ -1,0 +1,125 @@
+/********************************************************************
+* Copyright (c) 1987 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: reqconn.icc,v 1.1.1.1 1996/04/16 18:51:50 gustavof Exp $
+*
+* DESCRIPTION: Implementation of inline methods declared in reqconn.h
+*********************************************************************/
+
+#ifndef REQCONN_ICC
+#define REQCONN_ICC
+
+#ifdef __GNUC__
+#pragma interface
+#endif
+
+inline bool
+RequestConnection::isReading() const
+{
+	return state_d == Reading;
+}
+
+inline bool
+RequestConnection::isWriting() const
+{
+	return state_d == Writing;
+}
+
+inline bool
+RequestConnection::notLast() const
+{
+	return (currObj_d & NotLast) != 0;
+}
+
+inline bool
+RequestConnection::canWrite()
+{
+	return isWriting();
+}
+
+inline bool
+RequestConnection::canRead()
+{
+	return isReading() && (rcv_cnt != 0 || notLast());
+}
+
+inline bool
+RequestConnection::empty()
+{
+	return !canWrite() && !canRead();
+}
+
+inline Int
+RequestConnection::currObject() const
+{
+	return currObj_d & IdMask;
+}
+
+inline Short
+RequestConnection::currCommand() const
+{
+	return currCmd_d;
+}
+
+inline RequestConnection::MsgType
+RequestConnection::messageType() const
+{
+	return msgType_d;
+}
+
+inline bool
+RequestConnection::isReply() const
+{
+	return messageType() == Reply;
+}
+
+inline bool
+RequestConnection::needReply() const
+{
+	return messageType() == Request;
+}
+
+inline 
+RequestConnection::operator bool() const
+{
+	return status() == OK;
+}
+
+inline Int 
+RequestConnection::verboseLevel() const
+{
+	return verboseLevel_d;
+}
+
+inline void
+RequestConnection::verboseLevel(Int vl)
+{
+	verboseLevel_d = vl;
+}
+
+/*
+inline void 
+endMessage(RequestConnection &conn)
+{
+	conn.endMessage();
+}
+
+inline void 
+endReply(RequestConnection &conn)
+{
+	conn.endReply();
+}
+
+inline void
+RequestConnection::operator<<(void (*manip)(RequestConnection &))
+{
+	manip(*this);
+}
+*/
+
+#endif
+
+

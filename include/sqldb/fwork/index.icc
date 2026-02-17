@@ -1,0 +1,151 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: index.icc,v 1.7 2002/03/20 15:03:49 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef SQLFWIND_ICC
+#define	SQLFWIND_ICC
+
+/**
+ * Method that returns the IndexArray of the SQLFWIndex.
+ *
+ * @return	IndexArray associated to the IndexArray.
+ */
+const IndexFieldArray &SQLFWIndex::getIndexFlds() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->indexFields();
+}
+
+/**
+ * Method that returns the number of fields in the index.
+ *
+ * @return	number of field contained in the index.
+ */
+Int SQLFWIndex::nFields() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->nFields();
+}
+
+/**
+ * Method that returns the size in bytes ocuppied by the index key. This is
+ * the sum of the field lengths.
+ *
+ * @return	the size of the key in bytes.
+ */
+Int SQLFWIndex::indexLen() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->indexLen();
+}
+
+/**
+ * Method that returns the flags of the index.
+ *
+ * @return	index flags.
+ */
+Int SQLFWIndex::indexFlags() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->indexFlags();
+}
+
+/**
+ * Method that returns the IndexField whose name is the one passed as
+ * argument.
+ *
+ * @param	name is the name of the IndexField to be returned.
+ * @return	IndexField whose name is the one provided as argument.
+ */
+const IndexField &SQLFWIndex::getField(const String &name) const
+{
+	assert(indexMetadata());
+	return indexMetadata()->getIndexField(name);
+}
+
+/**
+ * Method that returns the IndexField whose position is "n" in the index key.
+ *
+ * @param	n is the position of the field to be retrieved from the index key.
+ * @return	the IndexField in position "n" in the index key.
+ */
+const IndexField &SQLFWIndex::getField(Int n) const
+{
+	assert(indexMetadata());
+	return indexMetadata()->getIndexField(n);
+}
+
+/**
+ * Method that returns the name of the index.
+ *
+ * @return	the name of the index.
+ */
+String SQLFWIndex::indexName() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->nameOfIndex();
+}
+
+/**
+ * Method that returns the index descriptor.
+ *
+ * @return	the index descriptor of the Index.
+ */
+dbindex SQLFWIndex::indexDescriptor() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->getId();
+}
+
+/**
+ * Method that returns true if the index has a unique clause and false
+ * otherwise.
+ *
+ * @return	whether the index is unique or not.
+ */
+bool SQLFWIndex::isUnique() const
+{
+	return unique_d;
+}
+
+/**
+ * Method that returns the IndexMetadata object related to this index.
+ *
+ * @return	the IndexMetadata associated to the Index.
+ */
+IndexMetadata *SQLFWIndex::indexMetadata() const
+{
+	return indexMD_d;
+}
+
+/**
+ * This method returns wether the index is temporary or not.
+ *
+ * @return	true, if the index is temporary. false, if not.
+ */
+bool SQLFWIndex::isTemporary() const
+{
+	assert(indexMetadata());
+	return indexMetadata()->isTemporary();
+}
+
+/**
+ * This method checks whether the index is the one of a primary key. If the
+ * index is a secondary index, the method returns false. true is the index
+ * is a primary key.
+ *
+ * @return	true if the index is a primary key. false otherwise.
+ */
+bool SQLFWIndex::isPrimaryKey() const
+{
+	assert(indexMetadata());
+	return ((indexMetadata()->getId()&0x0000FF) == 0);
+}
+
+#endif	// SQLFWIND_ICC
+

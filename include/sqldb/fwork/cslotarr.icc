@@ -1,0 +1,30 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: cslotarr.icc,v 1.2 2002/03/19 21:26:36 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	CSLOTARRAY_ICC
+#define	CSLOTARRAY_ICC
+
+/**
+ * This method returns the number of slots already occupied in the array
+ */
+Int ConditionSlotArray::nFields() const
+{
+	return nFields_d;	
+}
+
+/**
+ * This method returns the cursor implementation
+ */
+CursorImpl *ConditionSlotArray::cursorImpl() const
+{
+	return cursorImpl_d;
+}
+
+#endif	// CSLOTARRAY_ICC

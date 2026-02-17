@@ -1,0 +1,271 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmopval.icc,v 1.1.1.1 1996/04/16 18:51:41 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmopval.h
+*********************************************************************/
+
+#ifndef FMOPVAL_ICC
+#define FMOPVAL_ICC
+
+#pragma interface
+
+inline FmOption::FmOption()
+:	name_(FmOpt::none)
+,	value_(&nullValue_)
+{
+}
+
+inline FmOption::FmOption(const FmOption &opt)
+:	name_(opt.name())
+,	value_(opt->clone())
+{
+}
+
+inline const FmOption &FmOption::operator=(const FmOption &opt)
+{
+	name_ = opt.name();
+	tr_delete(value_);
+	value_ = opt->clone();
+	return *this;
+}
+
+inline FmOption::FmOption(const String &name, const OptionValue &value)
+{
+	init(find(name),value);
+}
+
+inline FmOption::FmOption(FmOption::Name name, const OptionValue &value)
+{
+	init(find(name),value);
+}
+
+inline FmOption::FmOption(const String &name, OptionValue *value)
+{
+	init(find(name),value);
+}
+
+inline FmOption::FmOption(FmOption::Name name, OptionValue *value)
+{
+	init(find(name),value);
+}
+
+inline FmOption::Type FmOption::type(const String &name)
+{
+	const OptionTable *tbl = find(name);
+	if (!tbl)
+		return voidOpt;
+	else
+		return tbl->optType_;
+}
+
+inline FmOption::Type FmOption::type(FmOption::Name name)
+{
+	const OptionTable *tbl = find(name);
+	if (!tbl)
+		return voidOpt;
+	else
+		return tbl->optType_;
+}
+
+inline FmOption::Name FmOption::name() const
+{
+	return name_;
+}
+
+inline FmOption::operator FmOption::Name() const
+{
+	return name();
+}
+
+inline bool FmOption::operator==(Name n) const
+{
+	return name()==n;
+}
+
+inline bool FmOption::operator!=(Name n) const
+{
+	return name()!=n;
+}
+
+inline const OptionValue *FmOption::value() const
+{
+	return value_;
+}
+
+inline const OptionValue *FmOption::operator->() const
+{
+	return value();
+}
+
+inline FmOption::Type FmOption::type() const
+{
+	return value_->type();
+}
+
+inline FmOption::operator FmOption::Type() const
+{
+	return type();
+}
+
+inline bool FmOption::operator==(Type t) const
+{
+	return type()==t;
+}
+
+inline bool FmOption::operator!=(Type t) const
+{                                     
+	return type()!=t;
+}
+
+inline FmOption::operator bool() const
+{
+	return name()!=FmOpt::none;
+}
+
+inline bool FmOption::operator!() const
+{
+	return name()==FmOpt::none;
+}
+
+//////////////////////////////////////////////////////////////
+
+inline OptionValue::OptionValue()
+	: type_(FmOption::voidOpt)
+{
+}
+
+inline OptionValue::OptionValue(FmOption::Type t)
+	: type_(t)
+{
+}
+
+inline FmOption::Type OptionValue::type() const
+{
+	return type_;
+}
+
+inline StringVal::StringVal(const StringVal &val)
+	: OptionValue(FmOption::stringOpt)
+	, val_(val.val_)
+{
+}
+
+inline StringVal::StringVal(const String &s)
+	: OptionValue(FmOption::stringOpt)
+	, val_(s)
+{
+}
+
+inline NumVal::NumVal(const NumVal &val)
+	: OptionValue(FmOption::numOpt)
+	, val_(val.val_)
+{
+}
+
+inline NumVal::NumVal(const String &s)
+	: OptionValue(FmOption::numOpt)
+	, val_(toNum(s))
+{
+}
+
+inline NumVal::NumVal(Int i)
+	: OptionValue(FmOption::numOpt)
+	, val_(toNum(i))
+{
+}
+
+inline NumVal::NumVal(Num n)
+	: OptionValue(FmOption::numOpt)
+	, val_(n)
+{
+}
+
+inline GeometryVal::GeometryVal(const GeometryVal &val)
+	: OptionValue(FmOption::geometryOpt)
+	, width_(val.width_), height_(val.height_), x_(val.x_), y_(val.y_)
+{
+}
+
+inline GeometryVal::GeometryVal(Int w, Int h, Int x, Int y)
+	: OptionValue(FmOption::geometryOpt)
+	, width_(w), height_(h), x_(x), y_(y)
+{
+}
+
+inline GeometryVal::GeometryVal(const String &w, const String &h,
+						 const String &x, const String &y)
+	: OptionValue(FmOption::geometryOpt)
+	, width_(toInt(w)), height_(toInt(h)), x_(toInt(x)), y_(toInt(y))
+{
+}
+
+inline BoolVal::BoolVal(const BoolVal &val)
+	: OptionValue(FmOption::boolOpt)
+	, val_(val.val_)
+{
+}
+
+inline BoolVal::BoolVal(bool b)
+	: OptionValue(FmOption::boolOpt)
+	, val_(b)
+{
+}
+
+inline MsgVal::MsgVal(const MsgVal &val)
+	: OptionValue(FmOption::msgOpt)
+	, file_(val.file_), sect_(val.sect_), msg_(val.msg_)
+{
+}
+
+inline MsgVal::MsgVal(const String &file, const String &sect, const String &msg)
+	: OptionValue(FmOption::msgOpt)
+	, file_(file), sect_(sect), msg_(msg)
+{
+}
+
+inline ExprVal::ExprVal(const ExprVal &val)
+	: OptionValue(FmOption::exprOpt)
+	, val_(val.val_)
+{
+}
+
+inline ExprVal::ExprVal(const String &s)
+	: OptionValue(FmOption::exprOpt)
+	, val_(s)
+{
+}
+
+inline FileNameVal::FileNameVal(const FileNameVal &val)
+	: OptionValue(FmOption::filenameOpt)
+	, val_(val.val_)
+{
+}
+
+inline FileNameVal::FileNameVal(const String &s)
+	: OptionValue(FmOption::filenameOpt)
+{
+	val_ = s;
+	val_ -= "<";
+	val_ -= ">";
+}
+
+inline DbFieldVal::DbFieldVal(const DbFieldVal &val)
+	: OptionValue(FmOption::dbfieldOpt)
+	, fld_(val.fld_)
+{
+}
+
+inline DbFieldVal::DbFieldVal(Int f)
+	: OptionValue(FmOption::dbfieldOpt)
+	, fld_(f)
+{
+}
+
+#endif
+

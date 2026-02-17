@@ -1,0 +1,51 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: indexval.icc,v 1.6 2002/03/20 17:15:59 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef INDEXVAL_ICC
+#define	INDEXVAL_ICC
+
+// Get methods.
+/**
+ * Method that returns the Index associated to the IndexValue.
+ *
+ * @return	Index associate to this IndexValue.
+ */
+const SQLFWIndex &IndexValue::index() const
+{
+	assert(index_d);
+	return *index_d;
+}
+
+/**
+ * Method that returns the number of fields in the IndexValue. This is the
+ * same as the number of fields in the key of the index.
+ *
+ * @return	number of fields in the index.
+ */
+Int IndexValue::nFlds() const
+{
+	assert(index_d);
+	return index_d->nFields();
+}
+
+/**
+ * Method that returns true if all the values in the IndexValue were set.
+ *
+ * @return	whether or not all index values were set.
+ */
+bool IndexValue::isComplete() const
+{
+	assert(index_d);
+
+	// ToDo: terminar
+	assert(0);
+	return false;
+}
+
+#endif	// INDEXVAL_ICC

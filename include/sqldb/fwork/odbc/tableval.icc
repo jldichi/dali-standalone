@@ -1,0 +1,123 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: tableval.icc,v 1.1 1999/06/02 21:10:09 eduardoc Exp $
+// -----------------------------------------------------------------------
+
+#ifndef TABLEVAL_ICC
+#define TABLEVAL_ICC
+
+/**
+ * Sets the buffer associated to the anyvalue.
+ *
+ * @param	i is the position of the CharbuffAnyValue whose buffer will 
+ *			be set.
+ * @param	buff is the buffer for the CharBuffAnyValue in position i
+ */
+void TableValue::setCharBuff(Int i, const char* buff)
+{
+	getCharBuffAnyValueAt(i).setBuff(buff);
+}
+
+/**
+ * Sets the type associated to the anyvalue.
+ *
+ * @param	i is the position of the CharBuffAnyValue whose type will be
+ *			set.
+ * @param	type is the type that will be asigned to the CharBuffAnyValue.
+ */
+void TableValue::setType(Int i, Int type)
+{
+	getCharBuffAnyValueAt(i).setType(type);
+}
+
+/**
+ *
+ * @param
+ * @param
+ */
+void TableValue::setNDec(Int i, Int dec)
+{
+	getCharBuffAnyValueAt(i).setNDec(dec);
+}
+
+/**
+ * Method that allows access to the character buffer associated to the anyvalue.
+ * It is used by ODBCCursorImpl to bind the columns of the queries.
+ * 
+ * @param	i is the index of the table value.
+ *
+ * @return	the pointer to char buffer.
+ */
+char* TableValue::getCharBuff(Int i) const
+{
+	return getCharBuffAnyValueAt(i).getBuff();
+}
+
+/**
+ * Gets the type associated to the anyvalue.
+ *
+ * @param
+ *
+ * @return
+ */
+Int TableValue::getType(Int i) const
+{
+	return getCharBuffAnyValueAt(i).getType();
+}
+
+/**
+ * Returns the length of a buffer.
+ *
+ * @param
+ *
+ * @return	the buffer length.
+ */
+Int TableValue::getCharBuffLen(Int i) const
+{
+	return getCharBuffAnyValueAt(i).getBuffLen();
+}
+
+/**
+ * Returns the amount of used bytes in a buffer.
+ *
+ * @param
+ *
+ * @return	the bytes used in the buffer.
+ */
+Int TableValue::getCharBuffUsedLen(Int i) const
+{
+	return getCharBuffAnyValueAt(i).getBuffUsedLen();
+}
+
+/**
+ * Returns a pointer to the variable holding the amount of used bytes in
+ * a buffer.
+ *
+ * @return	the pointer to the variable.
+ */
+Int *TableValue::getCharBuffUsedLenPtr(Int i)
+{
+	return getCharBuffAnyValueAt(i).getBuffUsedLenPtr();
+}
+
+/**
+ * This method returns the number of decimals in the CharBuffAnyValue
+ * that is in position i.
+ *
+ * @param	position of the CharBuffAnyValue.
+ *
+ * @return	number of decimals.
+ */
+Int TableValue::getNDec(Int i)
+{
+	return getCharBuffAnyValueAt(i).getNDec();
+}
+
+#endif	TABLEVAL_ICC
+
+

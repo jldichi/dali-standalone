@@ -1,0 +1,38 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: fnamelist.icc,v 1.2 2002/03/19 21:12:18 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef FIELDNAMELIST_ICC
+#define	FIELDNAMELIST_ICC
+
+// Set methods.
+/**
+ * Method that adds a new field name to the list of field names.
+ *
+ * @param	fn is the name of the field to be added at the end of 
+ *		the list.
+ */
+void FieldNameList::add(const FieldName *fn)
+{
+	ObjectList::add(fn);
+}
+
+// Get Information methods.
+/**
+ * Method that returns the "i-th" field name in the list of fields.
+ * 
+ * @param	i is the position of the field name to be retrieved.
+ * @return	the field name in the "i-th" position of the list of field
+ *		names.
+ */
+const FieldName &FieldNameList::getField(Int i) const
+{
+	return (FieldName &)ObjectList::get(i);
+}
+
+#endif	// FIELDNAMELIST_ICC

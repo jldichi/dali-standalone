@@ -1,0 +1,58 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: fieldname.icc,v 1.4 2002/03/19 21:11:29 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	FIELDNAME_ICC
+#define	FIELDNAME_ICC
+
+/**
+ * This method returns the name of the field in a String
+ *
+ * @return	field's name.
+ */
+const String &FieldName::fieldName() const
+{
+	return fName_d;
+}
+
+/**
+ * This method retrieves the FieldMetadata object related to this FieldName.
+ */
+FieldMetadata *FieldName::fieldMetadata() const
+{
+	return fmd_d;
+}
+
+/**
+ * This method dumps in stderr the content of the FieldName.
+ */
+void FieldName::dump() const
+{
+	warning(String("FieldName: ") + fieldName());
+}
+
+/**
+ * This method is used to clone objects of type FieldName.
+ *
+ * @return	new object identical as the method receiver.
+ */
+Object *FieldName::clone() const
+{
+	return new FieldName(fieldName(), fieldMetadata());
+}
+
+/**
+ * This method returns in a String the content of the FieldName object.
+ */
+String FieldName::convertToString() const
+{
+	return fieldName();
+}
+
+#endif	// FIELDNAME_ICC

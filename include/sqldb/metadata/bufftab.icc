@@ -1,0 +1,81 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: bufftab.icc,v 1.6 2002/03/19 22:27:43 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	BUFFTAB_ICC
+#define	BUFFTAB_ICC
+
+/**
+ * Method that sets the table descriptor of this BufferedTable instance.
+ * 
+ * @param	t is the table descriptor of the BufferedTable.
+ */
+void BufferedTable::setTableDescriptor(dbtable t)
+{
+	assert(tabArrayRep_d);
+	tabArrayRep_d->alias_ot = t;
+}
+
+/**
+ * Method that returns the underlying structure of the BufferedTable.
+ *
+ * @return	the underlying structure (tab_array) encapsulated by 
+ *			BufferedTable instance.
+ */
+struct tab_array *BufferedTable::buffTableRep() const
+{
+	return tabArrayRep_d;
+}
+
+/**
+ * Method that returns the TableMetadata associated or related to the
+ * BufferedTable.
+ * 
+ * @return	the TableMetadata related to this BufferedTable.
+ */
+TableMetadata *BufferedTable::tableMetadata() const
+{
+	return tableMD_d;
+}
+
+/**
+ * Method that returns the buffer of the BufferedTable object.
+ *
+ * @return	a pointer to the beginning of the buffer.
+ */
+char *BufferedTable::buffer() const
+{
+	assert(tabArrayRep_d);
+	return tabArrayRep_d->recbuff;
+}
+
+/**
+ * Method that returns the table descriptor of the BufferedTable.
+ *
+ * @return	table descriptor of the BufferedTable.
+ */
+dbtable BufferedTable::tableDescriptor() const
+{
+	assert(tabArrayRep_d);
+	return tabArrayRep_d->alias_ot;
+}
+
+/**
+ * Method that returns the name of the table.
+ *
+ * @return	String with the name of the table associated to this
+ *			BufferedTable object.
+ */
+const String &BufferedTable::getTableName() const
+{
+	return tabName_d;
+}
+
+#endif	// BUFFTAB_ICC
+

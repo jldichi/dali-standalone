@@ -1,0 +1,199 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: schema.icc,v 1.10 2002/03/20 15:03:32 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	SQLFWSCHEMA_ICC
+#define	SQLFWSCHEMA_ICC
+
+/**
+ * Method that returns the schema descriptor of the schema.
+ *
+ * @return	schema's descriptor.
+ */
+schema SQLFWSchema::getId() const
+{
+	assert(schemaMetadata());
+	return schemaMetadata()->schemaId();
+}
+
+/**
+ * Method that returns the owner of the schema.
+ *
+ * @return	schema's owner.
+ */
+String SQLFWSchema::owner() const
+{
+	assert(0);
+	return String("el due#o");
+}
+
+/**
+ * Returns the schema name.
+ *
+ * @return	the schema name.
+ */
+char *SQLFWSchema::schemaName() const
+{
+	return toCharPtr(schemaName_d);
+}
+
+/**
+ * Method that returns the number of tables in the schema.
+ *
+ * @return	number of tables in the schema.
+ */
+Int SQLFWSchema::nTables() const
+{
+	assert(schemaMetadata());
+	return schemaMetadata()->nTables();
+}
+
+/**
+ * Returns the open mode of the schema.
+ *
+ * @return the open mode.
+ */
+Int SQLFWSchema::openMode() const 
+{
+	return openMode_d;
+}
+
+/**
+ * Method that returns the connection associated to the opened schema.
+ *
+ * @return the connection of the opened schema.
+ */
+SQLFWConnection *SQLFWSchema::getConnection() const
+{
+	return connection();
+}
+
+/**
+ * Method that sets the name of the schema being opened.
+ *
+ * @param	schName is the name of the schema being opened.
+ */
+void SQLFWSchema::setSchemaName(const String& schName)
+{
+	schemaName_d = schName;
+}
+
+/**
+ * Method that returns the Connection of a schema.
+ *
+ * @return	the schema Connection.
+ */
+const String &SQLFWSchema::getSchemaName() const
+{
+	return (String &)schemaName_d;
+}
+
+/**
+ * Method that returns the Connection of a schema.
+ *
+ * @return	the schema Connection.
+ */
+SQLFWConnection *SQLFWSchema::connection() const
+{
+	return conn_d;
+}
+
+/**
+ * Method that returns the SchemaMetadata object related to this Schema.
+ *
+ * @return	SchemaMetadata of this Schema.
+ */
+SchemaMetadata *SQLFWSchema::schemaMetadata() const
+{
+	return schemaMD_d;
+}
+
+/**
+ * Method that sets the implementation.
+ *
+ * @param	schimpl is...
+ */
+void SQLFWSchema::setTableDDLManagerImpl(const TableDDLManagerImpl &tdmimpl)
+{
+	assert(tableDDLManagerImpl_d == NULL);
+	tableDDLManagerImpl_d = (TableDDLManagerImpl *)&tdmimpl;
+}
+
+/**
+ * Method that sets the SchemaMetadata object related to this Schema.
+ *
+ * @param	schMD is the SchemaMetadata to set.
+ */
+void SQLFWSchema::setSchemaMetadata(SchemaMetadata* schMD)
+{
+	assert (schemaMD_d == NULL);
+	schemaMD_d = schMD;
+}
+
+/**
+ * Returns the last error message associated to the schema.
+ *
+ * @return the error message.
+ */
+const String &SQLFWSchema::getErrorDescr()
+{
+	return errorDescr_d;
+}
+
+/**
+ * Returns the last error message associated to the class.
+ *
+ * @return the error message.
+ */
+const String &SQLFWSchema::getClassErrorDescr()
+{
+	return errorDescr_sd;
+}
+
+/**
+ * Invalidate the SQLFWConnection member conn_d
+ */
+void SQLFWSchema::invalidateConnection()
+{
+	conn_d = NULL;
+}
+
+/**
+ * This method is used to set the connection used to get metadata by
+ * this schema.
+ *
+ * @param	mdConn is the metadata connection used by this schema.
+ */
+void SQLFWSchema::setMetadataConnection(SQLFWConnection *mdConn)
+{
+	mdConn_d = mdConn;
+}
+
+/**
+ * This method is used to set the connection used to get data from this
+ * schema.
+ *
+ * @param	conn is the new connection to be used by this schema.
+ */
+void SQLFWSchema::setConnection(SQLFWConnection *conn)
+{
+	conn_d = conn;
+}
+
+/**
+ * This method is used to get the metadata connection used by this schema.
+ *
+ * @return	the SQLFWConnection used to get metadata by this schema.
+ */
+SQLFWConnection *SQLFWSchema::getMetadataConnection() const
+{
+	return mdConn_d;
+}
+
+#endif	// SQLFWSCHEMA_ICC
+

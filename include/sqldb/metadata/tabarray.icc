@@ -1,0 +1,58 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: tabarray.icc,v 1.5 2002/03/19 22:27:19 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	TABARRAY_ICC
+#define	TABARRAY_ICC
+
+/**
+ * 
+ * 
+ * @param name and meaning of the parameter.
+ */
+struct tab_array *TableArray::tableArrayRep() const
+{
+	return tabArrayRep_d;
+}
+
+/**
+ * 
+ * 
+ * @param name and meaning of the parameter.
+ */
+Int TableArray::length() const
+{
+	return arrayLen_d;
+}
+
+/**
+ * Method that returns the i-th BufferedTable in the array.
+ */
+const BufferedTable &TableArray::elementAt(Int i) const
+{
+	if (i < 0 || i >= length()) {
+		error("TableArray: INDEX_OUT_OF_BOUNDS = (%ld)", i);
+	}
+
+	assert(tabArray_d[i]);
+	return *tabArray_d[i];
+}
+
+/**
+ * Returns the identification of the schema.
+ *
+ * @return	the schema id.
+ */
+schema TableArray::getSchemaId() const
+{
+	return schId_d;
+}
+
+#endif	// TABARRAY_ICC
+

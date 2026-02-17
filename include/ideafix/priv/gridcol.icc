@@ -1,0 +1,105 @@
+#ifndef GRIDCOL_ICC
+#define GRIDCOL_ICC
+#include <ideafix/priv/gridicon.h>
+
+bool GridColumn::locked(void) const
+{
+	return locked_;
+}
+
+void GridColumn::locked(bool lk)
+{
+	locked_ = lk;
+}
+
+bool GridColumn::show(void) const
+{
+	return showed_;
+}
+
+void GridColumn::show(bool sh)
+{
+	showed_ = sh;
+}
+
+bool GridColumn::clickable(void) const
+{
+	return clickable_;
+}
+
+void GridColumn::clickable(bool cl)
+{
+	clickable_ = cl;
+}
+
+bool GridColumn::sizeable(void) const
+{
+	return sizeable_;
+}
+
+void GridColumn::sizeable(bool cl)
+{
+	sizeable_ = cl;
+}
+
+bool GridColumn::lockable(void) const
+{
+	return lockable_;
+}
+
+void GridColumn::lockable(bool cl)
+{
+	lockable_ = cl;
+}
+
+bool GridColumn::printable(void) const
+{
+	return printable_;
+}
+
+void GridColumn::printable(bool cl)
+{
+	printable_ = cl;
+}
+
+Int GridColumn::type(void) const
+{
+	return type_;
+}
+
+const String &GridColumn::header(void) const
+{
+	return head_;
+}
+
+String GridColumn::buff(void)
+{
+	return buff_;
+}
+
+Int GridColumn::width(void) const
+{
+	return real_width_;
+}
+
+Int GridColumn::offset(void) const
+{
+	return real_offset_;
+}
+
+void GridColumn::offset(Int offset)
+{
+	real_offset_ = offset;
+}
+
+void GridColumn::flags(Int flags)
+{
+	clickable_ = flags & Grid::clickable;
+	sizeable_ = !(flags & Grid::fixed_width);
+	lockable_ = !(flags & Grid::fixed);
+	printable_ = !(flags & Grid::no_print);
+	showed_ = !(flags & Grid::hidden);
+}
+
+
+#endif

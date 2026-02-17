@@ -1,0 +1,109 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: getrlog.icc,v 1.1 1999/02/12 15:29:21 pablor Exp $
+// -----------------------------------------------------------------------
+
+#ifndef GETRLOG_ICC
+#define GETRLOG_ICC
+
+/**
+ * This method sets the locking mode.
+ *
+ * @param	l is the lock mode to set.
+ */
+void GetRecordAccessLogic::setLocking(enum LockMode l)
+{
+	locking_d = l;
+}
+
+/**
+ * This method obtains the locking mode.
+ *
+ * @return	the current locking mode.
+ */
+enum LockMode GetRecordAccessLogic::getLockingMode() const
+{
+	return locking_d;
+}
+
+/**
+ * This method is used to set the valid flag of the object, which indicates if
+ * the result set agrees with the prepared statement.
+ *
+ * @param	valid is the truth value that will be set to the flag.
+ */
+void GetRecordAccessLogic::setValid(bool valid)
+{
+	valid_d = valid;
+}
+
+/**
+ * This method returns wether the result set associated to the object agrees
+ * with the prepared statement that also is inside it.
+ *
+ * @return	the truth value of the evaluation.
+ */
+bool GetRecordAccessLogic::isValid() const
+{
+	return valid_d;
+}
+
+/**
+ * This method determines wether the automaton is moving forward or not.
+ *
+ * @return	the truth value of the evaluation.
+ */
+bool GetRecordAccessLogic::isForward() const
+{
+	return dir_d == FORWARD;
+}
+
+/**
+ * This method obatins the prepared statement member.
+ *
+ * @return	a prepared statement.
+ */
+ODBCPreparedStmt *GetRecordAccessLogic::getStmt() const
+{
+	return stmt_d;
+}
+
+/**
+ * This method sets the statement.
+ *
+ * @param	stmt is the statement to set.
+ */
+void GetRecordAccessLogic::setStmt(ODBCPreparedStmt *stmt)
+{
+	stmt_d = stmt;
+}
+
+/**
+ * This method returns the number of fetches that can be performed in the 
+ * opposite direction without invalidating the result set. ie: if the result
+ * set has 10 rows, and we have moved forward 4 of them, then fetchesBack
+ * will hold a 4. That will mean that we can go back 4 rows.
+ *
+ * @return	the number of fecthes performed.
+ */
+Int GetRecordAccessLogic::nFetches() const
+{
+	return fetchesBack_d;
+}
+
+/**
+ * This method obtains the direction in which the automaton is moving.
+ *
+ * @return	the automaton's current direction.
+ */
+GetRecordDirection GetRecordAccessLogic::getDir() const
+{
+	return dir_d;
+}
+
+#endif GETRLOG_ICC

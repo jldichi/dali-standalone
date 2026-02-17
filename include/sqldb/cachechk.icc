@@ -1,0 +1,52 @@
+#ifndef CURSOR_CACHE_CHECKER_ICC
+#define CURSOR_CACHE_CHECKER_ICC
+
+/**
+ * This method is used to set the initial direction of the cursor to know
+ * whether the cache is not updated as the cursor pointer.
+ *
+ * @param       cd is the initial cursor direction.
+ */
+void CacheChecker::setLastDirection(CursorDirection cd)
+{
+        lastDir_d = cd;
+}
+
+/**
+ * This method returns the cursor initial direction.
+ *
+ * @param       is the initial cursor direction.
+ */
+CursorDirection CacheChecker::getLastDirection() const
+{
+        return lastDir_d;
+}
+
+/**
+ * This method returns the cursor descriptor of the cursor that is being
+ * controlled by this CacheChecker.
+ */
+dbcursor CacheChecker::cursorId() const
+{
+	return cur_d;
+}
+
+/**
+ * This method sets whether the cursors has records pending for processing
+ *
+ * @param       if there are no records left.
+ */
+void CacheChecker::setNoRecordsLeft(bool nrl)
+{
+	noRecordsLeft_d = nrl;
+}
+
+/**
+ * This method returns whether the cursor has records pending for processing
+ */
+bool CacheChecker::getNoRecordsLeft() const
+{
+	return noRecordsLeft_d;
+}
+
+#endif //  CURSOR_CACHE_CHECKER_ICC

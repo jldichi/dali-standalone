@@ -1,0 +1,75 @@
+/********************************************************************
+* Copyright (c) 1992 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: objectid.icc,v 1.1.1.1 1996/04/16 18:51:48 gustavof Exp $
+*
+* DESCRIPTION
+* Inline methods for classes defined in <essentia/objectid.h>
+*********************************************************************/
+
+#ifndef OBJECTID_ICC
+#define OBJECTID_ICC
+
+ObjectId::ObjectId(UnInt cid, UnInt iid)
+:	cId(cid), iId(iid)
+{ }
+
+ObjectId::ObjectId(const ObjectId &ptr)
+{
+	*this = ptr;
+}
+
+UnInt ObjectId::classId() const
+{
+	return cId;
+}
+
+void ObjectId::setClassId(UnInt cid)
+{
+	cId = cid;
+}
+
+UnInt ObjectId::instId() const
+{
+	return iId;
+}
+
+void ObjectId::setInstId(UnInt iid)
+{
+	iId = iid;
+}
+
+bool ObjectId::isNull() const
+{
+	return bool(cId == 0 && iId == 0);
+}
+
+ObjectId::operator void *()
+{
+	return (cId != 0 || iId != 0) ? this : NULL;
+}
+
+bool ObjectId::operator!() const
+{
+	return (cId == 0 && iId == 0);
+}
+
+bool ObjectId::operator==(const ObjectId &p) const
+{
+	return bool(cId == p.cId && iId == p.iId);
+}
+
+bool ObjectId::operator!=(const ObjectId &p) const
+{
+	return bool(cId != p.cId || iId != p.iId);
+}
+
+Int ObjectId::storeLength()
+{
+	return 2 * sizeof(UnInt);
+}
+
+#endif

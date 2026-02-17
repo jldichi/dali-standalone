@@ -1,0 +1,45 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: odbctrim.icc,v 1.2 1999/04/23 19:35:52 mariana Exp $
+// -----------------------------------------------------------------------
+
+#ifndef ODBCTRIMPL_ICC
+#define ODBCTRIMPL_ICC
+                     
+inline bool ODBCTransactionImpl::inTransaction()
+{
+	return inTransaction_d;
+}
+
+       
+inline ODBCConnectionImpl& ODBCTransactionImpl::conn() const
+{
+	return *conn_d;
+}                                               
+
+inline void ODBCTransactionImpl::setConnection(ODBCConnectionImpl *conn)
+{
+	conn_d = conn;
+}
+
+inline enum LockMode ODBCTransactionImpl::getCurrentLockMode()
+{
+	return currLockMode_d;
+}
+
+inline enum IsoLevel ODBCTransactionImpl::getCurrentIsoLevel()
+{
+	return currIsoLevel_d;
+}
+
+inline ODBCConnectionImpl *ODBCTransactionImpl::connection()
+{
+	return conn_d;
+}
+                     
+#endif ODBCTRIMPL_ICC

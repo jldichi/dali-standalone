@@ -1,0 +1,98 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: transact.icc,v 1.5 2002/03/20 15:11:23 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	SQLFWTRANSACT_ICC
+#define	SQLFWTRANSACT_ICC
+
+/**
+ * Method that returns true if we are in a transaction.
+ *
+ * @result	whether the operation being performed is in transaction.
+ */
+bool SQLFWTransaction::inTransaction() const
+{
+	return inTrans_d;
+}
+
+/**
+ * Method that sets or modifies the transaction 'inTransaction' state.
+ *
+ * @param	true if you want to the set that the transaction has started.
+ *			false if you want to state that the transaction has finished and
+ *			no transaction is active. 
+ */
+void SQLFWTransaction::setInTransaction(bool sit)
+{
+	inTrans_d = sit;
+}
+
+/**
+ * Method that returns true if the transaction has not failed or has been
+ * corrupted.
+ *
+ * @result	whether the transaction has failed for any reason.
+ */
+bool SQLFWTransaction::transactionOK() const
+{
+	assert(transImpl_d);
+	return transImpl_d->transactionOK();
+}
+
+/**
+ * This method returns whether the user has begun the transaction.
+ *
+ * @return	true if the user has begun a transaction.
+ *			false otherwise.
+ */
+bool SQLFWTransaction::userBegTrans()
+{
+	return userBeganTrans_d;
+}
+
+/**
+ * This method sets that the user has began a transaction.
+ */
+void SQLFWTransaction::userBegTrans(bool b)
+{
+	userBeganTrans_d = b;
+}
+
+/**
+ * This method returns the Implementation transaction.
+ *
+ * @return	the implementation transaction.
+ */
+TransactionImpl *SQLFWTransaction::transactionImpl() const
+{
+	return transImpl_d;
+}
+
+/**
+ * This method is used to get the last error message that took place in
+ * the transaction.
+ *
+ * @return	last transaction error message.
+ */
+const String &SQLFWTransaction::getErrorDescr() const
+{
+	return errorDescr_d;
+}
+
+/**
+ * This method is used to set the last error of the transaction.
+ *
+ * @param	err is the error message.
+ */
+void SQLFWTransaction::setErrorDescr(const String &err)
+{
+	errorDescr_d = err;
+}
+
+#endif	// SQLFWTRANSACT_ICC
+

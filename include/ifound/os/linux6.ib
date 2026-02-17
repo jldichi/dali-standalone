@@ -1,0 +1,33 @@
+//
+// $Id: linux6.ib,v 1.6 2008/06/02 19:26:42 spark Exp $
+// ib linux settings
+
+CC	= "egcs";
+CPP	= "egcs -fno-exceptions";
+CPPFLAGS	= $CPPFLAGS + " -fno-exceptions ";
+
+if ($IfxImpl == true)
+	LD	= "esql";
+else 
+	LD	= "egcs";
+
+LPIXDBSH	= "/SH$(IDEAVERSION)/";
+LPESDBSH	= "/SH$(IDEAVERSION)/";
+LPSQLFWSH	= "/SH$(IDEAVERSION)/";
+
+LIDEASH	= " -lidea$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lm ";
+LIXDBSH	= " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s " + $LIDEASH;
+LESDBSH	= " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s " + $LIDEASH;
+LSQLFWSH	= " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s " + $LIDEASH;
+
+TCPLIBS		= ""; //-lsocket -lnsl";
+RANLIB		= "ranlib";
+ranlib		= true;
+ldrunpath	= true;
+BLDSHCFLAGS	= "-fPIC";
+BLDSHCPPFLAGS	= "-fPIC";
+SH="sh";
+
+LIBCURSES	= " -lncurses ";
+LIBCRYPT 	= " -lcrypt ";
+OPTIMIZELEVEL   = " -O0 ";

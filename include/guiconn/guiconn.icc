@@ -1,0 +1,60 @@
+// -----------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: guiconn.icc,v 1.1.1.1 1996/04/16 18:51:52 gustavof Exp $
+//
+// Description:
+// -----------------------------------------------------------------------
+
+#ifndef GUICONN_ICC
+#define GUICONN_ICC
+
+inline const String &
+GUIConnection::appName() const
+{
+	return appName_d;
+}
+
+inline ISApp *
+GUIConnection::app() const
+{
+	return rc_d;
+}
+
+inline Int
+GUIConnection::retValue() const
+{
+	return retValue_d;
+}
+
+inline Int
+GUIConnection::setRetValue(Int val)
+{
+	Int ret = retValue_d;
+	retValue_d = val;
+	return ret;
+}
+
+inline bool
+GUIConnection::keepGoing() const
+{
+	return retValue() == ERR;
+}
+
+inline Int 
+GUIConnection::startMainLoop()
+{
+	return setRetValue(ERR);
+}
+
+inline Int 
+GUIConnection::stopMainLoop(Int prev)
+{
+	return setRetValue(prev);
+}
+
+#endif
+

@@ -1,0 +1,37 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: curlist.icc,v 1.4 2002/03/20 17:15:42 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	CURLIST_ICC
+#define	CURLIST_ICC
+
+// Set methods.
+/**
+ * Method that adds a new SQLFWCursor to the Cursor list.
+ *
+ * @param	s is the SQLFWCursor to be added to the list of cursors.
+ */
+void CursorList::add(const SQLFWCursor *c)
+{
+	ObjectList::add(c);
+}
+
+// Get Information methods.
+/**
+ * Method that returns the SQLFWCursor in position "i".
+ *
+ * @param	i is the position of the cursor to be retrieved.
+ * @return	the SQLFWCursor at position "i" in the list.
+ */
+const SQLFWCursor &CursorList::getCursor(Int i)
+{
+	return (SQLFWCursor&)ObjectList::get(i);
+}
+
+#endif	// CURLIST_ICC
+

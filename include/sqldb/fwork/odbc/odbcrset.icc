@@ -1,0 +1,39 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: odbcrset.icc,v 1.2 1998/11/03 19:52:19 pablor Exp $
+// -----------------------------------------------------------------------
+
+#ifndef ODBCRSET_ICC
+#define ODBCRSET_ICC
+
+void ODBCResultSet::setError(bool err)
+{
+	error_d = err;
+}
+
+bool ODBCResultSet::getError() const
+{
+	return error_d;
+}
+
+const String &ODBCResultSet::getErrorDescr() const 
+{
+	return errorDescr_d;
+}
+
+bool ODBCResultSet::isBeforeFirst()
+{
+	return beforeFirst_d;
+}
+
+bool ODBCResultSet::isAfterLast()
+{
+	return afterLast_d;
+}
+
+#endif ODBCRSET_ICC

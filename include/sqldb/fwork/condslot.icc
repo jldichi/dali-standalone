@@ -1,0 +1,81 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: condslot.icc,v 1.2 2002/03/19 21:26:14 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	CONDSLOT_ICC
+#define	CONDSLOT_ICC
+
+/**
+ * This method returns the name of the field stored in this slot
+ *
+ * @return	name of the field
+ */
+String	ConditionSlot::fieldName()
+{
+	return fieldName_d;
+}
+
+/**
+ * This method returns the value set to field stored in this slot
+ *
+ * @return	value as string
+ */
+String	ConditionSlot::value()
+{
+	return value_d;
+}
+
+/**
+ * This method returns whether this slot represents a field with null value
+ *
+ * @return	whether this field is null or not
+ */
+bool	ConditionSlot::isNull()
+{
+	return isNull_d;
+}
+
+/**
+ * This method returns whether the field in this slot has a not null attribute
+ * in the index
+ *
+ * @return	whether the field has a not null clause or not
+ */
+bool	ConditionSlot::hasNotNull()
+{
+	return hasNotNull_d;
+}
+
+/**
+ * This method returns the condition to check if the field has a not null
+ * attribute in the index
+ *
+ * @return	condition to be checked
+ */
+String	ConditionSlot::notNull()
+{
+	return notNull_d;
+}
+
+String	ConditionSlot::minValue()
+{
+	return minValue_d;
+}
+
+int		ConditionSlot::getSQLType()
+{
+	return sqltype_d;
+}
+
+int		ConditionSlot::getType()
+{
+	return type_d;
+}
+
+#endif	// CONDSLOT_ICC

@@ -1,0 +1,575 @@
+/********************************************************************
+*
+* Copyright (c) 1999 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: isoftdbes.icc,v 1.7 2006/02/14 20:58:52 hardaiz Exp $
+* DESCRIPTION:
+*
+********************************************************************/
+#ifndef ISOFTDBES_ICC_
+#define ISOFTDBES_ICC_
+//#ifndef __VC__
+#include <ideafix/priv/isoftdbdecl.h>
+
+schema IsoftDbEs::OpenSchema(char *name, UShort mode)
+{
+	return isoftes_OpenSchema(name,mode);
+}
+
+struct s_table * IsoftDbEs::_AttachTable(struct s_table *tp)
+{
+	return isoftes__AttachTable(tp);
+}
+
+int IsoftDbEs::GetRecord(dbindex ind,find_mode fmode,int mode, va_list ap)
+{
+	return isoftes_GetRecord(ind,fmode,mode, ap);
+}
+
+int IsoftDbEs::AddIndField(dbindex ind, dbfield fld, k_field_flags flags, UShort n, UShort m)
+{
+	return isoftes_AddIndField(ind, fld, flags, n, m);
+}
+
+void IsoftDbEs::AddRecord(dbtable tab)
+{
+	isoftes_AddRecord(tab);
+}
+
+void IsoftDbEs::AddRecordTS(dbtable tab, TIMESTAMP crts, TIMESTAMP modts)
+{
+	isoftes_AddRecordTS(tab, crts, modts);
+}
+
+long IsoftDbEs::AddRecordTest(dbtable tab)
+{
+	return isoftes_AddRecordTest(tab);
+}
+
+dbfield IsoftDbEs::AddTabField(dbtable tbl, char *fname, char *descr, UShort dim, type ty, sqltype sql_ty, UShort len, UChar ndec, field_flags flags, char *def, char *mask)
+{
+	return isoftes_AddTabField(tbl, fname, descr, dim, ty, sql_ty, len, ndec, flags, def, mask);
+}
+
+void IsoftDbEs::BeginTrans(int mode)
+{
+	isoftes_BeginTrans(mode);
+}
+
+long IsoftDbEs::BuildIndex(dbindex ind, int flags, va_list ap)
+{
+	return isoftes_BuildIndex(ind, flags, ap);
+}
+
+TIMESTAMP IsoftDbEs::CTimeStamp(dbtable tab)
+{
+	return isoftes_CTimeStamp(tab);
+}
+
+int IsoftDbEs::ChownSchema(schema sch, long uid)
+{
+	return isoftes_ChownSchema(sch, uid);
+}
+
+void IsoftDbEs::CloseAllSchemas(void)
+{
+	isoftes_CloseAllSchemas();
+}
+
+void IsoftDbEs::CloseSchema(schema sch)
+{
+	isoftes_CloseSchema(sch);
+}
+
+int IsoftDbEs::CompleteIndex(dbindex ind)
+{
+	return isoftes_CompleteIndex(ind);
+}
+
+int IsoftDbEs::ConvertTable(dbtable tab, dbtable newtab, bool force, bool drop, IFCPVA err_func, FCPVA msg_func, unsigned int i1, unsigned int i2, bool correctRefs)
+{
+	return isoftes_ConvertTable(tab, newtab, force, drop, err_func, msg_func,i1 , i2, correctRefs);
+}
+
+void IsoftDbEs::CopyTable(dbtable newtab, dbtable tab, dbfield *f, int flag)
+{
+	isoftes_CopyTable(newtab, tab, f, flag);
+}
+
+void IsoftDbEs::CorruptTrans(void)
+{
+	isoftes_CorruptTrans();
+}
+
+long IsoftDbEs::CountCursor(dbcursor cursor)
+{
+	return isoftes_CountCursor(cursor);
+}
+
+dbcursor IsoftDbEs::CreateCursor(dbindex ind, int mode)
+{
+	return isoftes_CreateCursor(ind, mode);
+}
+
+dbindex IsoftDbEs::CreateIndex(dbtable tbl, char *name, key_flags flags, UChar c )
+{
+	return isoftes_CreateIndex(tbl, name, flags, c);
+}
+
+schema IsoftDbEs::CreateSchema(char *name, char *descr)
+{
+	return isoftes_CreateSchema(name, descr);
+}
+
+dbtable IsoftDbEs::CreateTable(schema sch, char *name, char *descr, tab_flags flags, ULong size, UChar n_flds)
+{
+	return isoftes_CreateTable(sch, name, descr, flags, size, n_flds);
+}
+
+
+bool IsoftDbEs::DbCheckPoint(schema sc)
+{
+	return isoftes_DbCheckPoint(sc);
+}
+
+bool IsoftDbEs::DbFlushReq(schema sc)
+{
+	return isoftes_DbFlushReq(sc);
+}
+
+int IsoftDbEs::DelAllRecords(dbtable tab)
+{
+	return isoftes_DelAllRecords(tab);
+}
+
+void IsoftDbEs::DelRecord(dbtable tab)
+{
+	isoftes_DelRecord(tab);
+}
+
+void IsoftDbEs::DeleteCursor(dbcursor cursor)
+{
+	isoftes_DeleteCursor(cursor);
+}
+
+int IsoftDbEs::DeleteTable(dbtable tab)
+{
+	return isoftes_DeleteTable(tab);
+}
+
+void IsoftDbEs::DiscardRecord(dbtable tbl)
+{
+	isoftes_DiscardRecord(tbl);
+}
+
+int IsoftDbEs::DropIndex(dbindex ind)
+{
+	return isoftes_DropIndex(ind);
+}
+
+int IsoftDbEs::DropSchema(schema sch)
+{
+	return isoftes_DropSchema(sch);
+}
+
+int IsoftDbEs::DropTable(dbtable tab)
+{
+	return isoftes_DropTable(tab);
+}
+
+bool IsoftDbEs::EndTrans(bool syn, bool rttrans)
+{
+	return isoftes_EndTrans(syn, rttrans);
+}
+
+bool IsoftDbEs::EndTransaction(void)
+{
+	return isoftes_EndTransaction();
+}
+
+long IsoftDbEs::FindRecord(dbindex ind, find_mode fmode, va_list ap)
+{
+	return isoftes_FindRecord(ind, fmode, ap);
+}
+
+schema IsoftDbEs::FindSchemaVersion(char *name, long version)
+{
+	return isoftes_FindSchemaVersion(name, version);
+}
+
+void IsoftDbEs::FlushTable(dbtable tab)
+{
+	isoftes_FlushTable(tab);
+}
+
+void IsoftDbEs::FreeRecord(dbindex ind, find_mode fmode, va_list ap)
+{
+	isoftes_FreeRecord(ind, fmode, ap);
+}
+
+void IsoftDbEs::FreeSchema(schema sch)
+{
+	isoftes_FreeSchema(sch);
+}
+
+void IsoftDbEs::FreeTable(dbtable tab)
+{
+	isoftes_FreeTable(tab);
+}
+
+TIMESTAMP IsoftDbEs::GetDownLoadTS(dbtable tab)
+{
+	return isoftes_GetDownLoadTS(tab);
+}
+
+int IsoftDbEs::GetTransMode(void)
+{
+	return isoftes_GetTransMode();
+}
+
+bool IsoftDbEs::InTransaction()
+{
+	return isoftes_InTransaction();
+}
+
+void IsoftDbEs::InitRecord(dbtable tab)
+{
+	isoftes_InitRecord(tab);
+}
+
+int IsoftDbEs::LockSchema(schema sch, int lock_mode)
+{
+	return isoftes_LockSchema(sch, lock_mode);
+}
+
+int IsoftDbEs::LockTable(dbtable tab, int lock_mode)
+{
+	return isoftes_LockTable(tab, lock_mode);
+}
+
+TIMESTAMP IsoftDbEs::MTimeStamp(dbtable tab)
+{
+	return isoftes_MTimeStamp(tab);
+}
+
+schema IsoftDbEs::OpenSchemaVersion(char *name, UShort mode, long version)
+{
+	return isoftes_OpenSchemaVersion(name, mode, version);
+}
+
+void IsoftDbEs::OptimisticTransaction()
+{
+	isoftes_OptimisticTransaction();
+}
+
+long IsoftDbEs::PopRecord(dbtable tbl)
+{
+	return isoftes_PopRecord(tbl);
+}
+
+void IsoftDbEs::PushRecord(dbtable tbl)
+{
+	isoftes_PushRecord(tbl);
+}
+
+void IsoftDbEs::PutRecord(dbtable tab)
+{
+	isoftes_PutRecord(tab);
+}
+
+bool IsoftDbEs::RenameField(dbfield fld, char *name)
+{
+	return isoftes_RenameField(fld, name);
+}
+
+int IsoftDbEs::RenameTable(dbtable tab, char *name)
+{
+	return isoftes_RenameTable(tab, name);
+}
+
+int IsoftDbEs::RollBack(void)
+{
+	return isoftes_RollBack();
+}
+
+void IsoftDbEs::SaneTrans(void)
+{
+	isoftes_SaneTrans();
+}
+
+long IsoftDbEs::SchemaVersion(schema sch)
+{
+	return isoftes_SchemaVersion(sch);
+}
+
+int IsoftDbEs::SetCollateSet(dbfield fld, const char *cs)
+{
+	return isoftes_SetCollateSet(fld, cs);
+}
+
+int IsoftDbEs::SetDataCache(dbtable tab, UShort n, int mode)
+{
+	return isoftes_SetDataCache(tab, n, mode);
+}
+
+int IsoftDbEs::SetDeflt(dbfield fld, struct DbExpr *expr)
+{
+	return isoftes_SetDeflt(fld, expr);
+}
+
+void IsoftDbEs::SetDescrSchema(schema sch, char *descr)
+{
+	isoftes_SetDescrSchema(sch, descr);
+}
+
+void IsoftDbEs::SetDownLoadTS(dbtable tab, TIMESTAMP ts)
+{
+	isoftes_SetDownLoadTS(tab, ts);
+}
+
+int IsoftDbEs::SetInCheck(dbfield fld, struct InCheck *inchk)
+{
+	return isoftes_SetInCheck(fld, inchk);
+}
+
+void IsoftDbEs::SetIndexCache(dbindex ind, UShort n)
+{
+	isoftes_SetIndexCache(ind, n);
+}
+
+int IsoftDbEs::SetRelCheck(dbfield fld, struct DbExpr *expr)
+{
+	return isoftes_SetRelCheck(fld, expr);
+}
+
+int IsoftDbEs::SetTabRelCheck(dbtable tab, struct DbExpr *expr)
+{
+	return isoftes_SetTabRelCheck(tab, expr);
+}
+
+int IsoftDbEs::SetTableCache(dbtable t, long l)
+{
+	return isoftes_SetTableCache(t , l );
+}
+
+schema IsoftDbEs::SwitchToSchema(schema sch)
+{
+	return isoftes_SwitchToSchema(sch);
+}
+
+long IsoftDbEs::TabActualSize(dbtable tab)
+{
+	return isoftes_TabActualSize(tab);
+}
+
+long IsoftDbEs::TabNRecords(dbtable tab)
+{
+	return isoftes_TabNRecords(tab);
+}
+
+TIMESTAMP IsoftDbEs::TableTimeStamp(dbtable tab)
+{
+	return isoftes_TableTimeStamp(tab);
+}
+
+bool IsoftDbEs::TransOk(void)
+{
+	return isoftes_TransOk();
+}
+
+void IsoftDbEs::UpdateRecord(dbtable tab, va_list ap)
+{
+	isoftes_UpdateRecord(tab, ap);
+}
+
+long IsoftDbEs::VersionNumber(char *name, DATE d)
+{
+	return isoftes_VersionNumber(name, d);
+}
+
+long IsoftDbEs::_AddKey(struct s_index *ip, long recno, char *rec_buff, struct tab_array *ta, dbindex ind)
+{
+	return isoftes__AddKey(ip, recno, rec_buff, ta, ind);
+}
+
+long IsoftDbEs::_FindKey(struct tab_array *tap, struct s_index *ip, char *rec_buff, find_mode fmode, UShort nparts, char **p,int i)
+{
+	return isoftes__FindKey(tap, ip, rec_buff, fmode, nparts, p,i);
+}
+
+bool IsoftDbEs::_FlushSchPrivileges(struct s_schema *sp)
+{
+	return isoftes__FlushSchPrivileges(sp);
+}
+
+bool IsoftDbEs::_FlushTabPrivileges(struct s_schema *sp)
+{
+	return isoftes__FlushTabPrivileges(sp);
+}
+
+void IsoftDbEs::_FlushTable(struct tab_array *tap, int ind)
+{
+	isoftes__FlushTable(tap, ind);
+}
+
+void IsoftDbEs::_FreeCursorCache(struct s_dbcur *cp)
+{
+	isoftes__FreeCursorCache(cp);
+}
+
+long IsoftDbEs::_GetNextBlock(struct s_dbcur *cp)
+{
+	return isoftes__GetNextBlock(cp);
+}
+
+long IsoftDbEs::_GetPrevBlock(struct s_dbcur *cp)
+{
+	return isoftes__GetPrevBlock(cp);
+}
+
+void IsoftDbEs::_ModifySchema(struct s_schema *sp)
+{
+	isoftes__ModifySchema(sp);
+}
+
+dbtable IsoftDbEs::_ReCreateTable(schema sch, char *name, char *descr, tab_flags flags, ULong size, UChar n_flds)
+{
+	return isoftes__ReCreateTable(sch, name, descr, flags, size, n_flds);
+}
+
+void IsoftDbEs::_ReOpenSchema(schema sch)
+{
+	isoftes__ReOpenSchema(sch);
+}
+
+void IsoftDbEs::_SendRangeCursor(struct s_dbcur *cp)
+{
+	isoftes__SendRangeCursor(cp);
+}
+
+struct s_schema * IsoftDbEs::_GetSchPtr(schema sch)
+{
+	return isoftes__GetSchPtr(sch);
+}
+
+int IsoftDbEs::_TabSeqNumber(dbtable tbl)
+{
+	return isoftes__TabSeqNumber(tbl);
+}
+
+int IsoftDbEs::dbmsType(void)
+{
+	return isoftes_dbmsType();
+}
+
+char*	IsoftDbEs::_StrValPutOrAlloc(struct s_schema *schptr,char *s,char *prev)
+{
+	return isoftes__StrValPutOrAlloc(schptr,s,prev);
+}
+
+char*	IsoftDbEs::_MemValPutOrAlloc(struct s_schema *schptr,void *s,UShort len,void *prev)
+{
+	return isoftes__MemValPutOrAlloc(schptr,s,len,prev);
+}
+
+
+sqlcursor IsoftDbEs::CreateSQLCursor(schema sch, const char *sentence, int paramsCount)
+{
+  // @DIEGOS
+  return isoftes__CreateSQLCursor( sch, sentence, paramsCount ) ;
+}
+
+int IsoftDbEs::FetchSQLNext(sqlcursor cur)
+{
+  return isoftes__FetchSQLNext( cur ) ;
+}
+
+void  IsoftDbEs::AddSQLCursorParameter(sqlcursor cur, type ty, UShort len, UShort ndec)
+{
+  isoftes__AddSQLCursorParameter( cur, ty, len, ndec ) ;
+}
+
+//extern "C" int  isoftsql__SetSQLCursorParameters(sqlcursor cur, ...)
+int  IsoftDbEs::SetSQLCursorParameters(sqlcursor cur, va_list av)
+{
+  return isoftes__SetSQLCursorParameters( cur, av ) ;
+}
+
+int  IsoftDbEs::SetSQLCursorParameter(sqlcursor cur, int fldIndex, char *value)
+{
+	return isoftes__SetSQLCursorParameter( cur, fldIndex, value ) ;
+}
+
+void IsoftDbEs::RestartSQLCursor(sqlcursor cur)
+{
+	isoftes__RestartSQLCursor( cur ) ;
+}
+
+int  IsoftDbEs::GetSQLIFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLIFld( cur, fldIndex ) ;
+}
+
+long  IsoftDbEs::GetSQLLFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLLFld( cur, fldIndex ) ;
+}
+
+char *IsoftDbEs::GetSQLSFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLSFld( cur, fldIndex ) ;
+}
+
+double  IsoftDbEs::GetSQLFFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLFFld( cur, fldIndex ) ;
+}
+
+DATE  IsoftDbEs::GetSQLDFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLDFld( cur, fldIndex ) ;
+}
+
+TIME  IsoftDbEs::GetSQLTFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLTFld( cur, fldIndex ) ;
+}
+
+NUM  IsoftDbEs::GetSQLNFld(sqlcursor cur, UShort fldIndex)
+{
+	return isoftes__GetSQLNFld( cur, fldIndex ) ;
+}
+
+void IsoftDbEs::DeleteSQLCursor(sqlcursor cur)
+{
+	isoftes__DeleteSQLCursor( cur ) ;
+}
+
+// @DIEGOS
+// @WARNING
+// En la API original el ultimo parametro de este metodo es 'dbfield'
+void IsoftDbEs::AddSQLFieldTarget(sqlcursor cur, UShort fldIndex, dbfield fld, int column)
+{
+  isoftes__AddSQLFieldTarget( cur, fldIndex, fld, column ) ; 
+}
+
+int IsoftDbEs::FetchSQLLevel(sqlcursor cur, int level)
+{
+	assert(0);
+	return -1;
+}
+
+void IsoftDbEs::SetSQLLevel(sqlcursor cur, int level, dbtable tab)
+{
+	assert(0);
+}
+
+int IsoftDbEs::ExecuteSQL(sqlcursor cur)
+{
+	return isoftes__ExecuteSQL( cur ) ;
+}
+//#endif
+#endif

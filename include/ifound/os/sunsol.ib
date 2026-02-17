@@ -1,0 +1,51 @@
+//
+// $Id: sunsol.ib,v 1.16 2010/09/28 19:46:25 hardaiz Exp $
+// ib UnixWare settings
+//
+
+ORACLEHOME	= $ORACLE_HOME;
+
+TCPLIBS		= " -lsocket -lnsl -lm ";
+
+LPIXDBSH        = "/SH$(IDEAVERSION) ";
+LIXDBSH         = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s " + $TCPLIBS;
+
+LPESDBSH        = "/SH$(IDEAVERSION) ";
+LESDBSH         = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s " + $TCPLIBS;
+
+LPSQLFWSH       = "/SH$(IDEAVERSION) ";
+LSQLFWSH        = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s " + $TCPLIBS;
+
+LPIDEASH        = "/SH$(IDEAVERSION) ";
+LIDEASH         = " -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s " + $TCPLIBS;
+
+LPIXDB		= "$IDEAFIX/lib ";
+LIXDB		= "-lix -lidea -liext -lidea " + $TCPLIBS;
+
+LPIDEA		= "$IDEAFIX/lib ";
+LIDEA		= "-liext -lidea -ldb -lix -les -lsql -liqlsrv -lsqlimpl -liext -lidea" + $TCPLIBS;
+
+LPESDB		= "$IDEAFIX/lib ";
+LESDB		= "-liext -lidea -ldb -lix -les -lsql -liqlsrv -lsqlimpl -liext -lidea" + $TCPLIBS;
+
+LPSQLFW		= "$IDEAFIX/lib ";
+LSQLFW		= "-ldb -lix -les -lsql -liqlsrv -lsqlimpl -lsql -liext -lidea -liext -lidea -ldb -lix -les -lsql -lsqlimpl -lsql -liext -lidea -liext -lidea " + $TCPLIBS;
+
+LPORA = "$(ORACLEHOME)/lib ";
+LORA = "-lclntsh -lcommon -lcore4 -lnlsrtl3 ";
+
+PURIFY="";
+if ($Purify == true) {
+	PURIFY="p";
+	CPP = "purify gcc";
+	CC = "purify gcc";
+	LD = "purify gcc";
+}
+
+CPPFLAGS        = $CPPFLAGS + " -fno-exceptions ";
+CFLAGS          = $CPPFLAGS + " -fno-exceptions ";
+
+LIBCURSES	= " -lcurses ";
+LIBCRYPT	= " -lcrypt ";
+
+LIBS = $LIBS + $TCPLIBS;

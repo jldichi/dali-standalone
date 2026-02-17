@@ -1,0 +1,206 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: ifieldmd.icc,v 1.7 2002/03/19 21:20:30 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	IFIELDMD_ICC
+#define	IFIELDMD_ICC
+
+#include <sqldb/metadata/sqldb.h>
+
+/**
+ *
+ * @param
+ */
+void IndexFieldMetadata::setIndFldInternalType(itype it)
+{
+	assert(ifldRep_d);
+	ifldRep_d->f_itype = it;
+}
+
+/**
+ *
+ * @param
+ */
+void IndexFieldMetadata::setIndFldFlags(k_field_flags iff)
+{
+	assert(ifldRep_d);
+	ifldRep_d->flags = iff;
+}
+
+/**
+ *
+ * @param
+ */
+void IndexFieldMetadata::setIndFldLen(UChar len)
+{
+	assert(ifldRep_d);
+	ifldRep_d->len = len;
+}
+
+/**
+ *
+ * @param
+ */
+void IndexFieldMetadata::setIndFldOffset(UShort offset)
+{
+	assert(ifldRep_d);
+	ifldRep_d->offset = offset;
+}
+
+/**
+ *
+ * @param
+ */
+void IndexFieldMetadata::setIndFldId(dbfield fld)
+{
+	assert(ifldRep_d);
+	ifldRep_d->fld = fld;
+}
+
+/**
+ * This method sets the position of the index field inside the index.
+ *
+ * @param	pos is the position of the field inside the index.
+ */
+void IndexFieldMetadata::setIndexFieldPosition(Int pos)
+{
+	assert(pos >= 0);
+	indexFieldPosition_d = pos;
+}
+
+/**
+ *
+ * @return
+ */
+struct s_index_field *IndexFieldMetadata::indexFieldRep() const
+{
+	return ifldRep_d;
+}
+
+/**
+ *
+ * @return
+ */
+itype IndexFieldMetadata::internalFieldType() const
+{
+	assert(ifldRep_d);
+	return ifldRep_d->f_itype;
+}
+
+/**
+ *
+ * @return
+ */
+k_field_flags IndexFieldMetadata::indexFieldFlags() const
+{
+	assert(ifldRep_d);
+	return ifldRep_d->flags;
+}
+
+/**
+ *
+ * @return
+ */
+UChar IndexFieldMetadata::indexFieldLen() const
+{
+	assert(ifldRep_d);
+	return ifldRep_d->len;
+}
+
+/**
+ *
+ * @return
+ */
+UShort IndexFieldMetadata::indexFieldOffset() const
+{
+	assert(ifldRep_d);
+	return ifldRep_d->offset;
+}
+
+/**
+ *
+ * @return
+ */
+dbfield IndexFieldMetadata::indexFieldDescriptor() const
+{
+	assert(ifldRep_d);
+	return ifldRep_d->fld;
+}
+
+/**
+ * Method that returns the IndexField position inside the table. If the first
+ * index field is associated to the second table field, then the first index
+ * field position will be 2.
+ *
+ * @return	the position of the index field in the table.
+ */
+Int IndexFieldMetadata::indexFieldPositionInTable() const
+{
+	return FLDTOI(indexFieldDescriptor());
+}
+
+/**
+ * This method returns the position of an IndexFieldMetadata inside the
+ * index to which it belongs.
+ *
+ * @return	the position of the index field inside the index.
+ */
+Int IndexFieldMetadata::indexFieldPositionInIndex() const
+{
+	return indexFieldPosition_d;
+}
+
+/**
+ * Method that returns the IndexField associated to this IndexFieldMetadata.
+ *
+ * @return	the IndexField of the IndexFieldMetadata.
+ */
+IndexField *IndexFieldMetadata::getIndexField() const
+{
+	return ifield_d;
+}
+
+/**
+ * This method returns true if the index field cannot be null. false is
+ * returned if the index field can be null.
+ *
+ * @return	true if the index field cannot be null. false otherwise.
+ */
+bool IndexFieldMetadata::isNotNull() const
+{
+	return (indexFieldFlags()&K_NOT_NULL);
+}
+
+/**
+ * This method checks whether the object is empty or not. It is assumed that
+ * an empty IndexFieldmetadata is one which has no dbindex specified.
+ *
+ * @return	true if the object is empty. false if not.
+ */
+bool IndexFieldMetadata::isEmpty() const
+{
+	return (indexFieldDescriptor() == ERROR);
+}
+
+/**
+ * This method changes the underlying IndexField representation.
+ * NOTE: this method should only be used when the array of index fields is
+ * being resized. This situation takes place when we add a new index to a table.
+ *
+ * @param   si is the new index field underlying structure.
+ */
+void IndexFieldMetadata::changeRep(struct s_index_field *si)
+{
+    assert(si);
+	assert(ifldRep_d);
+	ifldRep_d = si;
+}
+
+#endif // IFIELDMD_ICC
+

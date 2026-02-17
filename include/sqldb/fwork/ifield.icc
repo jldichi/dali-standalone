@@ -1,0 +1,24 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: ifield.icc,v 1.2 2002/03/19 21:10:36 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef INDEXFIELD_ICC
+#define	INDEXFIELD_ICC
+
+/**
+ * This method returns the name of the index field.
+ *
+ * @return	the name of the index field.
+ */
+String IndexField::name() const
+{
+	return tfld_d->name();
+}
+
+#endif //	INDEXFIELD_ICC
+

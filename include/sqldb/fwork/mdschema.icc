@@ -1,0 +1,84 @@
+/********************************************************************
+* Copyright (c) 1998 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such soucone code.
+*
+* $Id: mdschema.icc,v 1.4 2002/03/20 17:16:38 hardaiz Exp $
+*
+* DESCRIPTION
+*********************************************************************/
+
+#ifndef	METADATA_SCHEMA_ICC
+#define	METADATA_SCHEMA_ICC
+
+/**
+ * This method is used to get the metadata URL of the object.
+ *
+ * @return	metadata url of the UrlConnectionRelation object.
+ */
+const String &UrlConnectionRelation::getUrl() const
+{
+	return url_d;
+}
+
+/**
+ * This method is used to get the metadata connection of the object.
+ *
+ * @return	metadata connection of the UrlConnectionRelation object.
+ */
+const SQLFWConnection *UrlConnectionRelation::getConnection() const
+{
+	return conn_d;
+}
+
+/**
+ * This method returns how many schemas are using this metadata connection.
+ */
+Int UrlConnectionRelation::nUses() const
+{
+	return nUses_d;
+}
+
+/**
+ * This method is used to set the connection for an UrlConnectionRelation
+ * whose connection is still closed, has never been opened or has
+ * already been closed.
+ */
+void UrlConnectionRelation::setConnection(SQLFWConnection *conn)
+{
+	assert(conn_d == NULL);
+	conn_d = conn;
+}
+
+/**
+ * This method invalidates the connection so the next time someone asks
+ * for this URL, the connection will be null meaning that it has never
+ * been used or it has already been closed.
+ */
+void UrlConnectionRelation::invalidateConnection()
+{
+	assert(nUses_d == 0);
+	conn_d = NULL;
+}
+
+/**
+ * This method increments by one the number of schemas using this metadata
+ * connection.
+ */
+void UrlConnectionRelation::incUses()
+{
+	nUses_d++;
+}
+
+/**
+ * This method decrements by one the number of schemas using this metadata
+ * connection.
+ */
+void UrlConnectionRelation::decUses()
+{
+	nUses_d--;
+}
+
+#endif	// METADATA_SCHEMA_ICC
+

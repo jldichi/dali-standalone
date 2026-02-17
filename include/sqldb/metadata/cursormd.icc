@@ -1,0 +1,201 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: cursormd.icc,v 1.8 2002/03/19 21:24:36 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	CURSORMD_ICC
+#define	CURSORMD_ICC
+
+/**
+ * Method that returns the underlying structure of the Cursor.
+ *
+ * @return	the pointer to the underlying cursor structure (s_dbcur).
+ */
+struct s_dbcur *CursorMetadata::cursorRep() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d;
+}
+
+/**
+ * Method that returns the cursor descriptor of the Cursor.
+ *
+ * @return	cursor descriptor of the cursor.
+ */
+dbindex CursorMetadata::getIndexId() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->ind;
+}
+
+/**
+ * Method that returns the locking strategy used by the Cursor.
+ *
+ * @return	cursor locking mode.
+ */
+Int CursorMetadata::lockingMode() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->lmode;
+}
+
+/**
+ * Method that sets and can change the underlying cursor structure of the
+ * Cursor. This is specially used when the array is extended and resized.
+ *
+ * @param	the new underlying cursor structure.
+ */
+void CursorMetadata::changeRep(struct s_dbcur *c)
+{
+	cursorRep_d = c;
+}
+
+/**
+ * This method returns the cursor Id. This is the same as the position in
+ * which the CursorMetadata is placed in the array of opened cursors.
+ *
+ * @return	cursor unique indentifier inside a table scope.
+ */
+Int CursorMetadata::getCursorId() const
+{
+	return cursorId_d;
+}
+
+/**
+ * This method returns the cache of the cursor.
+ *
+ * @return	the cache of the cursor.
+ */
+char *CursorMetadata::getCache() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->cache;
+}
+
+/**
+ * This method sets the cursor flags.
+ *
+ * @param	flags are the flags to set.
+ */
+void CursorMetadata::setFlags(Int flags)
+{
+	assert(cursorRep_d);
+	cursorRep_d->flags = flags;
+}
+
+/**
+ * This method returns the flags of the Cursor.
+ *
+ * @return	the cursor's flags.
+ */
+Int CursorMetadata::getFlags() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->flags;
+}
+
+/**
+ * This method is used to know whether we have to retrieve all fields from
+ * the table over which the cursor has been created or only specified
+ * fields of the table.
+ *
+ * @return	true if we have to retrieve all fields. false otherwise.	
+ */
+bool CursorMetadata::hasToRetrieveAllFields() const
+{
+	assert(cursorRep_d);
+	if ((cursorRep_d->fields == NULL && cursorRep_d->nflds == 0 &&
+		(cursorRep_d->flags&C_KEY_FIELDS) == 0)) {
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * This method returns the fields to be retrieved by a cursor. These
+ * fields have been selected using SetCursorFlds CFIX function.
+ *
+ * @return	array of dbfields of the fields to be retrieved by the cursor.
+ */
+dbfield *CursorMetadata::cursorFields() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->fields;
+}
+
+/**
+ * This method returns the number of fields to be retrieved by the cursor
+ * if fields have been set with SetCursorFlds CFIX function.
+ *
+ * @return	number of fields to be retrieved by the cursor.
+ */
+Int CursorMetadata::nCursorFields() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->nflds;
+}
+
+/**
+ * This method is used to know whether we have to retrieve only the primary
+ * key of the table or the list of fields specified by the user.
+ *
+ * @return	true if we have to return only primary key fields. false
+ *			otherwise.
+ */
+bool CursorMetadata::hasToRetrieveCursorFieldsByPK() const
+{
+	assert(cursorRep_d);
+	assert(hasToRetrieveAllFields() == false);
+	return (((cursorRep_d->flags&C_KEY_FIELDS) != 0) &&
+			(cursorRep_d->fields == NULL && cursorRep_d->nflds == 0));
+}
+
+/**
+ *
+ */
+Short CursorMetadata::setRecsAllocs() const
+{
+	assert(0);
+	return -1;
+}
+
+/**
+ * Returns the number of fields that will be fetched by the cursor.
+ *
+ * @return	the number of fields.
+ */
+Int CursorMetadata::getNFields() const
+{	
+	assert(cursorRep_d);
+	return cursorRep_d->nflds;
+}
+
+/**
+ * Returns a pointer to the cursor CFIX buffer containing the 'to' values.
+ *
+ * @return	the 'to' CFIX buffer.
+ */
+char *CursorMetadata::getRangeToBuffer() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->rangeto;
+}
+
+/**
+ * Returns a pointer to the cursor CFIX buffer containing the 'from' values.
+ *
+ * @return	the 'from' CFIX buffer.
+ */
+char *CursorMetadata::getRangeFromBuffer() const
+{
+	assert(cursorRep_d);
+	return cursorRep_d->rangefrom;
+}
+
+#endif	// CURSORMD_ICC

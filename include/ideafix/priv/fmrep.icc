@@ -1,0 +1,285 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmrep.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmrep.h
+*********************************************************************/
+
+#ifndef FMREP_ICC
+#define FMREP_ICC
+
+#pragma interface
+
+////////////////////////////////////////////////////////////////
+//        FormalArg && FmMessage etc.
+////////////////////////////////////////////////////////////////
+
+inline FormalArg::FormalArg(const String &theName, Type theType)
+	: name_(theName), type_(theType)
+{
+}
+
+inline FmMessage::FmMessage(const String &theName, String theContent)
+	: name_(theName), content_(theContent)
+{
+}
+
+inline SubformDescr::SubformDescr(const String &name, FormRep *subform)
+	: name_(name), subform_(subform)
+{
+}
+
+inline const String &SubformDescr::name() const
+{
+	return name_;
+}
+
+inline FormRep *SubformDescr::subform() const
+{
+	return subform_;
+}
+
+////////////////////////////////////////////////////////////////
+//            FormRep
+////////////////////////////////////////////////////////////////
+
+inline Form *FormRep::getForm()
+{
+	return form_;
+}
+
+inline FormRep *FormRep::formParent() const
+{
+	return formParent_;
+}
+
+inline FmKeyZone *FormRep::key() const
+{
+	return key_;
+}
+
+inline FmDataZone *FormRep::data() const
+{
+	return data_;
+}
+
+inline bool FormRep::ok() const
+{
+	return !invalid_;
+}
+
+inline void FormRep::exists(bool v)
+{
+	exists_ = v;
+}
+
+inline bool FormRep::exists() const
+{
+	return exists_;
+}
+
+inline FmBuffer *FormRep::selectedBuffer() const
+{
+	return selectedBuffer_;
+}
+
+inline void FormRep::setNeedRecalcIs()
+{
+	needRecalcIs_ = true;
+}
+
+inline bool FormRep::needRecalcIs() const
+{
+	return needRecalcIs_;
+}
+
+inline void FormRep::setNeedRecalcMask()
+{
+	needRecalcMask_ = true;
+}
+
+inline bool FormRep::needRecalcMask() const
+{
+	return needRecalcMask_;
+}
+
+inline void FormRep::saveValue()
+{
+	prevVal_ = currObj_->value(currRow_);
+}
+
+inline String FormRep::prevValue() const
+{
+	return prevVal_;
+}
+
+inline void FormRep::restoreValue()
+{
+	currObj_->value(prevVal_,currRow_);
+}
+
+inline bool FormRep::fieldWasChanged() const
+{
+	return currObj_->value(currRow_)!=prevVal_;
+}
+
+inline bool FormRep::autoWrite() const
+{
+	return autoWrite_;
+}
+
+inline FormRep *FormRep::currentForm()
+{
+	return currentForm_;
+}
+
+inline bool FormRep::isCurrentForm() const
+{
+	return this==currentForm();
+}
+
+inline bool FormRep::isCurrent(const FmFieldObj *obj, Int row) const
+{
+	return currObj_==obj && currRow_==row;
+}
+
+inline FmFieldObj *FormRep::dstObj() const
+{
+	return dstObj_;
+}
+
+inline Int FormRep::dstRow() const
+{
+	return dstRow_;
+}
+
+inline bool FormRep::inTraverse() const
+{
+	return dstObj()!=NULL;
+}
+
+inline FmFieldObj *FormRep::currObj() const
+{
+	return currObj_;
+}
+
+inline Int FormRep::currRow() const
+{
+	return currRow_;
+}
+
+inline FmFieldObj *FormRep::lastObj() const
+{
+	return lastObj_;
+}
+
+inline Int FormRep::lastRow() const
+{
+	return lastRow_;
+}
+
+inline bool FormRep::lastMoveWasUp() const
+{
+	return lastObj()->parent()==currObj();
+}
+
+inline void FormRep::setLastToCurrent()
+{
+	lastObj_ = currObj();
+	lastRow_ = currRow();
+}
+
+inline void FormRep::desiredObject(FmFieldObj *theObject, Int row)
+{
+	printf("%S->desiredObject(%S<%S>,%ld)\n", &name(), Sname(theObject), &(theObject?theObject->type():NULL_STRING), row);
+	desiredObj_ = theObject;
+	desiredRow_ = row;
+}
+
+inline void FormRep::resetDesiredObject()
+{
+	desiredObj_ = NULL;
+}
+
+inline FmFieldObj *FormRep::desiredObject() const
+{
+	return desiredObj_;
+}
+
+inline Int FormRep::desiredRow() const
+{
+	return desiredRow_;
+}
+
+inline void FormRep::flags(Int theFlags)
+{
+	flags_ = theFlags;
+}
+
+inline Int FormRep::flags() const
+{
+	return flags_;
+}
+
+inline Int FormRep::subformRow() const
+{
+	return subformRow_;
+}
+
+inline FormRep *FormRep::currentSubform() const
+{
+	return currentSubform_;
+}
+
+inline SubformIndex FormRep::nextSubformIndex() const
+{
+	return nextSubformIndex_;
+}
+
+inline bool FormRep::isSubform() const
+{
+	return formParent()!=NULL;
+}
+
+inline Int FormRep::keyCode() const
+{
+	return fkey_;
+}
+
+inline void FormRep::keyCode(Int code)
+{
+	fkey_ = code;
+}
+
+inline wxItem *FormRep::currentItem() const
+{
+	return currObj()?currObj()->item(currRow()):NULL;
+}
+
+inline FmToolbar *FormRep::toolbar() const
+{
+	return toolbar_;
+}
+
+inline void FormRep::executeAction(Fm::Event id)
+{
+	executeAction(action(id));
+}
+
+inline FmAction &FormRep::action(Int id)
+{
+	return action(Fm::Event(id));
+}
+
+inline FmAction &FormRep::nullAction()
+{
+	return action(Fm::no_action);
+}
+
+#endif
+

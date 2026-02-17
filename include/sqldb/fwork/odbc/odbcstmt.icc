@@ -1,0 +1,69 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: odbcstmt.icc,v 1.4 1999/07/01 11:01:11 eduardoc Exp $
+// -----------------------------------------------------------------------
+
+#ifndef ODBCSTMT_ICC
+#define ODBCSTMT_ICC
+
+/**
+ * Method that returns the ODBC Statement connection.
+ *
+ * @return	the connection used for the statement execution.
+ */
+ODBCConnectionImpl *ODBCStatement::connection() const
+{
+	return conn_d;
+}
+
+/**
+ * This method returns true if we have set the verbose mode on. This means
+ * the env. var SQLVERBOSE has been set to some value.
+ */
+bool ODBCStatement::isVerboseOn() const
+{
+	return verbose_d;
+}
+
+/**
+ * Method that returns the ODBC Statement result set.
+ *
+ * @return	the result set used for the statement execution.
+ */
+ODBCResultSet *ODBCStatement::resultSet() const
+{
+	return resSet_d;
+}
+
+/**
+ * Method that returns the ODBC Statement query.
+ *
+ * @return	the query used for the statement execution.
+ */
+String &ODBCStatement::query() const
+{
+	return (String&)stmt_d;
+}
+
+HSTMT ODBCStatement::getStmtHandler() const
+{
+	return hstmt_d;
+}
+
+const String &ODBCStatement::getErrorDescr() const
+{
+	 return errorDescr_d;; 
+}                                                 
+
+const String &ODBCStatement::getClassErrorDescr()
+{
+	return errorDescr_sd;
+}                               
+
+#endif	ODBCSTMT_ICC
+

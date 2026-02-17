@@ -1,0 +1,324 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: schemamd.icc,v 1.10 2002/03/19 22:28:04 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	SCHEMAMD_ICC
+#define	SCHEMAMD_ICC
+
+#include <sqldb/metadata/tabarray.h>
+#include <sqldb/metadata/bufftab.h>
+
+/**
+ * Method that sets the array of schema privileges assigned to the schema.
+ *
+ * @param
+ */
+void SchemaMetadata::setSchPrivileges(SchemaPrivilegesMetadata* privileges)
+{
+	assert(sp_d);
+	sp_d->d.privg.strval = (char *)privileges->privilegesRep();
+	sp_d->d.n_privg = privileges->nPrivileges();
+}
+
+/**
+ * Method that sets the privileges assigned to the user that opened the
+ * schema.
+ *
+ * @param
+ */
+void SchemaMetadata::setSchActualPrivileges(UShort priv)
+{
+	assert(sp_d);
+	sp_d->act_privg = priv;
+}
+
+/**
+ * Method that sets the name to the Buffered Table related to position
+ * pos in the array of Buffered Tables for a schema.
+ *
+ * @param
+ * @param
+ */
+void SchemaMetadata::setBufferedTableName(Int pos, const String &tname)
+{
+	BufferedTable &buftab = (BufferedTable &)tabArray_d->elementAt(pos);
+	buftab.setBufferedTableName(tname);
+}
+
+/**
+ * Method that returns the underlying schema representation of the 
+ * SchemaMetadata.
+ *
+ * @return
+ */
+struct s_schema *SchemaMetadata::schemaRep() const
+{
+	return sp_d;
+}
+
+/**
+ * Method that returns the schema name.
+ *
+ * @return
+ */
+char *SchemaMetadata::schemaName() const
+{
+	assert(sp_d);
+	return sp_d->d.name;
+}
+
+/**
+ * Method that returns the schema id of the SchemaMetadata.
+ *
+ * @return	schema descriptor of the schema related to this SchemaMetadata.
+ */
+schema SchemaMetadata::schemaId() const
+{
+	return schId_d;
+}
+
+/**
+ * Method that returns the schema description.
+ *
+ * @return
+ */
+char *SchemaMetadata::schemaDescr() const
+{
+	assert(sp_d);
+	return sp_d->d.descr.strval;
+}
+
+/**
+ * Method that returns the number of tables in the schema.
+ *
+ * @return
+ */
+UChar SchemaMetadata::nTables() const
+{
+	assert(sp_d);
+	return sp_d->d.n_tables;
+}
+
+/**
+ * Method that returns the number of permissions for this schema.
+ *
+ * @return
+ */
+UShort SchemaMetadata::nPermissions() const
+{
+	assert(sp_d);
+	return sp_d->d.n_privg;
+}
+
+/**
+ * This method returns the schema permission array of permissions.
+ *
+ * @param	schema permission array.
+ */
+struct dbprivg* SchemaMetadata::schemaPermissions() const
+{
+	return (dbprivg *)sp_d->d.privg.strval;
+}
+
+/**
+ * Method that returns the array of Tables.
+ *
+ * @return
+ */
+const TableArray &SchemaMetadata::schemaTables() const
+{
+	assert(sp_d);
+	assert(tabArray_d);
+	return *tabArray_d;
+}
+
+/**
+ * Method that returns the opening mode of the schema. This is the same
+ * mode used when opening the schema.
+ *
+ * @return
+ */
+short SchemaMetadata::openMode() const
+{
+	assert(sp_d);
+	return sp_d->mode;
+}
+
+/**
+ * Method that returns the number of allocated tables for this schema.
+ *
+ * @return
+ */
+UChar SchemaMetadata::nAllocTables() const
+{
+	assert(sp_d);
+	return sp_d->n_alloc_tables;
+}
+
+/**
+ * Method that returns the owner of the schema. This one is the user that
+ * created the schema.
+ *
+ * @return
+ */
+UShort SchemaMetadata::schemaOwner() const
+{
+	assert(sp_d);
+	return sp_d->owner;
+}
+
+/**
+ * Method that returns the privileges assigned to the user that opened the 
+ * schema over it.
+ *
+ * @return
+ */
+UShort SchemaMetadata::actualUserPrivileges() const
+{
+	assert(sp_d);
+	return sp_d->act_privg;
+}
+
+/**
+ * Method that returns the Schema object related to this SchemaMetadata.
+ *
+ * @return
+ */
+SQLFWSchema *SchemaMetadata::getSchema() const
+{
+	assert(sp_d);
+	return (SQLFWSchema *)sp_d->u.sql.schema;
+}
+
+/**
+ * Method that sets the Schema object related to the SchemaMetadata object.
+ *
+ * @param	sc is the Schema object related to this SchemaMetadata.
+ */
+void SchemaMetadata::setSchema(const SQLFWSchema *sc)
+{
+	assert(sp_d);
+	assert(!sp_d->u.sql.schema);
+	sp_d->u.sql.schema = (void*)sc;
+}
+
+/**
+ * This method sets the table array for this SchemaMetadata object.
+ *
+ * @param	ta is new the TableArray to set in the SchemaMetadata.
+ */
+void SchemaMetadata::setTableArray(const TableArray *ta)
+{
+	assert(sp_d);
+	assert(ta);
+	sp_d->t = ta->tableArrayRep();
+	assert(sp_d->t);
+}
+
+/**
+ * Method that sets the Schema identifier to the one provieded as argument.
+ *
+ * @param	sc is the schema identifier to be associated to the 
+ *			SchemaMetadata. This identifier is created in runtime and is the
+ *			position for the SchemaMetadata in the array of opened schemas.
+ */
+void SchemaMetadata::setSchemaId(schema sc)
+{
+	schId_d = sc;
+}
+
+/**
+ * Method that sets the name of the schema.
+ *
+ * @param	name is the name of the schema.
+ */
+void SchemaMetadata::setName(const char *name)
+{
+	assert(sp_d);
+	if (name == NULL) {
+		sp_d->d.name[0] = '\0';
+		return;
+	}
+	strncpy(sp_d->d.name, name, OLDNAMELEN);
+	sp_d->d.name[OLDNAMELEN-1] = '\0';
+}
+
+/**
+ * Method that sets the schema description.
+ *
+ * @param	desc is the description attached to the schema.
+ */
+void SchemaMetadata::setDescr(const char *desc)
+{
+	assert(sp_d);
+	if (desc == NULL) {
+		if (sp_d->d.descr.strval) {
+			delete[] (sp_d->d.descr.strval);
+		}
+		sp_d->d.descr.strval = NULL;
+		return;
+	}
+
+	if (sp_d->d.descr.strval) {
+		delete[] (sp_d->d.descr.strval);
+	}
+
+	sp_d->d.descr.strval = new char[strlen(desc)+1];
+	strcpy(sp_d->d.descr.strval, desc);
+}
+
+/**
+ * Method that sets the openinig mode of the schema. It sets the opening
+ * mode provided to OpenSchema CFIX function.
+ *
+ * @param	omode is the opening mode.
+ */
+void SchemaMetadata::setOpenMode(short omode)
+{
+	assert(sp_d);
+	sp_d->mode = omode;
+}
+
+/**
+ * Method that sets the owner of the schema. It uses the "uid" of the user
+ * that created the schema.
+ *
+ * @param	o is the uid of the owner of the schema.
+ */
+void SchemaMetadata::setSchOwner(UShort o)
+{
+	assert(sp_d);
+	sp_d->owner = o;
+}
+
+/**
+ * Method that sets the number of tables in the schema.
+ *
+ * @param	tabs is the number of tables.
+ */
+void SchemaMetadata::setNTables(UChar tabs)
+{
+	assert(sp_d);
+	sp_d->d.n_tables = tabs;
+}
+
+/**
+ * Method that sets the number of allocated tables in the schema. This value
+ * may be greater than d.n_tables due to memory optimizations.
+ *
+ * @param	nat is the number of allocated tables.
+ */
+void SchemaMetadata::setNAllocTables(UChar nat)
+{
+	assert(sp_d);
+	sp_d->n_alloc_tables = (UChar) (((nat+CLUSTER) / CLUSTER) * CLUSTER);
+}
+
+#endif	// SCHEMAMD_ICC
+

@@ -1,0 +1,35 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: odbctimp.icc,v 1.1 1998/08/28 13:31:04 eduardoc Exp $
+// -----------------------------------------------------------------------
+
+#ifndef ODBCTIMP_ICC
+#define ODBCTIMP_ICC
+
+/**
+ * Method that returns the TableValue of the ODBCTableImpl.
+ *
+ * @return  the TableValue of this ODBCTableImpl.
+ */
+TableValue *ODBCTableImpl::tabVal() const
+{
+	return tabVal_d;
+}
+
+/**
+ * Method that returns the PreparedStmtManager manager of the ODBC table.
+ *
+ * @return  the PreparedStmtManeger of the ODBC table.
+ */
+PreparedStmtManager *ODBCTableImpl::statementMgr() const
+{
+	return psm_d;
+}
+
+#endif	ODBCTIMP_ICC
+

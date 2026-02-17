@@ -1,0 +1,60 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: trimpl.icc,v 1.4 2002/03/20 15:08:32 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	TRIMPL_ICC
+#define	TRIMPL_ICC
+
+/**
+ * Method that returns the status of the transaction.
+ * 
+ * @return OKEY if no error took place in transaction.
+ *		   !OKEY if an error ocurred in transaction. Check TransactionOp for
+ *		   error codes.
+ * 
+ * @see TransactionOp
+ */
+TransactionOp::Status TransactionImpl::status() 
+{
+	 return transState_d; 
+}
+	
+/**
+ * This method is used to store the last transaction status.
+ *
+ * @param	stat is the status for this transaction.
+ */
+void TransactionImpl::setStatus(TransactionOp::Status stat) 
+{ 
+	 transState_d = stat; 
+	
+}
+
+/**
+ * This method gets the last error description that took place in the transaction.
+ *
+ * @return	the last error description of the transaction.
+ */
+const String &TransactionImpl::getErrorDescr() const
+{
+	return errorDescr_d;
+}
+
+/**
+ * This method is used to set the last error description over the transaction.
+ *
+ * @param	err is the last error description of the transaction.
+ */
+void TransactionImpl::setErrorDescr(const String &err)
+{
+	errorDescr_d = err;
+}
+
+#endif	// TRIMPL_ICC
+

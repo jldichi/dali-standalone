@@ -1,0 +1,109 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmactn.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmactn.h
+*********************************************************************/
+
+#ifndef FMACTN_ICC
+#define FMACTN_ICC
+
+#pragma interface
+
+inline Fm::Event FmAction::id() const
+{
+	return id_;
+}
+
+inline FmAction::operator int() const
+{
+	return int(id());
+}
+
+inline const String &FmAction::name() const
+{
+	return name_;
+}
+
+inline const String &FmAction::title() const
+{
+	return title_;
+}
+
+inline const String &FmAction::descr() const
+{
+	return descr_;
+}
+
+inline const String &FmAction::bitmapName() const
+{
+	return bitmapName_;
+}
+
+inline const String &FmAction::pushBitmapName() const	
+{
+	return pushBitmapName_;
+}
+
+inline void FmAction::title(const String &theTitle)
+{
+	title_ = theTitle;
+}
+
+inline void FmAction::descr(const String &theDescr)
+{
+	descr_ = theDescr;
+}
+
+inline void FmAction::bitmapName(const String &bitmap)
+{
+	bitmapName_ = bitmap;
+}
+
+inline void FmAction::pushBitmapName(const String &bitmap)
+{
+	pushBitmapName_ = bitmap;
+}
+
+inline void FmAction::result(Fm::Action res)
+{
+	result_ = res;
+}
+
+inline Fm::Action FmAction::result() const
+{
+	return result_;
+}
+
+inline void FmAction::ignoreInKeyZone(bool v)
+{
+	ignoreInKey_ = v;
+}
+
+inline void FmAction::ignoreInDataZone(bool v)
+{
+	ignoreInData_ = v;
+}
+
+inline void FmAction::confirm(bool v)
+{
+	confirm_ = v;
+}
+
+inline bool FmActionUserDef::resetAfterExec() const
+{
+	return reset_;
+}
+
+inline bool FmActionUserDef::validateBeforeExec() const
+{
+	return validate_;
+}
+
+
+#endif

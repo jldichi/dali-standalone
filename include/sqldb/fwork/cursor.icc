@@ -1,0 +1,172 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: cursor.icc,v 1.11 2002/03/19 21:14:33 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	SQLFWCURSOR_ICC
+#define	SQLFWCURSOR_ICC
+
+#include <sqldb/fwork/table.h>
+
+/**
+ * Method that returns the SQLFWTable associated to the SQLFWCursor.
+ *
+ * @return	SQLFWTable related to the cursor.
+ */
+const SQLFWTable &SQLFWCursor::table() const
+{
+	assert(table_d);
+	return *table_d;
+}
+
+/**
+ * Method that returns the cursor descriptor of the SQLFWCursor.
+ *
+ * @return	cursor descriptor of the SQLFWCursor.
+ */
+dbcursor SQLFWCursor::cursorId() const
+{
+	return cursor_d;
+}
+
+/**
+ * Method that returns the index descriptor of the index used to traverse the
+ * table.
+ *
+ * @return	index descriptor used by the SQLFWCursor.
+ */
+dbindex SQLFWCursor::indexId() const
+{
+	assert(indexMD_d);
+	return indexMD_d->getId();
+}
+
+/**
+ * Method that returns the table descriptor of the SQLFWCursor. This is the
+ * table the cursor will traverse.
+ *
+ * @return	table descriptor of the table that SQLFWCursor will traverse.
+ */
+dbtable SQLFWCursor::tableId() const
+{
+	assert(table_d);
+	return table_d->getId();
+}
+
+/**
+ * Get the metadata of the cursor.
+ *
+ * @return	the cursor metadata of the cursor.
+ */
+const CursorMetadata &SQLFWCursor::cursorMetadata() const
+{
+	assert(cursorMD_d);
+	return *(cursorMD_d);
+}
+
+/**
+ * This method returns the IndexMetadata used by the cursor to traverse the
+ * table.
+ *
+ * @return	IndexMetadata used by the cursor.
+ */
+const IndexMetadata &SQLFWCursor::indexMetadata() const
+{
+	assert(indexMD_d);
+	return *indexMD_d;
+}
+
+/**
+ * This method returns the cursor implementation of the cursor.
+ *
+ * @return	the cursor implementation of the cursor.
+ */
+CursorImpl &SQLFWCursor::cursorImpl() const
+{
+	assert(cursorImpl_d);
+	return *cursorImpl_d;
+}
+
+/**
+ * This method decides whether this is the first time fetch method is called.
+ * If it is the first time, then true is returned. Othewise false is returned.
+ *
+ * @return	true is fecth method has not been called before. false otherwise.
+ */
+bool SQLFWCursor::isFirstTime() const
+{
+	return firstTime_d;
+}
+
+/**
+ * This method returns true if moveToFirst method has been called and no
+ * fetch operation has been performed since the moveToFirst call.
+ *
+ * @return	true if no fetch method has been called since moveToFirst.
+ *			false otherwise.
+ */
+bool SQLFWCursor::hasFirstBeenCalled() const
+{
+	return hasCalledMoveToFirst_d;
+}
+
+/**
+ * This method returns true if moveToLast method has been called and no
+ * fetch operation has been performed since the moveToLast call.
+ *
+ * @return	true if no fetch method has been called since moveToLast.
+ *			false otherwise.
+ */
+bool SQLFWCursor::hasLastBeenCalled() const
+{
+	return hasCalledMoveToLast_d;
+}
+
+/**
+ * This method resets the cursor boundaries. It sets firstTime in 
+ * true to force a call to setFrom and setTo methods the next time
+ * that an operation is performed over the cursor.
+ */
+void SQLFWCursor::resetBoundaries()
+{
+	firstTime_d = true;
+}
+/**
+ * This method returns a pointer to a copy of the old CFIX buffer used when
+ * fetching rows. We need this old buffer to get the checking information to
+ * be used when creating a cursor with the flag IO_CONTROL_BREAK
+ */
+char *SQLFWCursor::getOldCursorBuffer()
+{
+	assert(oldBuffer_d != NULL);
+	return oldBuffer_d;
+}
+
+/**
+ * This method is used to set the error of the last cursor operation.
+ *
+ * @param	err is the error description of the last failed operation.
+ */
+void SQLFWCursor::setErrorDescr(const String &err)
+{
+	errorDescr_d = err;
+}
+
+/**
+ * This method gets the last error that took place in SQLFWCursor class by
+ * calling any of the instance methods.
+ *
+ * @return	a String with the description of the last error.
+ */
+String SQLFWCursor::getErrorDescr() const
+{
+	return errorDescr_d;
+}
+
+#endif	// SQLFWCURSOR_ICC
+

@@ -1,0 +1,202 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmval.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmval.h
+*********************************************************************/
+
+#ifndef FMVAL_ICC
+#define FMVAL_ICC
+
+#pragma interface
+
+inline bool FmValueObj::isRector() const
+{
+	return multi_!=NULL;
+}
+
+inline FmMultiLine *FmValueObj::multi() const
+{
+	return multi_;
+}
+
+inline bool FmValueObj::manualHelp() const
+{
+	return manualHelp_;
+}
+
+inline bool FmValueObj::manualSform() const
+{
+	return manualSform_;
+}
+
+inline bool FmValueObj::enabled() const
+{
+	return disabled_==0;
+}
+
+inline bool FmValueObj::needRecalcIs() const
+{
+	return needRecalcIs_;
+}
+
+inline bool FmValueObj::needRecalcMask() const
+{
+	return needRecalcMask_;
+}
+
+inline void FmValueObj::needRecalcIs(bool v)
+{
+	needRecalcIs_ = v;
+}
+
+inline void FmValueObj::needRecalcMask(bool v)
+{
+	needRecalcMask_ = v;
+}
+
+inline FmExpr *FmValueObj::maskExpr() const
+{
+	return maskExpr_;
+}
+
+inline FmExpr *FmValueObj::defExpr() const
+{
+	return defExpr_;
+}
+
+inline bool FmValueObj::hasMask() const
+{
+	return maskExpr()!=NULL;
+}
+
+inline bool FmValueObj::hasDefault() const
+{
+	return defExpr()!=NULL;
+}
+
+inline Int FmValueObj::dataSize() const
+{
+	return dataSize_;
+}
+
+inline bool FmValueObj::ignoreInList() const
+{
+	return ignoreInList_;
+}
+
+inline char *FmValueObj::getBufferForSet(FmBufferRow br) const
+{
+	return br.data(this);
+}
+
+inline String FmValueObj::getBuffer(FmBufferRow br) const
+{
+	return getBufferForSet(br);
+}
+
+inline String FmValueObj::getBuffer(Int row) const
+{
+	return getBuffer(buffer(row));
+}
+
+inline bool FmValueObj::haveInList() const
+{
+	return inList!=NULL;
+}
+
+inline bool FmValueObj::haveInTable() const
+{
+	return inTable!=NULL;
+}
+
+inline const String &FmValueObj::sformName() const
+{
+	return sformName_;
+}
+
+inline FmSubform *FmValueObj::sform() const
+{
+	return sform_;
+}
+
+inline Int FmValueObj::dbField() const
+{
+	return dbField_;
+}
+
+inline Int FmValueObj::iType() const
+{
+	return iType_;
+}
+
+/////////////////////////////////////////////////////////////////////
+//                     generic data fields: Fm*Field
+/////////////////////////////////////////////////////////////////////
+
+inline Int FmCharField::length() const
+{
+	return dataSize();
+}
+
+inline const String &FmCharField::testMask() const
+{
+	return testMask_;
+}
+
+inline const String &FmCharField::outputMask() const
+{
+	return outputMask_;
+}
+
+inline Int FmNumField::digits() const
+{
+	return dataSize();
+}
+
+inline Int FmNumField::decimal() const
+{
+	return decimal_;
+}
+
+inline bool FmNumField::isSigned() const
+{
+	return signed_;
+}
+
+inline bool FmNumField::usingComma() const
+{
+	return useComma_;
+}
+
+inline const String &FmBoolField::yes()
+{
+	return yes_;
+}
+
+inline const String &FmBoolField::no()
+{
+	return no_;
+}
+
+inline Int FmFloatField::length() const
+{
+	return dataSize();
+}
+
+inline Int FmDateField::digits() const
+{
+	return dataSize();
+}
+
+inline Int FmTimeField::digits() const
+{
+	return dataSize();
+}
+
+#endif

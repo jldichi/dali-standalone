@@ -1,0 +1,119 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: pstmtmgr.icc,v 1.2 1998/11/30 14:25:02 eduardoc Exp $
+// -----------------------------------------------------------------------
+
+#ifndef PSTMTMGR_ICC
+#define	PSTMTMGR_ICC
+
+/**
+ * This method returns true if the insert statement has been compiled and
+ * parse and it is ready to be used. false otherwise.
+ *
+ * @return	true is the insert SQL statement has been compiled.
+ *			false otherwise.
+ */
+bool PreparedStmtManager::isODBCInsertPreparedStmtReady() const
+{
+	return getODBCInsertPreparedStmt() ? true : false;
+}
+
+/**
+ * This method returns true if the delete statement has been compiled and
+ * parse and it is ready to be used. false otherwise.
+ *
+ * @return	true is the delete SQL statement has been compiled.
+ *			false otherwise.
+ */
+bool PreparedStmtManager::isODBCDeletePreparedStmtReady() const
+{
+	return getODBCDeletePreparedStmt() ? true : false;
+}
+
+/**
+ * This method returns true if the update statement has been compiled and
+ * parse and it is ready to be used. false otherwise.
+ *
+ * @return	true is the update SQL statement has been compiled.
+ *			false otherwise.
+ */
+bool PreparedStmtManager::isODBCUpdatePreparedStmtReady() const
+{
+	return getODBCUpdatePreparedStmt() ? true : false;
+}
+
+/**
+ * This method returns the INSERT SQL Statement associated to this
+ * Prepared Statement Manager.
+ *
+ * @return	NULL is no insert SQL statement has been parsed.
+ *			A valid ODBCPreparedStmt if the insert SQL stmt has been
+ *			compiled.
+ */
+ODBCPreparedStmt *PreparedStmtManager::getODBCInsertPreparedStmt() const
+{
+	return insert_d;
+}
+
+/**
+ * This method returns the DELETE SQL Statement associated to this
+ * Prepared Statement Manager.
+ *
+ * @return	NULL is no delete SQL statement has been parsed.
+ *			A valid ODBCPreparedStmt if the delete SQL stmt has been
+ *			compiled.
+ */
+ODBCPreparedStmt *PreparedStmtManager::getODBCDeletePreparedStmt() const
+{
+	return delete_d;
+}
+
+/**
+ * This method returns the UPDATE SQL Statement associated to this
+ * Prepared Statement Manager.
+ *
+ * @return	NULL is no update SQL statement has been parsed.
+ *			A valid ODBCPreparedStmt if the update SQL stmt has been
+ *			compiled.
+ */
+ODBCPreparedStmt *PreparedStmtManager::getODBCUpdatePreparedStmt() const
+{
+	return update_d;
+}
+
+/**
+ * This method sets the ODBC insert statement.
+ *
+ * @param	iStmt is the INSERT ODBC prepared statement.
+ */
+void PreparedStmtManager::setODBCInsertPreparedStmt(ODBCPreparedStmt *iStmt)
+{
+	insert_d = iStmt;
+}
+
+/**
+ * This method sets the ODBC delete statement.
+ *
+ * @param	dStmt is the DELETE ODBC prepared statement.
+ */
+void PreparedStmtManager::setODBCDeletePreparedStmt(ODBCPreparedStmt *dStmt)
+{
+	delete_d = dStmt;
+}
+
+/**
+ * This method sets the ODBC insert statement.
+ *
+ * @param	uStmt is the UPDATE ODBC prepared statement.
+ */
+void PreparedStmtManager::setODBCUpdatePreparedStmt(ODBCPreparedStmt *uStmt)
+{
+	update_d = uStmt;
+}
+
+#endif	PSTMTMGR_ICC

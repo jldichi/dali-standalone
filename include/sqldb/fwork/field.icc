@@ -1,0 +1,36 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: field.icc,v 1.3 2002/03/19 21:10:05 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef FIELD_ICC
+#define	FIELD_ICC
+
+/**
+ * This method returns the name of the field.
+ *
+ * @return	the name of the field.
+ */
+String Field::name() const
+{
+	return name_d;
+}
+
+/**
+ * This method returns the Constraint list of the field. Among the field
+ * constraints we can find: "not null", "check ...", etc.
+ *
+ * @return	constraint list of the field.
+ */
+ConstraintList &Field::constraintList() const
+{
+	assert(cl_d);
+	return *cl_d;
+}
+
+#endif	// FIELD_ICC
+

@@ -1,0 +1,185 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: connimpl.h.ESQLC,v 1.1 2000/08/14 03:33:29 ekonig Exp $
+// -----------------------------------------------------------------------
+
+#ifndef CONNIMPL_H
+#define CONNIMPL_H
+
+#include <ifound/str.h>
+#include <sqldb/fwork/status.h>
+#include <sqldb/fwork/trimpl.h>
+class SQLFWUrl;
+
+/**
+ * This class provides an abstraction for a specifica DB connection. The
+ * SQL Framework will use this type of connections instead of specific ones
+ * (ie: ODBC, CLI, etc).
+ * This class MUST be derived by implementers to suply a connection with a 
+ * schema in a database.
+ * (ie: ODBC has its own way to connect a schema in a database using a DSN.)
+ *
+ * All methods in this class have to be redefined to be used by SQLFramework
+ * classes.
+ * 
+ * @version
+ * @author Diego Balbi & Eduardo Chiocconi.
+ * @see ImplManager
+ */
+ 
+class ConnectionImpl {
+
+public:	
+	/**
+	 * Class constructor. This constructor may be modified (adding parameter)
+	 * or other ones could be created. The constructor does not open a 
+	 * connection.
+	 * It just created a connection object.
+	 */
+	ConnectionImpl(const SQLFWUrl &url);
+
+	/**
+	 * Class destructor.
+	 */
+	virtual ~ConnectionImpl();
+
+	/**
+	 * This method is in charge of opening a connection specified in URL 
+	 * parameter. If the connection could be opened properly, then OK status is
+	 * returned, otherwise the error code is returned by the method.
+	 * 
+	 * @param URL Specifies the location of the database, server, DSN, etc
+	 *			  to connect to.
+	 * @return OK if open operation could be performed without problems.
+	 *		   !OK if an error ocurred while opening the connection.
+	 * 
+	 * @see ConnectionOp
+	 */
+	virtual ConnectionOp::Status open() = 0;
+
+	/**
+	 * This method closes a previously opened connection. If the connection was
+	 * not created or opened, then nothing is done.
+	 * 
+	 * @return result of close operation.
+	 * 
+	 * @see ConnectionOp
+	 */
+	virtual ConnectionOp::Status close() = 0;
+
+	/**
+	 * This method returns the URL of the database contacted while connection.
+	 * 
+	 * @return	the URL used to connect to DB.
+	 *
+	 * @see open
+	 */
+	virtual const SQLFWUrl &getURL() const;
+
+	/**
+	 * This method returns the schema name from the URL used to contact the DB.
+	 * 
+	 * @return	the schema name in the URL.
+	 *
+	 * @see open
+	 */
+	virtual const String &getSchemaName() const = 0;
+
+	/**
+	 * This method returns true if the connection has been opened.
+	 *
+	 * @return	true if the connection has been opened.
+	 *			false otherwise.
+	 */
+	virtual bool isOpen() const = 0;
+
+	/**
+	 * This method returns the implementation of the transaction related
+	 * to this implementation connection. This connection is uniquely
+	 * related to only one schema.
+	 */
+	virtual TransactionImpl *transaction() const;
+
+	/**
+	 * This method set the constraints checking at the transaction level
+	 * It returns if the constraints checking could be changed
+	 */
+	virtual ConnectionOp::Status setConstraintsCheckToDeferred() = 0;
+	
+	/**
+	 * This method set the constraints checking at the end of the statement
+	 * It returns if the constraints checking could be changed
+	 */
+	virtual ConnectionOp::Status setConstraintsCheckToImmediate() = 0;
+
+	/**
+	 * This method returns the description of the error produced while calling
+	 * non static methods of ConnectionImpl class. If no error took place, then 
+	 * NULL_STRING is returned.
+	 * 
+	 * @return String with the description of the error detected.
+	 * 
+	 * @see ConnectionOp
+	 */
+	virtual const String &getErrorDescr() const = 0;
+
+	/**
+	 * This method returns the description of the error produced while calling
+	 * static methods of ConnectionImpl class. If no error took place, then 
+	 * NULL_STRING is returned.
+	 * 
+	 * @return String with the description of the error detected.
+	 * 
+	 * @see ConnectionOp
+	 */
+	static const String &getClassErrorDescr();
+
+	/**
+	 * Debugging method.
+	 */
+	virtual void dump() const {};
+
+	// Some methods to use when accessing the metadata database using ESQL/C
+	virtual String	getId()        { return NULL_STRING; };
+	virtual String	getCurrentId() { return NULL_STRING; };
+	virtual	bool	getPrepared()	{ return true; };
+	virtual	void	setPrepared(bool prepared)	{ };
+	
+protected:
+
+	SQLFWUrl *url_d; 
+
+	/**
+	 * Default constructor. Should not be called.
+	 */
+	ConnectionImpl();
+	
+	/**
+	 * This method returns the url object used by the connection.
+	 */
+	inline SQLFWUrl* getUrl() const { assert(url_d); return url_d; };	
+
+private:
+	
+	/**
+	 * This method sets the description of the error produced while calling
+	 * non static methods of ConnectionImpl class.
+	 * 
+	 * @parma	errmsg is the error description of last executed operation.
+	 */
+	virtual void setErrorDescr(const String &errmsg) = 0;
+
+	/**
+	 * These two methods are private to the class and should not be made public.
+	 * They are just hidden to control object creation.
+	 */
+	ConnectionImpl(const ConnectionImpl &ci);
+	ConnectionImpl &operator=(const ConnectionImpl &ci);
+};
+
+#endif CONNIMPL_H

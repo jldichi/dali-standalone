@@ -1,0 +1,45 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: sqlprop.icc,v 1.2 2002/03/20 17:13:15 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	SQLFWPROPERTIES_ICC
+#define	SQLFWPROPERTIES_ICC
+
+/**
+ * Method that gets the value associated with this Entry
+ *
+ * @return	the value of this Entry
+ */
+const String &SQLFWPropertiesEntry::getValue() const
+{
+	return value_d;
+}
+
+/**
+ * Method that gets the key associated with this Entry
+ *
+ * @return	the key of this Entry
+ */
+const String &SQLFWPropertiesEntry::getKey() const
+{
+	return key_d;
+}
+
+/**
+ * Method that gets whether the properties file is open or not
+ *
+ * @return
+ */
+bool SQLFWProperties::isOpen() const
+{
+	return isOpen_d;
+}
+
+#endif	// SQLFWPROPERTIES_ICC
+

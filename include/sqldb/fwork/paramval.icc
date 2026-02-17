@@ -1,0 +1,37 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: paramval.icc,v 1.2 2002/03/19 21:26:58 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef PARAMVAL_ICC
+#define	PARAMVAL_ICC
+
+#include <sqldb/fwork/sqlfwqrymd.h>
+
+// Get methods.
+/**
+ * Method that returns true if all the values in the ParamValue were set.
+ *
+ * @return	whether or not all index values were set.
+ */
+bool ParamValue::isComplete() const
+{
+	// ToDo: terminar
+	assert(0);
+	return false;
+}
+
+Int ParamValue::nFlds() const
+{
+	return param_d == NULL ?  0 : param_d->getColumnCount();
+}
+
+const SQLQueryMetadata &ParamValue::param() const
+{
+	return *param_d;
+}
+#endif	// PARAMVAL_ICC

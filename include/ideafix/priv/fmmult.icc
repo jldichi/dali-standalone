@@ -1,0 +1,121 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmmult.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmmult.h
+*********************************************************************/
+
+#ifndef FMMULT_ICC
+#define FMMULT_ICC
+
+#pragma interface
+
+inline bool FmMultiLine::ignoreAdd() const
+{
+	return ignoreAdd_;
+}
+
+inline void FmMultiLine::ignoreAdd(bool theIgnAdd)
+{
+	ignoreAdd_ = theIgnAdd;
+}
+
+inline bool FmMultiLine::ignoreDel() const
+{
+	return ignoreAdd_;
+}
+
+inline void FmMultiLine::ignoreDel(bool theIgnDel)
+{
+	ignoreDel_ = theIgnDel;
+}
+
+inline bool FmMultiLine::ignoreIns() const
+{
+	return ignoreAdd_;
+}
+
+inline void FmMultiLine::ignoreIns(bool theIgnIns)
+{
+	ignoreIns_ = theIgnIns;
+}
+
+
+inline FmValueObj *FmMultiLine::rector() const
+{
+	return rector_;
+}
+
+inline FmMultiScroller *FmMultiLine::scroller() const
+{
+	return scroller_;
+}
+
+inline void FmMultiLine::addToHeader(FmObject *object)
+{
+	object->parent(headerNotNull());
+}
+
+inline void FmMultiLine::addToFooter(FmObject *object)
+{
+	object->parent(footerNotNull());
+}
+
+inline Int FmMultiLine::addLengthX() const
+{
+	return addLengthX_;
+}
+
+inline Int FmMultiLine::lengthX() const
+{
+	return addLengthX()+geom_W();
+}
+
+
+inline FmMultiLine *FmMultiScroller::multi() const
+{
+	return multi_;
+}
+
+inline FmObjCollection *FmMultiScroller::header() const
+{
+	return header_;
+}
+
+inline FmObjCollection *FmMultiScroller::footer() const
+{
+	return footer_;
+}
+
+inline FmObjCollection *FmMultiLine::header() const
+{
+	return scroller()?scroller()->header():NULL;
+}
+
+inline FmObjCollection *FmMultiLine::footer() const
+{
+	return scroller()?scroller()->footer():NULL;
+}
+
+inline FmObjCollection *FmMultiLine::headerNotNull()
+{
+	return scrollerNotNull()->headerNotNull();
+}
+
+inline FmObjCollection *FmMultiLine::footerNotNull()
+{
+	return scrollerNotNull()->footerNotNull();
+}
+
+inline FmBuffer *FmMultiLine::currChildBuffer()
+{
+	return childBuffer(buffer(0));
+}
+
+#endif
+

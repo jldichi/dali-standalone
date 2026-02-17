@@ -1,0 +1,655 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: tablemd.icc,v 1.20 2002/03/19 21:24:24 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	TABLEMD_ICC
+#define	TABLEMD_ICC
+    
+#include <sqldb/metadata/indarray.h>
+#include <sqldb/metadata/curarray.h>
+#include <sqldb/fwork/schema.h>    
+    
+/**
+ * Returns the table identifier.
+ * 
+ * @return	the dbtable.
+ */
+/*
+dbtable TableMetadata::getId() const
+{
+	return tabId_d;
+}
+*/
+
+/**
+ * This method sets the partial len of the record. As we insert field in the
+ * array of fields for the table, we use this method to increment the size
+ * of the record up to that field.
+ *
+ * @param	len is the partial record len.
+ */
+void TableMetadata::setPartialLen(Int len)
+{
+	assert(len >= 0);
+	partialLen_d = len;
+}
+
+/**
+ * This method sets the max amount of records that can be inserted into the
+ * table.
+ *
+ * @param	size is the max allowable number of records in the table.
+ */
+void TableMetadata::setTabSize(Int size)
+{
+	assert(size >= 0);
+	tabRep_d->d.size = size;
+}
+
+/**
+ * This method sets the flags of the table.
+ *
+ * @param	flags are the value to set.
+ */
+void TableMetadata::setTabFlags(tab_flags tflags)
+{
+	assert(tabRep_d);
+	tabRep_d->d.flags = tflags;
+}
+
+/**
+ * This methods sets the number of fields of the table.
+ *
+ * @param	nFlds is the number of fields of the table.
+ */
+void TableMetadata::setTabNFlds(UChar nFlds)
+{
+	assert(tabRep_d);
+	assert(nFlds <= tabRep_d->n_alloc_fields);
+	tabRep_d->d.n_fields = nFlds;
+}
+
+/**
+ * This method sets the number of fields of the table.
+ *
+ * @param	nFlds is the number of fields that the table holds.
+ */
+void TableMetadata::setTabAllocNFlds(UChar nFlds)
+{
+	assert(tabRep_d);
+	tabRep_d->n_alloc_fields = nFlds;
+}
+
+/**
+ * Sets the number of fields that constitute the primary key of the table.
+ *
+ * @param	nKeys is the number of fields in the PK.
+ */
+void TableMetadata::setTabNKeys(UChar nKeys)
+{
+	assert(tabRep_d);
+	tabRep_d->d.n_keys = nKeys;
+}
+
+/**
+ * This method sets the number of indexes that have been set for the table.
+ *
+ * @param	nKeys is  the number of indexes that holds the table.
+ */
+void TableMetadata::setTabAllocNKeys(UChar nKeys)
+{
+	assert(tabRep_d);
+	tabRep_d->n_alloc_keys = nKeys;
+}
+
+/**
+ * This method sets the length of the table. The length is calculated adding
+ * every field length, so it is in bytes.
+ *
+ * @param	rLen is the length to set.
+ */
+void TableMetadata::setTabRecordLen(UShort rLen)
+{
+	assert(tabRep_d);
+	tabRep_d->d.len = rLen;
+}
+
+/**
+ * This method sets the number of privileges that have been set for a table.
+ *
+ * @param	nPrivs is the number of privileges that have been set.
+ */
+void TableMetadata::setTabNPrivileges(UShort nPrivs)
+{
+	assert(tabRep_d);
+	tabRep_d->d.n_privg = nPrivs;
+}
+
+/**
+ * This method sets the SchemaMetatada related to the table. This is the 
+ * schema where the table belongs.
+ *
+ * @param	schmd is the SchemaMetadata to be attached to the table.
+ */
+void TableMetadata::setSchema(const SQLFWSchema *sch)
+{
+	schema_d = (SQLFWSchema*)sch;
+}
+
+/**
+ * Method to increment the number of objects referencing the TableMetadata.
+ * Use it carefully...
+ */
+void TableMetadata::incReference()
+{
+	references_d++;
+}
+
+/**
+ * Method to decrement the number of objects referencing the TableMetadata.
+ * Use it carefully...
+ */
+void TableMetadata::decReference()
+{
+	references_d--;
+	assert(references_d >= 0);
+}
+
+/**
+ * This method is used to determine wether a TableMetadata is being referenced
+ * by another objects or not. Every BufferedTable, Cursor or Table references
+ * a TableMetadata, the references count is incremeneted. And when it is not
+ * needed anymore, decremented,
+ *
+ * @return	whether the object is being referenced by another ones or not.
+ */
+bool TableMetadata::isReferenced() const
+{
+	return (references_d >= 1);
+}
+
+/**
+ * This method returns the number of outside references to this TableMetadata.
+ *
+ * @return	number of outside references to this TableMetadata.
+ */
+Int TableMetadata::referenceCount() const
+{
+	return references_d;
+}
+
+/**
+ * This method increments by one the number of filled in fields in the table.
+ */
+void TableMetadata::incNTabFlds()
+{
+	assert(tabRep_d);
+	tabRep_d->d.n_fields++;
+}
+
+/**
+ * This method increments by one the number of indexes of the table.
+ */
+void TableMetadata::incNIndices()
+{
+	assert(tabRep_d);
+	tabRep_d->d.n_keys++;
+}
+
+/**
+ * This method states the table has at least a vector field.
+ */
+void TableMetadata::setTableHasAVectorField()
+{
+	hasAVectorField_d = true;
+}
+
+/**
+ * This method relates the table with a CFIX schema structure.
+ *
+ * @param	sc is the CFIX schema structure related to the table.
+ */
+void TableMetadata::setSchemaOfTable(struct s_schema *sc)
+{
+	assert(tabRep_d);
+	tabRep_d->sp = sc;
+}
+
+/**
+ * This method sets the actual privileges for a table.
+ *
+ * @param	privs are the actual table privileges.
+ */
+void TableMetadata::setActualTabPrivileges(UShort privs)
+{
+	assert(tabRep_d);
+	tabRep_d->act_privg = privs;
+}
+
+/**
+ * This method gets the underlying structure of a TableMetadata.
+ *
+ * @return	a pointer to the undelying s_table.
+ */
+struct s_table *TableMetadata::tableRep() const
+{
+	return tabRep_d;
+}
+
+/**
+ * This method returns the table's name.
+ *
+ * @return	the table's name.
+ */
+char *TableMetadata::tableName() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.name;
+}
+
+/**
+ * This method gets the table's description.
+ *
+ * @return	the table's description.
+ */
+char *TableMetadata::tableDescr() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.descr.strval;
+}
+
+/**
+ * This method gets the table's flags.
+ *
+ * @return	the table's flags.
+ */
+tab_flags TableMetadata::tableFlags() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.flags;
+}
+
+/**
+ * This method gets the number of fields that the table holds.
+ *
+ * @return	the number of fields of the table.
+ */
+UChar TableMetadata::nFields() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.n_fields;
+}
+
+/**
+ * This method gets the number of indexes that thre table holds.
+ *
+ * @return	the number of indexes of the table.
+ */
+UChar TableMetadata::nKeys() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.n_keys;
+}
+
+/**
+ * This method gets the length of a table's record measured in bytes.
+ *
+ * @return	the length of the record.
+ */
+UShort TableMetadata::recordLen() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.len;
+}
+
+/**
+ * This method is used to obtain the size of the table. This is the max
+ * number of records that can be inserted in a table.
+ *
+ * @return	max allowable records in a table.
+ */
+Int TableMetadata::tableSize() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.size;
+}
+
+/**
+ * This method returns the partial record len. This is the size of the
+ * table record up to the last field insertion into the field array.
+ * This method is used when loading the fields for a table.
+ *
+ * @return	partial record len.
+ */
+UShort TableMetadata::partialRecordLen() const
+{
+	return partialLen_d;
+}
+
+/**
+ * ToDo: completar! Que hace este metodo?
+ *
+ * @return	??
+ */
+char *TableMetadata::permissionTable() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.privg.strval;
+}
+
+/**
+ * This method gets the number of permissions of the table.
+ *
+ * @return	the number of permissions specified for the table.
+ */
+UShort TableMetadata::nPermissions() const
+{
+	assert(tabRep_d);
+	return tabRep_d->d.n_privg;
+}
+
+/**
+ * This method gets the CFIX schema structure related to the table.
+ *
+ * @return	a pointer to an s_schema that contains the information for the
+ *			schema.
+ */
+struct s_schema *TableMetadata::schemaOfTable() const
+{
+	assert(tabRep_d);
+	return tabRep_d->sp;
+}
+
+/**
+ * This method gets the array of fields of the table.
+ *
+ * @return	a FieldArray containing the fields of the table.
+ */
+const FieldArray &TableMetadata::fieldArray() const
+{
+	assert(fieldArray_d);
+	return *fieldArray_d;
+}
+
+/**
+ * This method gets the underlying structure for the table's FieldArray.
+ *
+ * @return	a s_field pointer to the underlying FieldArray representation.
+ */
+struct s_field *TableMetadata::fieldArrayRep() const
+{
+	assert(tabRep_d);
+	return tabRep_d->f;
+}
+
+/**
+ * This method returns the framework array of indices. It contains all the
+ * indices of this table.
+ *
+ * @return	array of indices of the table represented by this TableMetadata.
+ */
+const IndexArray &TableMetadata::indexArray() const
+{
+	assert(indexArray_d);
+	return *indexArray_d;
+}
+
+/**
+ * This method returns the underlying index array structure of a framework
+ * array of indices. This is a pointer to the first element in the array
+ * of indices. This structure is generally used by functions in libidea
+ * library. This is the underlying representation of the framework index
+ * array.
+ *
+ * @return	underlying index array.
+ */
+struct s_index *TableMetadata::indexArrayRep() const
+{
+	assert(tabRep_d);
+	return tabRep_d->k;
+}
+
+/**
+ * This method returns the framework CursorArray of a table.
+ *
+ * @return	the framework cursor array.
+ */
+const CursorArray &TableMetadata::cursorArray() const
+{
+	assert(cursorArray_d);
+	return *cursorArray_d;
+}
+
+/**
+ * This method returns the internal representation of the cursor array. This
+ * is generally used by functions in libidea library. The returned pointer
+ * is a pointer to the first element of the array of cursors.
+ *
+ * @return	internal representation of the array.
+ */
+struct s_dbcur *TableMetadata::cursorArrayRep() const
+{
+	assert(tabRep_d);
+	return tabRep_d->c;
+}
+
+/**
+ * This method gets the number of allocated fields for the table.
+ *
+ * @return	the number of allocated fields for the table.
+ */
+UChar TableMetadata::nAllocFields() const
+{
+	assert(tabRep_d);
+	return tabRep_d->n_alloc_fields;
+}
+
+/**
+ * This method gets the number of allocated indexes for the table.
+ *
+ * @return	the number of allocated indexes.
+ */
+UChar TableMetadata::nAllocKeys() const
+{
+	assert(tabRep_d);
+	return tabRep_d->n_alloc_keys;
+}
+
+/**
+ * This method returns the number of allocated cursors for the table.
+ *
+ * @return	the number of allocated cursors.
+ */
+UChar TableMetadata::nAllocCursors() const
+{
+	assert(tabRep_d);
+	return tabRep_d->n_alloc_cursors;
+}
+
+/**
+ * This method gets the user privileges for a table.
+ *
+ * @return	the user privileges for the table.
+ */
+UShort TableMetadata::userPrivileges() const
+{
+	assert(tabRep_d);
+	return tabRep_d->act_privg;
+}
+
+/**
+ * ToDo: completar. Que hace este metodo??
+ *
+ * @return	??
+ */
+UShort TableMetadata::relDepth() const
+{
+	assert(tabRep_d);
+	return tabRep_d->rel_depth;
+}
+
+/**
+ * This method returns the SQLFWTable of the original table related to
+ * this TableMetadata.
+ *
+ * @return	the SQLFWTable of the original table related to this 
+ *			TableMetadata.
+ */
+SQLFWTable *TableMetadata::getTable() const
+{
+	assert(tabRep_d);
+	return (SQLFWTable*)tabRep_d->u.sql.table;
+}
+
+/**
+ * This method gets the framework Schema associated to the framework table.
+ *
+ * @return	the framework Schema of the table.
+ */
+SQLFWSchema *TableMetadata::getSchema() const
+{
+	return schema_d;
+}
+
+/**
+ * This method returns the SQLFWTable related to this dbtable descriptor.
+ * The SQLFWTable is stored in the AliasDictionary that is also stored in
+ * TableMetadata of the original table.
+ *
+ * @param	tab is the table descriptor of the alias.
+ *
+ * @return	the SQLFWTable related to this alias.
+ */
+SQLFWTable *TableMetadata::getAliasTable(dbtable tab) const
+{
+	AliasDictionary *ad = getAliasDictionary();
+	assert(ad);
+	return ad->getTable(tab);
+}
+
+/**
+ * This method returns the FieldMetadata for field descriptor "fld" that is
+ * in table whose table descriptor is "tab".
+ *
+ * @param	fld is the field descriptor of the FieldMetadata we are trying
+ *			to get.
+ * @return	NULL if there is no FieldMetadata object related to "fld" field
+ *			descriptor. Otherwise, the FieldMetadata object assigned to "fld"
+ *			field descriptor.
+ *
+ * @see FieldMetadata
+ */
+FieldMetadata *TableMetadata::getField(dbfield fld) const
+{
+	// remove the schema and table hexa digits.
+	return (FieldMetadata*)&(fieldArray().elementAt(FLDTOI(fld)));
+}
+
+/**
+ * This method checks whether the table metadata has been attached 
+ * completely.
+ *
+ * @return	true if the table has been attached completely.
+ *			false otherwise.
+ */
+bool TableMetadata::hasBeenAttached() const
+{
+	if (tabRep_d == NULL || fieldArray_d == NULL || indexArray_d == NULL ||
+		cursorArray_d == NULL || schema_d == NULL) {
+		return false;
+	}
+
+	return true;
+}
+
+/**
+ * This method checks whether the table metadata has attached the alias
+ * whose table id is the one provided as argument.
+ *
+ * @return	true if the alias has been attached. false otherwise.
+ */
+bool TableMetadata::hasAliasBeenAttached(dbtable tab) const
+{
+	AliasDictionary *ad = getAliasDictionary();
+	assert(ad);
+	return (ad->getTable(tab) != NULL);
+}
+
+/**
+ * This method initializes the Alias Manager of this TableMetadata.
+ */
+void TableMetadata::initAliasDictionary()
+{
+	assert(tabRep_d);
+	assert(tabRep_d->u.sql.aliases == NULL);
+	tabRep_d->u.sql.aliases = new AliasDictionary();
+}
+
+/**
+ * This method returns the AliasDictionary attached to the TableMetadata.
+ *
+ * @return	AliasDictionary of the related to this TableMetadata.
+ */
+AliasDictionary *TableMetadata::getAliasDictionary() const
+{
+	assert(tabRep_d);
+	return (AliasDictionary *)tabRep_d->u.sql.aliases;
+}
+
+/**
+ * This method determines wether the table is temporary or not.
+ *
+ * @return	true if the table is temporary. false if not.
+ */
+bool TableMetadata::isTemporary() const
+{
+	return (IN_SET(TAB_TEMP, tableFlags()));
+}
+
+/**
+ * This method returns true if the table has a vector field. 
+ * false otherwise.
+ *
+ * @return	whether the table has a vector field.
+ */
+bool TableMetadata::hasAVectorField() const
+{
+	return hasAVectorField_d;
+}
+
+bool TableMetadata::hasUniqueVectorTable() const
+{
+	return hasUniqueVectorTable_d;
+}
+
+SQLFWTable &TableMetadata::getVectorTable() const
+{
+	assert(vecTable_d != NULL);
+	return *vecTable_d;
+}
+
+void TableMetadata::setHasUniqueVectorTable()
+{
+	hasUniqueVectorTable_d = true;
+}
+
+
+/**
+ * This method returns the AliasDictionary structure of this FieldMetadata.
+ * We will only have SQLFWTable of vector field alias tables.
+ *
+ * @return	AliasDictionary of this FieldMetadata.
+ */
+AliasDictionary *TableMetadata::aliasDictionary() const
+{
+	return ad_d;
+}
+
+#endif	// TABLEMD_ICC
+

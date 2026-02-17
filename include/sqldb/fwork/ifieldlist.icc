@@ -1,0 +1,38 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: ifieldlist.icc,v 1.5 2002/03/19 21:11:03 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	IFIELDLIST_ICC
+#define	IFIELDLIST_ICC
+
+// Set methods.
+/**
+ * Method that adds a new IndexField to the list of index fields.
+ *
+ * @param	if is the IndexField to be add to the end of the list.
+ */
+void IndexFieldList::add(const IndexField *ifld)
+{
+	ObjectList::add(ifld);
+}
+
+// Get Information methods.
+/**
+ * Method that returns the "i-th" element of the list.
+ *
+ * @param	i is the position of the IndexField object to be retrieved.
+ * @return	the IndexField object in the position "i" of the list.
+ */
+const IndexField &IndexFieldList::getIndexField(Int i) const
+{
+	return (IndexField&)ObjectList::get(i);
+}
+
+#endif	// IFIELDLIST_ICC
+

@@ -1,0 +1,51 @@
+//
+// $Id: sunsolx86.ib,v 1.5 2008/06/02 19:26:42 spark Exp $
+// ib Solaris Intel settings
+//
+
+ORACLEHOME	= $ORACLE_HOME;
+
+TCPLIBS		= " -lsocket -lnsl -lm ";
+
+LPIXDBSH        = "/SH$(IDEAVERSION) ";
+LIXDBSH         = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s" + $TCPLIBS;
+
+LPESDBSH        = "/SH$(IDEAVERSION) ";
+LESDBSH         = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s" + $TCPLIBS;
+
+LPSQLFWSH       = "/SH$(IDEAVERSION) ";
+LSQLFWSH        = " -ldb$(IDEAVERSION)_s -lix$(IDEAVERSION)_s -les$(IDEAVERSION)_s -lsql$(IDEAVERSION)_s -lsqlimpl$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s -liqlsrv$(IDEAVERSION)_s" + $TCPLIBS;
+
+LPIDEASH        = "/SH$(IDEAVERSION) ";
+LIDEASH         = " -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s -liext$(IDEAVERSION)_s -lidea$(IDEAVERSION)_s " + $TCPLIBS;
+
+LPIXDB		= "$IDEAFIX/lib ";
+LIXDB		= "-lix -lidea -liext -lidea " + $TCPLIBS;
+
+LPIDEA		= "$IDEAFIX/lib ";
+LIDEA		= "-liext -liqlsrv -lidea -ldb -lix -les -lsql -lsqlimpl -liext -lidea -liqlsrv -lidea -liext -lidea" + $TCPLIBS;
+
+LPESDB		= "$IDEAFIX/lib ";
+LESDB		= "-liext -liqlsrv -lidea -ldb -lix -les -lsql -lsqlimpl -liext -lidea -liqlsrv -lidea -liext -lidea" + $TCPLIBS;
+
+LPSQLFW		= "$IDEAFIX/lib ";
+LSQLFW		= "-liqlsrv -ldb -lix -les -lsql -lsqlimpl -lsql -liext -lidea -liext -lidea -ldb -lix -les -lsql -lsqlimpl -lsql -liext -lidea -liext -lidea -liqlsrv -lidea" + $TCPLIBS;
+
+LPORA = "$(ORACLEHOME)/lib ";
+LORA = "-lclntsh -lcommon -lcore4 -lnlsrtl3 ";
+
+PURIFY="";
+if ($Purify == true) {
+	PURIFY="p";
+	CPP = "purify gcc";
+	CC = "purify gcc";
+	LD = "purify gcc";
+}
+
+CPPFLAGS        = $CPPFLAGS + " -fno-exceptions ";
+CFLAGS          = $CPPFLAGS + " -fno-exceptions ";
+
+LIBCURSES	= " -lcurses ";
+LIBCRYPT	= " -lcrypt ";
+
+LIBS = $LIBS + $TCPLIBS;

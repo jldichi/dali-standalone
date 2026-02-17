@@ -1,0 +1,129 @@
+#ifndef __LISType_ICC
+#define __LISType_ICC
+
+
+/* Class TList implementation */
+
+
+template <class Type> void TList<Type>::add(Type *p)
+{
+	if(_find(p))
+		return;
+	TListNode<Type> *l = new TListNode<Type>(p);
+
+	l->_prev = _last;
+	l->_next = (TListNode<Type> *) 0;
+
+
+	if(!_first) 
+		_first = l;
+	if(_last) 
+		_last->_next=l;
+
+	_last = l; 
+	_count++;
+}
+
+
+template <class Type> Type * TList<Type>::popQueue()
+{
+	if(!_first)
+		return (void *) 0;
+	Type *ret = _first->_data;
+	__del(_first);
+	return ret;
+}
+
+template <class Type> Type * TList<Type>::popStack()
+{
+	if(!_last)
+		return (Type *) 0;
+	Type *ret = _last->_data;
+	__del(_last);
+	return ret;
+}
+
+template <class Type> void TList<Type>::del(Type *p)
+{
+	TListNode<Type> *l = _find(p);
+	if(!l)
+		return;
+	__del(l);
+}
+
+template <class Type> void TList<Type>::__del(TListNode<Type> *l)
+{
+	if(l == _first){
+		assert(l->_prev == (void *) 0);
+		_first = l->_next;
+	}
+	else {
+		assert(l->_prev != (void *) 0);
+		l->_prev->_next=l->_next;
+	}
+	if(l == _last) {
+		assert(l->_next == (void *) 0);
+		_last = l->_prev;
+	}
+	else {
+		assert(l->_next != (void *) 0);
+		l->_next->_prev = l->_prev;
+	}
+	_count--;
+	delete l;		
+}
+
+
+template <class Type> int TList<Type>::isEmpty() const
+{
+	return count() == 0;
+}
+
+template <class Type> Type * TList<Type>::nth(int n) const
+{
+	int i;
+	if (n > _count)
+		return (void *) 0;
+	TListNode<Type> *l;
+	for(i = 0, l=_first; i < n; i++,l=l->_next) 
+		assert(l != (void *) 0);
+	return l? l->_data : (void *) 0;
+		
+}
+
+template <class Type> TListNode<Type> * TList<Type>::_find(Type *p) const
+{
+	TListNode<Type> *l;
+	for(l=_first;l;l=l->_next)
+		if(l->_data == p)
+			return l;
+	return (TListNode<Type> *) 0;
+}
+
+/* Class TListCursor implementation */
+
+template <class Type> Type* TListCursor<Type>::next() 
+{
+	if(_cur)
+		_cur=_cur->_next;
+	return current();
+}
+
+template <class Type> Type* TListCursor<Type>::prev() 
+{
+	if(_cur)
+		_cur=_cur->_prev;
+	return current();
+}
+
+template <class Type> Type* TListCursor<Type>::set(Type *obj) 
+{
+	TListNode<Type> *node = _l._find(obj);
+	if(!node)
+		return (void *) 0;
+	_cur = node;
+	return current();
+}
+
+
+#endif

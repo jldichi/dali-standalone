@@ -1,0 +1,106 @@
+// --------------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: flock.icc,v 1.1.1.1 1996/04/16 18:52:55 gustavof Exp $
+//
+// Description:
+// --------------------------------------------------------------------------
+
+#ifndef FLOCK_ICC
+#define FLOCK_ICC
+
+FileLockEntry::FileLockEntry(const String &fileName,
+		Int device,
+		Int inode,
+		const String &owner,
+		const String &node,
+		Int pid,
+		Int tmOut,
+		Time lRefresh)
+:	file_d(fileName),
+	device_d(device),
+	inode_d(inode),
+	owner_d(owner),
+	node_d(node),
+	pid_d(pid),
+	tmOut_d(tmOut),
+	lastRefresh_d(lRefresh)
+{
+}
+
+const String &
+FileLockEntry::file() const
+{
+	return file_d;
+}
+
+const String &
+FileLockEntry::owner() const
+{
+	return owner_d;
+}
+
+const String &
+FileLockEntry::node() const
+{
+	return node_d;
+}
+
+Int
+FileLockEntry::pid() const
+{
+	return pid_d;
+}
+
+Int
+FileLockEntry::timeOut() const
+{
+	return tmOut_d;
+}
+
+void
+FileLockEntry::timeOut(Int t)
+{
+	tmOut_d = t;
+}
+
+Time
+FileLockEntry::lastRefresh() const
+{
+	return lastRefresh_d;
+}
+
+void
+FileLockEntry::lastRefresh(Time t)
+{
+	lastRefresh_d = t;
+}
+
+void
+FileLockEntry::node(const String &nm)
+{
+	node_d = nm;
+}
+
+void
+FileLockEntry::pid(Int p)
+{
+	pid_d = p;
+}
+
+Int
+FileLockEntry::inode() const
+{
+	return inode_d;
+}
+
+Int
+FileLockEntry::device() const
+{
+	return device_d;
+}
+
+#endif // FLOCK_ICC

@@ -1,0 +1,90 @@
+/********************************************************************
+* Copyright (c) 1991 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: oparser.icc,v 1.1.1.1 1996/04/16 18:51:34 gustavof Exp $
+*
+* DESCRIPTION
+* Inline methods for classes defined in <ifound/oparser.h>
+*********************************************************************/
+
+#ifndef OPARSER_ICC
+#define OPARSER_ICC
+
+Option::Option(const String &s, WideChar l, const String &desc)
+: lett(l), seq(s), dsc(desc)
+{ }
+
+Option::Option(const Option &o)
+{
+	*this = o;
+}
+
+WideChar Option::letter() const
+{
+	return lett;
+}
+
+const String &Option::sequence() const
+{
+	return seq;
+}
+
+OptionParser &OptionParser::operator<<(Option *opt)
+{
+	addOption(opt);
+	return *this;
+}
+
+void OptionParser::compileData(const String &cdata)
+{
+	compileData_ = cdata;
+}
+
+// only used for WinOptionParser
+wxListBox *OptionParser::listBox()
+{
+	return listbox_;
+}
+
+Option *Opt(String &v, const String &s, const String &desc,
+		const String &def,
+		const String &vals)
+{ return new StrOption(v, s, desc, def, vals); }
+
+Option *Opt(String &v, Int &nv, const String &s, const String &desc,
+		const String &def,
+		const String &vals)
+{ return new StrOption(v, nv, s, desc, def, vals); }
+
+Option *Opt(Int &v, const String &s, const String &desc,
+		Int def, Int minimum, Int maximum)
+{ return new NumOption(v, s, desc, def, minimum, maximum); }
+
+Option *Opt(bool &v, const String &s, const String &d, bool def)
+{ return new BoolOption(v, s, d, def); }
+
+// The same utility functions but allowing the specification of a
+// single letter.
+Option *Opt(String &v, const String &s, WideChar l, const String &desc,
+		const String &def,
+		const String &vals)
+{ return new StrOption(v, s, l, desc, def, vals); }
+
+Option *Opt(String &v, Int &nv, const String &s, WideChar l,
+		const String &desc,
+		const String &def,
+		const String &vals)
+{ return new StrOption(v, nv, s, l, desc, def, vals); }
+
+Option *Opt(Int &v, const String &s, WideChar l, const String &desc,
+		Int def, Int minimum, Int maximum)
+{ return new NumOption(v, s, l, desc, def, minimum, maximum); }
+
+Option *Opt(bool &v, const String &s, WideChar l, const String &d,
+		bool def)
+{ return new BoolOption(v, s, l, d, def); }
+
+#endif // OPARSER_ICC

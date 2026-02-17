@@ -1,0 +1,58 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: ifarray.icc,v 1.6 2002/03/19 21:20:53 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	IFARRAY_ICC
+#define	IFARRAY_ICC
+
+/**
+ * This method lets obtain the underlying structure for an array of index
+ * fields.
+ *
+ * @return	the s_index_field structure associated to an IndexFieldArray.
+ */
+struct s_index_field *IndexFieldArray::indexFieldArrayRep() const
+{
+	return indexFieldArray_d;
+}
+
+/**
+ * This method returns the number of elements in the array of index fields.
+ *
+ * @return	the length of the IndexFieldArray.
+ */
+Int IndexFieldArray::length() const
+{
+	return arrayLen_d;
+}
+
+/**
+ * Method that returns the i-th IndexFieldMetadata of the array.
+ */
+IndexFieldMetadata *IndexFieldArray::elementAt(Int i) const
+{
+	if (i < 0 || i >= arrayLen_d) {
+		error("IndexFieldArray: INDEX_OUT_OF_BOUNDS = (%ld)", i);
+	}
+
+	return iffields_d[i];
+}
+
+/**
+ * This method returns the IndexMetadata object to which this IndexFieldArray
+ * belong.
+ *
+ * @return	IndexMetadata of this IndexFieldArray.
+ */
+IndexMetadata *IndexFieldArray::indexMD() const
+{
+	return indexMD_d;
+}
+
+#endif //	IFARRAY_ICC

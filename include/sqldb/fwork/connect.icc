@@ -1,0 +1,248 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: connect.icc,v 1.17 2002/03/20 15:11:57 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef SQLFWCONN_ICC
+#define	SQLFWCONN_ICC
+
+/**
+ * Method that gets errors produced by static members.
+ *
+ * @return an error description or NULL_STRING if no error.
+ */
+const String &SQLFWConnection::getClassErrorDescr()
+{
+	return errorDescr_sd;
+}
+
+/**
+ * Method that gets errors produced by instance members.
+ *
+ * @return
+ */
+const String &SQLFWConnection::getErrorDescr() 
+{
+	return errorDescr_d;
+}
+
+/**
+ * This method checks whether a connection is opened or not.
+ *
+ * @return	true if the connection is opened. false otherwise.
+ */
+bool SQLFWConnection::isOpen()
+{
+	assert(getImpl());
+	return getImpl()->isOpen();
+}
+
+/**
+ * Method that gets an new created implementation connection.
+ *
+ * @return
+ */
+ConnectionImpl* SQLFWConnection::getImpl() const
+{
+	return connImpl_d;
+}
+
+/**
+ * Method that gets the connection URL.
+ *
+ * @return
+ */
+const SQLFWUrl &SQLFWConnection::getURL() const
+{
+	assert(connImpl_d);
+	return connImpl_d->getURL();
+}
+
+/**
+ * This method opens a connection with the URL specified as parameter.
+ *
+ * @param	URL with the data to establish the connection.
+ *
+ * @return	the SQLFWConnection related to the URL supplied as argument.
+ */
+SQLFWConnection *SQLFWConnection::openConnection(SQLFWUrl &url)
+{
+	return open(url);
+}
+
+/**
+ * Method that gets the schema name from the URL.
+ *
+ * @return
+ */
+const String &SQLFWConnection::getSchemaName() const
+{
+	assert(connImpl_d);
+	return (String&)connImpl_d->getSchemaName();
+}
+
+/**
+ * Method that gets the transaction attached to the connection.
+ *
+ * @return	the transaction attached to the connection.
+ */
+SQLFWTransaction *SQLFWConnection::transaction() const
+{
+	return trans_d;
+}
+
+/**
+ * This method states the state of the transaction. We can be or not in a
+ * transaction.
+ *
+ * @param	sit is the state of the transaction.
+ */
+void SQLFWConnection::setInTransaction(bool sit)
+{
+	inTransaction_d = sit;
+}
+
+/**
+ * This method returns whether the transaction is or not in transaction.
+ *
+ * @return	true if the transaction is in transaction. false otherwise.
+ */
+bool SQLFWConnection::inTransaction() const
+{
+	return inTransaction_d;
+}
+
+/**
+ * This method modified the constraints checking to deferred
+ *
+ * @return operation code showing the result of this change
+ */
+ConnectionOp::Status SQLFWConnection::setConstraintsDeferred()
+{
+	assert(connImpl_d);
+	return (connImpl_d->setConstraintsCheckToDeferred());
+}
+
+/**
+ * This method modified the constraints checking to immediate
+ *
+ * @return operation code showing the result of this change
+ */
+ConnectionOp::Status SQLFWConnection::setConstraintsImmediate()
+{
+	assert(connImpl_d);
+	return (connImpl_d->setConstraintsCheckToImmediate());
+}
+
+/**
+ * This method is used to state whether a LockTable has started a 
+ * transaction or not.
+ */
+void SQLFWConnection::lockTableBeganTransaction(bool ltbt)
+{
+	// Ensure we call this method only once
+	if (beganTrxByLockTable_d == true && ltbt == true) {
+		assert(0);
+	}
+
+	beganTrxByLockTable_d = ltbt;
+}
+
+/**
+ * This method returns true is a LockTable CFIX function call has started
+ * a transaction. false otherwise.
+ */
+bool SQLFWConnection::hasLockTableBeganTransaction() const
+{
+	return (beganTrxByLockTable_d == true);
+}
+
+/**
+ * This method is used to state whether a LockSchema has started a 
+ * transaction or not.
+ */
+void SQLFWConnection::lockSchemaBeganTransaction(bool lsbt)
+{
+	// Ensure we call this method only once
+	if (beganTrxByLockSchema_d == true && lsbt == true) {
+		assert(0);
+	}
+
+	beganTrxByLockSchema_d = lsbt;
+}
+
+/**
+ * This method returns true is a LockSchema CFIX function call has started
+ * a transaction. false otherwise.
+ */
+bool SQLFWConnection::hasLockSchemaBeganTransaction() const
+{
+	return (beganTrxByLockSchema_d == true);
+}
+
+/**
+ * This method is used to know whether the connection is being used to
+ * connect metadata schema.
+ *
+ * @return	true if the connection connected metadata schema.
+ *			false otherwise.
+ */
+bool SQLFWConnection::isMetadataConnection() const
+{
+	return isMetadataConnection_d;
+}
+
+/**
+ * This method is used to set the connection as being used to connect
+ * metadata schema.
+ */
+void SQLFWConnection::setMetadataConnection()
+{
+	isMetadataConnection_d = true;
+}
+
+/**
+ * This method returns true is the transaction is Ok, false otherwise.
+ */
+bool SQLFWConnection::isTransOK() const
+{
+	SQLFWTransaction *trans = transaction();
+	assert(trans);
+	return (trans->transactionOK());
+}
+
+/**
+ * This method returns the number of began transactions in the connection
+ */
+Int SQLFWConnection::nBegTrans() const
+{
+	return nBegTrans_d;
+}
+
+/**
+ * This method increments the number of began transactions in the connection
+ */
+void SQLFWConnection::incNBegTrans()
+{
+#ifdef SQLFW_NESTED_TRAN
+	const SQLFWUrl *url = &(getURL());
+	fprintf(stderr, "incNBegTrans %S\n", url->getOriginalUrl());
+#endif // SQLFW_NESTED_TRAN
+	nBegTrans_d++;
+}
+
+/**
+ * This method decrements the number of began transactions in the connection
+ */
+void SQLFWConnection::decNBegTrans()
+{
+	assert(nBegTrans_d >= 1);
+	nBegTrans_d--;
+}
+
+#endif	// SQLFWCONN_ICC

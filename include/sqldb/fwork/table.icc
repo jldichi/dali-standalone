@@ -1,0 +1,202 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: table.icc,v 1.5 2002/03/19 21:13:58 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef SQLDBTABLE_ICC
+#define SQLDBTABLE_ICC
+
+#include <sqldb/metadata/tablemd.h>
+
+/**
+ * This method returns the id of the table.
+ *
+ * @return	the table descriptor of the table.
+ */
+dbtable SQLFWTable::getId() const
+{
+	return tabId_d;
+}
+
+/**
+ * This method returns the name of the table.
+ *
+ * @return	the name of the table.
+ */
+const char *SQLFWTable::tabName() const
+{
+	return tableMetadata()->tableName();
+}
+
+/**
+ * This method returns the total amount of fields in the current table.
+ *
+ * @return	number of fields in the table.
+ */
+Int SQLFWTable::nFields() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->nFields();
+}
+
+/**
+ * This method returns the total amount of indexes in the current table.
+ *
+ * @return	number of indexes in the table.
+ */
+Int SQLFWTable::nIndexes() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->nKeys();
+}
+
+/**
+ * This method returns the fields of the table in an array.
+ *
+ * @return	an array with the fields of the table.
+ */
+const FieldArray &SQLFWTable::fields() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->fieldArray();
+}
+
+/**
+ * This method returns the indices of the table in an array.
+ *
+ * @return	an array with the indices of the table.
+ */
+const IndexArray &SQLFWTable::indexes() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->indexArray();
+}
+
+/**
+ * This method returns the cursors of the table in an array.
+ *
+ * @return	an array with the cursors of the table.
+ */
+const CursorArray &SQLFWTable::cursors() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->cursorArray();
+}
+
+/**
+ * Method that returns the primary key of the table.
+ *
+ * @return	an SQLFWIndex corresponding to the table PK.
+ */
+const SQLFWIndex &SQLFWTable::getPrimaryKey() const
+{
+	assert(tableMetadata());
+	return tableMetadata()->getPrimaryKey();
+}
+
+/**
+ * This method returns an index given its index descriptor.
+ *
+ * @param	indId is the index descriptor of the index we want to get.
+ *
+ * @return	requiered index.
+ */
+const SQLFWIndex &SQLFWTable::getIndex(dbindex indId) const
+{
+	assert(tableMetadata());
+	SQLFWIndex *ind = tableMetadata()->getIndex(indId);
+	assert(ind);
+	return *ind;
+}
+
+/**
+ * Method that returns the TableMetadata of the table.
+ *
+ * @return	the TableMetadata object related to this Table object.
+ */
+const TableMetadata &SQLFWTable::getTableMetadata() const
+{
+	assert(tableMetadata());
+	return *(tableMetadata());
+}
+
+/**
+ * This method returns the table implementation of the SQLFWTable.
+ *
+ * @return	the Table Implementation related to the framework table.
+ */
+TableImpl *SQLFWTable::tableImpl() const
+{
+	return tabImpl_d;
+}
+
+/**
+ * This method returns the table metadata of the SQLFWTable.
+ *
+ * @return	the TableMetadata related to the framework table.
+ */
+TableMetadata *SQLFWTable::tableMetadata() const
+{
+	return tabMD_d;
+}
+
+/**
+ * This methods sets the contents of the i-th field of the table buffer in
+ * the 'row' position in the vector field. It is used to set CFIX's date
+ * vector fields.
+ *
+ * @param	fld is the position to set.
+ * @param	row is the position inside the vector field.
+ * @param	d is the date to set in CFIX's field buffer.
+ *
+ * @return	OK because there is no way to detect errors during the setting.
+ */
+Int SQLFWTable::setDFld(Int fld, DATE d, Int row)
+{
+	return setIFld(fld, (int)d, row);
+}
+
+/**
+ * This methods sets the contents of the i-th field of the table buffer in
+ * the 'row' position in the vector field. It is used to set CFIX's time
+ * vector fields.
+ *
+ * @param	fld is the position to set.
+ * @param	row is the position inside the vector field.
+ * @param	t is the time to set in CFIX's field buffer.
+ *
+ * @return	OK because there is no way to detect errors during the setting.
+ */
+Int SQLFWTable::setTFld(Int fld, TIME t, Int row)
+{
+ 	return setIFld(fld, t, row);
+}
+
+/**
+ * This method is used to set the error of the last table operation.
+ *
+ * @param	err is the error description of the last failed operation.
+ */
+void SQLFWTable::setErrorDescr(const String &err)
+{
+	errorDescr_d = err;
+}
+
+/**
+ * This method gets the last error that took place in SQLFWTable class by
+ * calling any of the instance methods.
+ *
+ * @return	a String with the description of the last error.
+ */
+String SQLFWTable::getErrorDescr() const
+{
+	return errorDescr_d;
+}
+
+#endif	// SQLDBTABLE_ICC
+

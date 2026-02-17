@@ -1,0 +1,545 @@
+Tipo que se define para size_t, uid_t, etc. (en general se encuentra en
+el archivo <sys/types.h>)
+
+	typedef unsigned SizeT;
+	typedef unsigned short UidT;
+	typedef unsigned short GidT;
+	typedef unsigned PidT;
+	typedef unsigned KeyT;
+	typedef unsigned short ModeT;
+
+Tipo que se define para va_list (fijarse en $IDEAFIX/include/istdarg.h)
+
+	typedef char *VaListT;
+
+Tipo que se define para semun (fijarse en <sys/sem.h>)
+
+	typedef union semun {
+		int val;
+		struct semid_ds *buf;
+		unsigned short *array;
+	} SemunT;
+
+Indica si el strncpy funciona como se espera (en algunos Xenix no funciona
+correctamente)
+
+	#undef BAD_STRNCPY
+
+Indica si la funcion DelAllRecords puede borrar el archivo completo o debe
+hacer de a DelRecord's (no se porque en MS-DOS lo hace asi... quizas un bug)
+
+	#undef CANT_DEL_WHOLE_FILE
+
+Indica si se genera un checksum para los nodos del arbol (debug)
+
+	#undef CHKSUM
+
+Indica si el system call 'open' puede crear el archivo si no existe (algunas
+versiones viejas de unix solo permiten crear mediante 'creat')
+
+#undef OPEN_CANT_CREATE
+
+Indica si se compila la funcion para debuggear 'chkheap' (debug)
+
+	#undef C_HEAP
+
+Indica si se loguea a un archivo los locks (debug)
+
+	#undef DEBUG_LOCK
+
+Indica si existe el archivo <dirent.h>
+
+	#define DIRENT 					1
+
+Indica si el sistema operativo es System V
+
+	#undef USG
+
+Indica si existe el archivo <sys/ndir.h>
+
+	#undef SYSNDIR
+
+Indica si existe el archivo <sys/dir.h>
+
+	#undef SYSDIR
+
+Indica si el sistema operativo es POSIX
+
+	#undef _POSIX_VERSION
+
+Indica si existe la funcion 'opendir' (DOS)
+
+	#define HAVE_OPENDIR			1
+
+Indica el lenguaje (para las funciones str_cmp, etc.)
+
+	#define SPANISH					1
+
+Indica si el errno ENOTDIR significa en realidad ENOENT (Zortech)
+
+	#undef ENOTDIR_IS_ENOENT
+
+Indica si el exec de un ejecutable tarda tiempo (para hacer blink de
+la opcion del menu) (DOS)
+
+	#undef EXEC_TAKES_TIME
+
+
+Indica si hay un bug con argumentos variables(vararg);
+El bug se produce en Visual C++, cuando se llama a una funcion con argumentos variables, y el primer argumento es pasado por referencia (tipicamente const String &).
+Workaround : Si la funcion es en realidad un metodo de una clase, se crea un char * s igual al primer argumento, y se inicializa (va_start), con s + 16. Si la funcion no es un metodo, se inicializa con s + 12.
+
+	#define HAVE_VC_VARARGS_BUG		1
+
+Indica si existe la funcion 'abort'
+
+	#define HAVE_ABORT				1
+
+Indica si existe la funcion 'fcntl'
+
+	#define HAVE_FCNTL				1
+
+Indica si existe la opcion 'FIONREAD' para la funcion 'ioctl' (para
+ver si el buffer del teclado tiene algun caracter encolado)
+
+	#undef HAVE_FIONREAD
+
+Idem 'HAVE_FIONREAD'
+
+	#define HAVE_FIORDCHK			1
+
+Indica si se debe proveer la funcion 'FreeMem' (DOS)
+
+	#undef HAVE_FREEMEM
+
+Indica si existe la funcion 'fsync' (para asegurar que un archivo es
+bajado a disco)
+
+	#undef HAVE_FSYNC
+
+Indica si existe la funcion 'heap_walk' (Borland C)
+
+	#undef HAVE_HEAP_WALK
+
+Indica si existen las facilidades de IPC (unix)
+
+	#define HAVE_IPC				1
+
+Indica si existe la facilidad de Job Control (entrar al 'vi' y usar 'Ctrl-Z',
+si se vuelve a la linea de comandos --> hay job control y con 'fg' se vuelve
+al vi).
+
+	#undef HAVE_JOB_CONTROL
+
+Indica si existe la funcion 'lockf'
+
+	#define HAVE_LOCKF				1
+
+Indica si existe la funcion 'locking' (xenix)
+
+	#undef HAVE_LOCKING
+
+Indica si existe la facilidad de mail (unix)
+
+	#define HAVE_MAIL				1
+
+Indica si el mailer es MMDF (Sco Unix) o uno mas normal como sendmail, etc.
+
+	#define MMDF					1
+
+Indica si existe la funcion 'mktemp' (!dos)
+
+	#define HAVE_MKTEMP				1
+
+Indica si es necesario usar la 'fopen' propia para que el lock funcione
+correctamente (Borland C)
+
+	#undef NEED_NETBIOS_FOPEN
+
+Indica si existe el concepto de 'pid' (!dos)
+
+	#define HAVE_PID				1
+
+Indica si existe la facilidad de pipes (!dos)
+
+	#define HAVE_PIPES				1
+
+Indica si existe el concepto de procesos (!dos)
+
+	#define HAVE_PROC				1
+
+Indica si existe una pseudo concurrencia (dos con netbios)
+
+	#undef HAVE_PSEUDO_CONCURR
+
+Indica si el lock funciona correctamente (que los locks se liberen al
+terminar un programa, etc.) (!dos)
+
+	#define HAVE_REAL_LOCKS			1
+
+Indica si las se#ales son completas (!dos)
+
+	#define HAVE_FULL_SIGNALS		1
+
+Indica si existe la funcion 'rename' (dos)
+
+	#undef HAVE_RENAME
+
+Indica si los system calls interrumpidos por una se#al reintentan
+automaticamente en lugar de volver con errno = EINTR (bsd)
+
+	#undef HAVE_RESTARTABLE_SYSCALLS
+
+Indica si se dispone de poca memoria y se usan artilugios para ocupar
+lo menos posible (dos)
+
+	#undef HAVE_SAVEMEM
+
+Indica si Ideafix se compila con seguridad (ixset, etc.) (!dos)
+
+	#define HAVE_SECURITY			1
+
+Indica si el sistema operativo posee las facilidades de semaforos (!dos)
+
+	#define HAVE_SEMAPHORES			1
+
+Indica si existe la funcion 'setuid' (!System V)
+
+	#define HAVE_SETUID				1
+
+Algo que ver con la capacidad 'sgr0' del terminfo (ver con Dino)
+
+	#define HAVE_SGR				1
+
+Indica si el environment es corto y por lo tanto se debe permitir usar
+el archivo 'env' (dos)
+
+	#undef HAVE_SHORT_ENV
+
+Indica si el memset recibe un short (xenix)
+
+	#undef HAVE_SHORT_MEMSET
+
+Indica si existe la se#al SIGABRT
+
+	#define HAVE_SIGABRT			1
+
+Indica si existe la se#al SIGPWR
+
+	#undef HAVE_SIGPWR
+
+Indica si existe la funcion 'sound_beep' (Borland C)
+
+	#undef HAVE_SOUND_BEEP
+
+Indica si existe la variable '_stklen' (Borland C)
+
+	#undef HAVE_STKLEN
+
+Indica si existe la funcion 'strstr'
+
+	#undef HAVE_STRSTR
+
+Indica si existe la funcion 'strtok'
+
+	#define HAVE_STRTOK				1
+
+Indica si existe un manejo de 'system' mediante swap (xspawn en Borland C)
+
+	#undef HAVE_SWAP
+
+Indica si existe la funcion 'sync' (!dos)
+
+	#define HAVE_SYNC				1
+
+Indica si existe el archivo <sys/ttold.h>
+
+	#undef HAVE_SYSTTOLD_H
+
+Indica si existe el archivo <termio.h>
+
+	#define HAVE_TERMIO_H			1
+
+Indica si se diferencia entre archivos de texto y binarios (dos)
+
+	#undef HAVE_TEXT_FILES
+
+Indica si existe la estructura tm_zone
+
+	#undef HAVE_TM_ZONE				1
+
+Indica si existe la funcion 'tmpfile'
+
+	#define HAVE_TMPFILE			1
+
+Indica si existe el concepto de ttys (!dos)
+
+	#define HAVE_TTY				1
+
+Indica si existe la funcion 'umask' (!dos)
+
+	#define HAVE_UMASK				1
+
+Indica si existe el archivo '<unistd.h>'
+
+	#define HAVE_UNISTD_H			1
+
+Indica si existe el concepto de usuarios (!dos)
+
+	#define HAVE_USERS				1
+
+Indica si existe el archivo <time.h>
+
+	#define HAVE_TIME_H				1
+
+Indica si existe la variable localtime para el manejo de horas
+
+	#define HAVE_LOCALTIME			1
+
+Indica si existe la variable timezone para el manejo de horas
+
+	#define HAVE_TIMEZONE			1
+
+Indica si existe la variable altzone para el manejo de horas
+
+	#define HAVE_ALTZONE			1
+
+Indica si existe la directiva #pragma (interface/implementation) (gnu c)
+
+	#define HAVE_PRAGMA				1
+
+Indica si existe un offset de la hora retornada por time() (!dos)
+
+	#undef HAVE_TIMEOFFSET
+
+Indica si existe el archivo '<sys/timeb.h>'
+
+	#undef HAVE_SYS_TIMEB_H
+
+Indica si se usa el manejador de memoria extendida ZPM (Zortech con la
+biblioteca z)
+
+	#undef HAVE_ZPM
+
+Indica si se guarda un log de lo que se va logueando (debug)
+
+	#undef LOG_DBG
+
+Indica si es necesario cerrar un archivo para que el mismo sea bajado a
+disco (dos)
+
+	#undef NEED_CLOSE_FOR_SYNC
+
+Indica si es necesario poder loguear el manejo de memoria dinamica (dos)
+
+	#undef NEED_MEM_DEBUG
+
+Indica si se tiene advisory lock (locks que permitan retornar al leer sin
+lockear) (dos)
+
+	#undef NO_ADVISORY_LOCK
+
+Indica si existen las funciones 'mkdir' y 'rmdir'
+
+#undef NO_MKRMDIR
+
+Indica si se deben compilar los servicios (F3) de Ideafix
+
+	#undef NO_SERVICES
+
+Indica si existe un caracter para separar la letra del volumen de
+el path (':' para dos)
+
+	#undef VOLUME_LETTER_SEP
+
+Indica si los fuentes son POSIX
+
+	#undef _POSIX_SOURCE
+
+Indica si es necesario escribir un caracter indicando el fin de un archivo
+(Ctrl-Z en dos)
+
+	#undef END_OF_TEXT_FILE_CHAR
+
+Indica si se puede usar 'fgetc' para leer caracteres de la pantalla (dos)
+
+	#undef USE_FGETC
+
+Indica si existe el 'command.com' (dos)
+
+	#undef HAVE_COMMAND_COM
+
+Bug en VC++ cuando un constructor inicializa otros objetos en la declaracion.
+Se quita la inicializacion de esos objetos de la declaracion, y se la coloca
+ en la implementacion. Ejemplo editor\misc\debugger.cc linea 53
+
+	#define HAVE_CONSTRUCTORS_BUG		1
+
+Indica si existe el archivo '<sys/vfs.h>'
+
+	#undef HAVE_SYS_VFS_H
+
+Indica si existe la funcion 'getdfree' para averiguar el espacio libre
+
+	#undef HAVE_GETDFREE
+
+Indica si existe el errno ENOLINK
+
+	#define HAVE_ENOLINK
+
+Indica si existe el errno EMULTIHOP
+
+	#define HAVE_EMULTIHOP
+
+Indica si existe las macros _Paste, etc. (dos)
+
+	#undef HAVE_PASTE
+
+Indica si existe el vector errlist (unix)
+
+	#define HAVE_ERRLIST			1
+
+Indica si existe la funcion 'setsid'
+
+	#undef HAVE_SETSID
+
+Indica el tipo de retorno de las funciones 'malloc', etc.
+
+	#define ALLOCRETTYPE			void *
+
+Indica el tipo del primer parametro de la funcion '_flsbuf'
+
+	#define _FLSBUFPARAM1TYPE		unsigned char
+
+Indica el tipo de retorno de la funcion 'sleep'
+
+#define SLEEPRETTYPE			unsigned
+
+Indica el tipo del parametro de la funcion 'sleep'
+
+#define SLEEPPARAMTYPE			unsigned
+
+Indica el tipo del tercer parametro de la funcion 'fcntl'
+
+#define FCNTLPARAM3TYPE			...
+
+Indica el tipo del tercer parametro de la funcion 'open'
+
+	#define OPENPARAM3TYPE			...
+
+Indica el tipo de retorno de los handlers de se#ales
+
+	#define RETSIGTYPE				void
+
+Indica donde se encuentra el home directory de los mailboxes
+
+	#define MAIL_HOME				"/usr/mail"
+
+Indica el separador de PATH's
+
+	#define PATH_SEP				":"
+
+Indica el separador de directorios
+
+	#define PATH_SLASH				"/"
+
+Indica el separador de directorios universal
+
+	#define PATH_SLASH_UNIV			"/"
+
+Indica el shell por defecto
+
+	#define DEFAULT_SHELL			"/bin/sh"
+
+Indica los caracteres que componen el new line
+
+	#define NEW_LINE				"\n"
+
+Indica el path por defecto
+
+	#define DEFAULT_PATH			":/bin:/usr/ideafix/bin"
+
+Indica si existe la funcion 'sigset'
+
+	#define HAVE_SIGSET				1
+
+Indica si existe la funcion 'memmove'
+
+	#undef HAVE_MEMMOVE
+
+Indica si existen las funciones 'bcopy', 'bzero', etc.
+
+	#define HAVE_BCOPY				1
+
+Indica si es o no un anacronismo el indicar el tama#o de un vector al
+destruirlo (C++)
+
+	#define VEC_DEL_SIZE(a)
+
+Indica si existe la opcion F_SETOWN de la funcion 'fcntl'
+
+	#undef HAVE_F_SETOWN
+
+Indica la forma de referirse a un parametro entre comillas
+
+	#define quote(a)				#a
+
+Indica si el sistema operativo soporta nombres de hasta 8 caracteres
+de largo (MSDOS)
+
+	#undef HAVE_SHORT_FILE_NAMES
+
+Indica si se debe definir la variable PORTAR antes de incluir <ar.h>
+(esto es asi salvo en xenix286)
+
+	#define NEED_AR_PORTAR				1
+
+Indica si el compilador de C se invoca con xcc (xenix)
+
+	#undef HAVE_XCC
+
+Indica si el ar.h contiene la estructura fl_hdr (aix)
+
+	#undef HAVE_AR_FL_HDR
+
+Indica si el encabezado del ar contiene el MAGIC y el size en forma
+numerica (en lugar de en ASCII).  (solo en xenix).
+
+	#undef HAVE_AR_NUMERIC
+
+Indica si el magic del ar es la macro AIAMAG (solo en aix)
+
+	#define HAVE_AR_AIAMAG
+
+Indica si el ar tiene longitud variable de los nombres de los objetos
+(solo en aix)
+
+	#undef HAVE_AR_NAMLEN
+
+Indica si el sistema operativo necesita el comando 'ranlib' para usar
+una biblioteca (sun y xenix).
+
+	#undef HAVE_RANLIB
+
+Indica el caracter que usa el 'ar' para dar fin al nombre del modulo.
+
+	#define AR_MOD_SEP	'/'
+
+Indica si el s.o. soporta sockets con family AF_UNIX
+(class SocketConnetion)
+
+	#define HAVE_AF_UNIX
+
+Indica si la estructura sockaddr_un tiene el miembro sun_len
+(HAVE_AF_UNIX_LEN => HAVE_AF_UNIX)
+(class SocketConnetion)
+
+	#define HAVE_AF_UNIX_LEN
+
+Indica si existe el directorio /usr/share/lib/terminfo
+
+	#define HAVE_SHARE_LIB_TERMINFO_DIR		1
+
+Indica si existe el directorio /usr/share/terminfo (linux5x)
+
+	#define HAVE_SHARE_TERMINFO_DIR		1

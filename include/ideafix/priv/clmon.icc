@@ -1,0 +1,22 @@
+/********************************************************************
+*
+* Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: clmon.icc,v 1.1.1.1 1996/04/16 18:51:40 gustavof Exp $
+*
+* DESCRIPTION:
+*
+*********************************************************************/
+ClientMonitor::ClientMonitor()
+{
+	head = DbConnection::head();
+}
+
+Int ClientMonitor::nMessages(const String &)
+{
+	return ERR;
+}
+

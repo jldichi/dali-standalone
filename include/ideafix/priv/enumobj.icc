@@ -1,0 +1,49 @@
+// --------------------------------------------------------------------------
+// Copyright (c) 1995 InterSoft Co.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: enumobj.icc,v 1.1.1.1 1996/04/16 18:51:41 gustavof Exp $
+//
+// Description:
+// --------------------------------------------------------------------------
+
+#ifndef ENUMOBJ_ICC
+#define ENUMOBJ_ICC
+
+EnumObjectEntry::EnumObjectEntry(const String &enumName, Int val,
+		const String &shortDescr, const String &longDescr)
+:	enumName_d(enumName),
+	value_d(val),
+	shortDescr_d(shortDescr),
+	longDescr_d(longDescr)
+{
+}
+
+Int EnumObjectEntry::value() const
+{
+	return value_d;
+}
+
+const String &EnumObjectEntry::name() const
+{
+	return enumName_d;
+}
+
+const String &EnumObjectEntry::shortDescr() const
+{
+	return shortDescr_d;
+}
+
+const String &EnumObjectEntry::longDescr() const
+{
+	return longDescr_d;
+}
+
+const String &EnumObject::name() const
+{
+	return name_d;
+}
+
+#endif

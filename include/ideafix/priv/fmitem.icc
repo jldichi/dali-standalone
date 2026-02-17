@@ -1,0 +1,41 @@
+/********************************************************************
+* Copyright (c) 1994 InterSoft Co.  All Rights Reserved
+* THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft Co.
+* The copyright notice above does not evidence any
+* actual or intended publication of such source code.
+*
+* $Id: fmitem.icc,v 1.1.1.1 1996/04/16 18:51:41 gustavof Exp $
+*
+* DESCRIPTION
+* method of classes defined in ideafix/priv/fmitem.h
+*********************************************************************/
+
+#ifndef FMITEM_ICC
+#define FMITEM_ICC
+
+#pragma interface
+
+inline Fm::Event FmButton::actionId() const
+{
+	return actionId_;
+}
+
+inline FmValueObj *FmButton::field() const
+{
+	return fld_;
+}
+
+inline Int FmRadioBox::orientation() const
+{
+	return orientation_;
+}
+
+inline Int FmSlider::orientation() const
+{
+	return orientation_;
+}
+
+#endif
+
+
+

@@ -1,0 +1,47 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: fldarray.icc,v 1.4 2002/03/19 21:21:18 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	FLDARRAY_ICC
+#define	FLDARRAY_ICC
+
+/**
+ *
+ * @result
+ */
+struct s_field *FieldArray::fieldArrayRep() const
+{
+	return fieldArray_d;
+}
+
+/**
+ *
+ * @result
+ */
+Int FieldArray::length() const
+{
+	return arrayLen_d;
+}
+
+/**
+ * Method that returns the i-th FieldMetadata in the array.
+ */
+const FieldMetadata &FieldArray::elementAt(Int i) const
+{
+	if (i < 0 || i >= arrayLen_d)
+		error("FieldArray: INDEX_OUT_OF_BOUNDS = (%ld)", i);
+
+	if (!fields_d[i])
+		error("FieldArray: INDEX_POSITION_EMPTY");
+
+	return *(fields_d[i]);
+}
+
+#endif	// FLDARRAY_ICC
+

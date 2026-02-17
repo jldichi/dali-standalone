@@ -1,0 +1,38 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: permlist.icc,v 1.7 2002/03/20 15:11:00 hardaiz Exp $
+// -----------------------------------------------------------------------
+#ifndef	PERMLIST_ICC
+#define	PERMLIST_ICC
+
+// Set methods.
+/**
+ * Method that adds a new Permission to the list of permissions. The objects
+ * inserted in this list will be destroyed by the ObjectList destructor.
+ *
+ * @param	p is the Permission to be added to the list of permissions.
+ */
+void PermissionList::add(const Permission *c)
+{
+	ObjectList::add(c);
+}
+
+// Get Information methods.
+/**
+ * Method that returns the "i-th" Permission of the permission list.
+ *
+ * @param	i is the position of the "i-th" Permission to be retrieved.
+ * @return	Permission in "i-th" position of the permission list.
+ */
+const Permission &PermissionList::getPermission(Int i) const
+{
+	return (Permission&)ObjectList::get(i);
+}
+
+#endif	// PERMLIST_ICC
+

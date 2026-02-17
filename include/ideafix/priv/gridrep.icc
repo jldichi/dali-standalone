@@ -1,0 +1,24 @@
+#ifndef GRIDREP_ICC
+#define GRIDREP_ICC
+
+bool GridRep::gridIsDone(void) const
+{
+	return gridIsDone_;
+}
+
+bool GridRep::gridIsAbort(void) const
+{
+	return gridIsAbort_;
+}
+
+void GridRep::endGrid(void)
+{
+	gridIsDone_ = true;
+}
+
+Int GridRep::currCol(void) const
+{
+	return currCol_;
+}
+
+#endif // GRIDREP_ICC

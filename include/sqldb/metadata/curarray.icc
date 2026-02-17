@@ -1,0 +1,58 @@
+//- Copyright Notice
+// -----------------------------------------------------------------------
+// (C) Copyright 1998 InterSoft S.A.  All Rights Reserved
+// THIS IS UNPUBLISHED PROPRIETARY SOURCE CODE OF InterSoft S.A.
+// The copyright notice above does not evidence any actual or intended 
+// publication of such source code.
+//
+// $Id: curarray.icc,v 1.7 2002/03/19 22:27:02 hardaiz Exp $
+// -----------------------------------------------------------------------
+
+#ifndef	CURARRAY_ICC
+#define	CURARRAY_ICC
+
+/**
+ * This method returns the number of occupied slots in the array of
+ * cursors.
+ *
+ * @return	number of slots occupied in the array of cursors.
+ */
+Int CursorArray::occupiedSlots() const
+{
+	return occupiedSlots_d;
+}
+
+/**
+ * Method that returns the beginning of the underlying cursor array.
+ *
+ * @return	beginning of underlying cursor array.
+ */
+struct s_dbcur *CursorArray::cursorArrayRep() const
+{
+	return cursorArray_d;
+}
+
+/**
+ * Method that returns the length of the array.
+ *
+ * @return	lenght of the cursor array. It is not the number of cursors in
+ *			the array but the spaces that can hold cursors.
+ */
+Int CursorArray::length() const
+{
+	return arrayLen_d;
+}
+
+/**
+ * This method returns the TableMetadata used by the cursors.
+ *
+ * @return	the TableMetadata of the table over which the cursors were
+ *			created.
+ */
+const TableMetadata &CursorArray::tableMetadata() const
+{
+	return tabMD_d;
+}
+
+#endif	// CURARRAY_ICC
+
