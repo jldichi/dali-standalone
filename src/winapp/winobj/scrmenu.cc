@@ -205,8 +205,9 @@ void ScrollMenu::refreshItems()
 
 	String s, s1;
 	Int attr;
+	Int i;
 
-	for (Int i = 0; i < nfil; i++) {
+	for (i = 0; i < nfil; i++) {
 
 		fpRead(floor + i, s, s1, attr);
 
@@ -236,7 +237,8 @@ void ScrollMenu::fillItems()
 	floor = curritem < nfil-1 ? 0 : curritem - (nfil-1);
 	curritem -= floor;
 
-	for (Int i=0; i < nfil; i++) {
+	Int i;
+	for (i=0; i < nfil; i++) {
 	    fpRead(i+floor, s, s1, attr);
 		if (s == HIGH_VALUE && s1 == HIGH_VALUE)
 			break;

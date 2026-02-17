@@ -724,7 +724,7 @@ extern FTELLRETTYPE ftell(FTELLPARAM1TYPE);
 extern int fseek(FILE *, long, int);
 extern SizeT fread(FREADPARAM1TYPE, SizeT, SizeT, FILE *);
 extern SizeT fwrite(FWRITEPARAM1TYPE, SizeT, SizeT, FILE *);
-extern char *getpass(char const *prompt) __THROW;
+extern char *getpass(const char *prompt);
 extern int execl(char const *path, char const *arg1, ...) __THROW;
 extern int rmdir(char const *p) __THROW;
 extern int access(char const *f, int a) __THROW;

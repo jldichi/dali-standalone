@@ -73,6 +73,12 @@ file(GLOB LIBIDEA_IMAGE    src/lib/image/*.cc)
 list(FILTER LIBIDEA_MISC EXCLUDE REGEX "imain\\.cc$")
 list(FILTER LIBIDEA_MISC EXCLUDE REGEX "libstamp\\.cc$")
 
+# DALI-STANDALONE: Exclude licensing and authentication code
+# ulicense.cc - user license management (not needed for standalone)
+# gnshidea.cc - shared library symbol stubs (not needed, compiled under SHIDEAIX/SHIDEAES only)
+list(FILTER LIBIDEA_BASIC_CC EXCLUDE REGEX "ulicense\\.cc$")
+list(FILTER LIBIDEA_BASIC_CC EXCLUDE REGEX "gnshidea\\.cc$")
+
 add_library(idea STATIC
     ${LIBIDEA_ITYPES}
     ${LIBIDEA_BASIC_CC}
@@ -114,6 +120,8 @@ file(GLOB IXWI_C  src/ixwi/*.c)
 # Remove IPC-specific files - wmalone.cc provides standalone versions
 list(FILTER IXWI_CC EXCLUDE REGEX "wirem\\.cc$")
 list(FILTER IXWI_CC EXCLUDE REGEX "wiipc\\.cc$")
+# DALI-STANDALONE: Remove password dialog (no user authentication)
+list(FILTER IXWI_CC EXCLUDE REGEX "wigpas\\.cc$")
 
 add_library(ixwi STATIC
     ${IXWI_CC}
