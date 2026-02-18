@@ -438,9 +438,19 @@ ATTR_TAB  _far attr_tab[] = {
 static String msgTab[POOL_LEN];
 static Int offset = 0;
 
+// DALI-STANDALONE: WM messages (KEYTAB*, ATTRTAB*) live in wm.msg,
+// not in the app message file.  Use a dedicated MsgTable for "wm".
+static MsgTable *_wmMsgTab = NULL;
+
 char *_WmErrmsg(const String &msg)
 {
- 	String &aux = msgTab[offset] = appMsg(msg);
+	if (_wmMsgTab == NULL)
+		_wmMsgTab = new MsgTable("wm", NULL_STRING, true);
+	String result = _wmMsgTab->find(msg);
+	// HIGH_VALUE means not found in wm.msg – fall back to appMsg
+	if (toCharPtr(result) == HIGH_VALUE)
+		result = appMsg(msg);
+ 	String &aux = msgTab[offset] = result;
 	offset = (offset+1)%POOL_LEN;
 	return (char*)toCharPtr(aux);
 }
