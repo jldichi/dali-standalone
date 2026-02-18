@@ -185,6 +185,20 @@ public:
 	void debug(const char *name);
 };
 
+// DALI-STANDALONE: Forward declarations for ADL visibility (friend functions with primitive args)
+Num toNum(char c);
+Num toNum(short i);
+Num toNum(short unsigned i);
+Num toNum(Int j);
+Num toNum(UnInt j);
+Num toNum(double k);
+Num toNum(const char *cs);
+Num toNum(const String &str);
+
+// DALI-STANDALONE: Global cmp for primitive Int type (needed by HashTab macro in hashtab.h)
+inline Int cmp(Int a, Int b) { return a == b ? 0 : (a < b ? -1 : 1); }
+inline Int hashVal(Int a, Int modulo) { return (a >= 0 ? a : -a) % modulo; }
+
 #if (__GNUC__ >= 8)
 using namespace idx;
 #endif
