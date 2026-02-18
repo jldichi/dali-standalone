@@ -1,0 +1,316 @@
+# Archivo de descripcion de asignaciones en terminal.
+#
+# Terminal to use with linux
+#
+INPUT:
+
+PROCESS  		\E[[E			F5
+END				\E[4~    		End
+REMOVE			\E[17~			F6
+IGNORE			\E[19~			F8
+
+CURS_UP       	\E[A            Cursor arriba
+CURS_DOWN     	\E[B            Cursor abajo
+CURS_RIGHT    	\E[C            Cursor der.
+CURS_LEFT     	\E[D            Cursor izq.
+
+CURS_UP       	\EOA            Cursor arriba
+CURS_DOWN     	\EOB            Cursor abajo
+CURS_RIGHT    	\EOC            Cursor der.
+CURS_LEFT     	\EOD            Cursor izq.
+
+PAGE_UP			\E[5~			Pg Up
+PAGE_DOWN		\E[6~			Pg Dn
+PAGE_LEFT		\E[20~			F9
+PAGE_RIGHT		\E[21~			F10
+
+BACKSPACE		\d127			Backspace
+UNDO			\E[18~			F7
+INSERT      	\E[2~			Insert
+DELETE			\E[3~			Delete
+TAB				\t				Tab
+
+HELP			\E[[A	            F1
+APL_HELP		\E[[B			F2
+SERVICES 		\E[[C			F3
+SUSPEND			\E[[D			F4
+REDRAW			^L				CTRL-L
+KEYCONF			^K				CTRL-K
+INTERRUPT		^|				CTRL-|
+META			\E[1~			Home
+CTRLX			\E				Alt
+
+AF_1			\E1				Esc 1
+AF_2			\E2				Esc 2
+AF_3			\E3				Esc 3
+AF_4			\E4				Esc 4
+
+\033			\E\E			Esc-Esc
+
+#	caracteres	linguisticos.
+
+aacute			'a				'a
+eacute			'e				'e
+iacute			'i				'i
+oacute			'o				'o
+uacute			'u				'u
+
+Aacute			'A				'A
+Eacute			'E				'E
+Iacute			'I				'I
+Oacute			'O				'O
+Uacute			'U				'U
+
+agrave			`a				`a
+egrave			`e				`e
+igrave			`i				`i
+ograve			`o				`o
+ugrave			`u				`u
+
+Agrave			`A				`A
+Egrave			`E				`E
+Igrave			`I				`I
+Ograve			`O				`O
+Ugrave			`U				`U
+
+acircunflex		\^a				\^a
+ecircunflex		\^e				\^e
+icircunflex		\^i				\^i
+ocircunflex		\^o				\^o
+ucircunflex		\^u				\^u
+
+Acircunflex		\^A				\^A
+Ecircunflex		\^E				\^E
+Icircunflex		\^I				\^I
+Ocircunflex		\^O				\^O
+Ucircunflex		\^U				\^U
+
+adieresis		:a				:a
+edieresis		:e				:e
+idieresis		:i				:i
+odieresis		:o				:o
+udieresis		:u				:u
+ydieresis		:y				:y
+
+Adieresis		:A				:A
+Edieresis		:E				:E
+Idieresis		:I				:I
+Odieresis		:O				:O
+Udieresis		:U				:U
+Ydieresis		:Y				:Y
+
+ntilde			'n				'n
+atilde			~a				~a
+otilde			~o				~o
+ccedilla		'c				'c
+
+Ntilde			'N				'N
+Atilde			~A				~A
+Otilde			~O				~O
+Ccedilla		'C				'C
+
+questdown		'?				'?
+exclamdown		'!				'!
+
+\:				::				::
+\'				''				''
+\`				``				``
+\^				\^\^			\^\^
+\~				~~	~~
+\\				\\\\			\\\\
+
+Aring			\\A*			\\A*
+aring			\\a*			\\a*
+Oslash			\\O\\			\\O\\
+oslash			\\o\\			\\o\\
+AE				\\AE			\\AE
+ae				\\ae			\\ae
+OE				\\OE			\\OE
+oe				\\oe			\\oe
+germandbls		's				's
+
+# Lineas simples
+VERT			'.				'.
+HORIZ			'0				'0
+LL				'1				'1
+BOT				'2				'2
+LR				'3				'3
+LEFT			'4				'4
+CEN				'5				'5
+RIGHT			'6				'6
+UL				'7				'7
+TOP				'8				'8
+UR				'9				'9
+
+# Lineas dobles
+D_VERT			\\.				\\.
+D_HORIZ			\\0				\\0
+D_LL			\\1				\\1
+D_BOT			\\2				\\2
+D_LR			\\3				\\3
+D_LEFT			\\4				\\4
+D_CEN			\\5				\\5
+D_RIGHT			\\6				\\6
+D_UL			\\7				\\7
+D_TOP			\\8				\\8
+D_UR			\\9				\\9
+
+# Lineas dobles y simples
+DS_BOT			:2				:2
+DS_LEFT			:4				:4
+DS_RIGHT		:6				:6
+DS_TOP			:8				:8
+
+#	Otros	caracteres
+BLOCK			'\d32			'(SPACE)
+BULLET			'-				'-
+SHADOW			'#				'#
+UARROW			\\\E[A			\\ Cursor Arriba
+DARROW			\\\E[B			\\ Cursor Abajo
+RARROW			\\\E[C			\\ Cursor Derecha
+LARROW			\\\E[D			\\ Cursor Izquierda
+AUSTRAL			\\A=			\\A=
+cents			\\c				\\c
+
+OUTPUT:
+
+# Caracteres espanioles.
+aacute			\d225
+eacute			\d233
+iacute			\d237
+oacute			\d243
+uacute			\d250
+
+Aacute			\d193
+Eacute			\d201
+Iacute			\d205
+Oacute			\d211
+Uacute			\d218
+
+agrave			\d224
+egrave			\d232
+igrave			\d236
+ograve			\d242
+ugrave			\d249
+
+Agrave			\d192
+Egrave			\d200
+Igrave			\d204
+Ograve			\d210
+Ugrave			\d217
+
+acircunflex		\d226
+ecircunflex		\d234
+icircunflex		\d238
+ocircunflex		\d244
+ucircunflex		\d251
+
+Acircunflex		\d194
+Ecircunflex		\d202
+Icircunflex		\d206
+Ocircunflex		\d212
+Ucircunflex		\d219
+
+adieresis		\d228
+edieresis		\d235
+idieresis		\d239
+odieresis		\d246
+udieresis		\d252
+ydieresis		\d253
+
+Adieresis		\d196
+Edieresis		\d203
+Idieresis		\d207
+Odieresis		\d214
+Udieresis		\d220
+Ydieresis		\d221
+
+atilde			\d227
+otilde			\d245
+
+Atilde			\d195
+Otilde			\d213
+
+aring			\d229
+Aring			\d197
+
+ntilde			\d241
+Ntilde			\d209
+
+questdown		\d191
+exclamdown		\d161
+
+Ccedilla		\d199
+ccedilla		\d231
+Oslash			\d216
+oslash			\d248
+cents			\d222
+AE				\d198
+ae				\d230
+OE				\d215
+oe				\d247
+germandbls		\d223
+
+# Lineas simples
+VERT			ALTERNATE \d120
+RIGHT			ALTERNATE \d117
+UR				ALTERNATE \d107
+LL				ALTERNATE \d109
+BOT				ALTERNATE \d118
+TOP				ALTERNATE \d119
+LEFT			ALTERNATE \d116
+HORIZ			ALTERNATE \d113
+CEN				ALTERNATE \d110
+LR				ALTERNATE \d106
+UL				ALTERNATE \d108
+
+# Lineas dobles
+D_VERT			ALTERNATE \d120
+D_RIGHT			ALTERNATE \d117
+D_UR			ALTERNATE \d107
+D_LL			ALTERNATE \d109
+D_BOT			ALTERNATE \d118
+D_TOP			ALTERNATE \d119
+D_LEFT			ALTERNATE \d116
+D_HORIZ			ALTERNATE \d113
+D_CEN			ALTERNATE \d110
+D_LR			ALTERNATE \d106
+D_UL			ALTERNATE \d108
+
+# Lineas dobles simples
+
+DS_RIGHT		ALTERNATE \d117
+DS_LEFT			ALTERNATE \d116
+DS_BOT			ALTERNATE \d118
+DS_TOP			ALTERNATE \d119
+
+# Otros caracteres graficos.
+BULLET			ALTERNATE \d126
+SHADOW			ALTERNATE \d97
+BLOCK			REVERSE \d32
+UARROW			ALTERNATE \d94
+DARROW			ALTERNATE \d96
+LARROW			ALTERNATE \d60
+RARROW			ALTERNATE \d62
+AUSTRAL			\d65
+
+COLORS:
+
+BLACK			\E[30m
+RED			\E[31m
+GREEN			\E[32m
+YELLOW			\E[33m
+BLUE			\E[34m
+MAGENTA			\E[35m
+CYAN			\E[36m
+WHITE			\E[0;37m
+
+BLACK_BG		\E[40m
+RED_BG			\E[41m
+GREEN_BG		\E[42m
+YELLOW_BG		\E[43m
+BLUE_BG			\E[44m
+MAGENTA_BG		\E[45m
+CYAN_BG			\E[46m
+WHITE_BG		\E[47m
+#BLINK			\E[0;5m

@@ -1,0 +1,295 @@
+# $Id: ti924-8.map,v 1.1.1.1 1996/04/16 18:50:07 gustavof Exp $
+#
+# Master_Solutions terminal description file.
+#
+# Terminal TI-924 8 bits
+# Caracteres graficos especiales en 8 bits.
+#
+# Formato
+# INPUT:
+# CODIGO_TECLA_FUNCION	SECUENCIA	TEXTO_DE_AYUDA
+#
+# OUTPUT:
+# codigo_de_simbolo	[Atributos] valor
+
+INPUT:
+PROCESS			\x9b16~			F5
+END				\x8fS			F4
+REMOVE			\x9b17~			F6
+IGNORE			\x9b19~			F8
+ENTER			^M				ENTER
+
+CURS_UP			\x9bA			Cursor arriba
+CURS_DOWN		\x9bB			Cursor abajo
+CURS_RIGHT		\x9bC			Cursor der.
+CURS_LEFT		\x9bD			Cursor izq.
+
+PAGE_LEFT		\x9b20~			F9
+PAGE_RIGHT		\x9b21~			F10
+
+BACKSPACE		^H				Cursor izq.
+UNDO			\x9b18~			F7
+INSERT			\x9b@			Insert
+DELETE			\x9bP			Delete
+CLEAR_FLD		\x9b28~			F12
+TAB				^I				Tab
+
+HELP			\x8fP			F1
+APL_HELP		\x8fQ			F2
+SERVICES		\x8fR			F3
+INTERRUPT		^|				CTRL - |
+SUSPEND			\x9b42~			Shift+F5
+META			\x9bH			Home
+CTRLX			^X				CTRL - x
+AF_1			\x9b25~			Shift+F1
+AF_2			\x9b26~			Shift+F2
+AF_3			\x9b40~			Shift+F3
+AF_4			\x9b41~			Shift+F4
+
+\033			\033\033		Esc-Esc
+
+# Caracteres linguisticos.
+
+aacute			'a				'a
+eacute			'e				'e
+iacute			'i				'i
+oacute			'o				'o
+uacute			'u				'u
+
+Aacute			'A				'A
+Eacute			'E				'E
+Iacute			'I				'I
+Oacute			'O				'O
+Uacute			'U				'U
+
+agrave			`a				`a
+egrave			`e				`e
+igrave			`i				`i
+ograve			`o				`o
+ugrave			`u				`u
+
+Agrave			`A				`A
+Egrave			`E				`E
+Igrave			`I				`I
+Ograve			`O				`O
+Ugrave			`U				`U
+
+acircunflex		\^a				\^a
+ecircunflex		\^e				\^e
+icircunflex		\^i				\^i
+ocircunflex		\^o				\^o
+ucircunflex		\^u				\^u
+
+Acircunflex		\^A				\^A
+Ecircunflex		\^E				\^E
+Icircunflex		\^I				\^I
+Ocircunflex		\^O				\^O
+Ucircunflex		\^U				\^U
+
+adieresis		:a				:a
+edieresis		:e				:e
+idieresis		:i				:i
+odieresis		:o				:o
+udieresis		:u				:u
+ydieresis		:y				:y
+
+Adieresis		:A				:A
+Edieresis		:E				:E
+Idieresis		:I				:I
+Odieresis		:O				:O
+Udieresis		:U				:U
+Ydieresis		:Y				:Y
+
+ntilde			'n				'n
+atilde			~a				~a
+otilde			~o				~o
+ccedilla		'c				'c
+
+Ntilde			'N				'N
+Atilde			~A				~A
+Otilde			~O				~O
+Ccedilla		'C				'C
+
+questdown		'?				'?
+exclamdown		'!				'!
+
+\:				::				::
+\'				''				''
+\`				``				``
+\^				\^\^			\^\^
+\~				~~	~~
+\\				\\\\			\\\\
+
+Aring			\\A*			\\A*
+aring			\\a*			\\a*
+Oslash			\\O\\			\\O\\
+oslash			\\o\\			\\o\\
+AE				\\AE			\\AE
+ae				\\ae			\\ae
+OE				\\OE			\\OE
+oe				\\oe			\\oe
+germandbls		's				's
+
+# Lineas simples
+VERT			'.				'.
+HORIZ			'0				'0
+LL				'1				'1
+BOT				'2				'2
+LR				'3				'3
+LEFT			'4				'4
+CEN				'5				'5
+RIGHT			'6				'6
+UL				'7				'7
+TOP				'8				'8
+UR				'9				'9
+
+# Lineas dobles
+D_VERT			\\.				\\.
+D_HORIZ			\\0				\\0
+D_LL			\\1				\\1
+D_BOT			\\2				\\2
+D_LR			\\3				\\3
+D_LEFT			\\4				\\4
+D_CEN			\\5				\\5
+D_RIGHT			\\6				\\6
+D_UL			\\7				\\7
+D_TOP			\\8				\\8
+D_UR			\\9				\\9
+
+# Lineas dobles y simples
+DS_BOT			:2				:2
+DS_LEFT			:4				:4
+DS_RIGHT		:6				:6
+DS_TOP			:8				:8
+
+# Otros caracteres
+BLOCK			'\d32			'(SPACE)
+BULLET			'-				'-
+SHADOW			'#				'#
+UARROW			\\\x9bA			\\ Cursor Arriba
+DARROW			\\\x9bB			\\ Cursor Abajo
+RARROW			\\\x9bC			\\ Cursor Derecha
+LARROW			\\\x9bD			\\ Cursor Izquierda
+AUSTRAL			\\A=			\\A=
+cents			\\c				\\c
+
+OUTPUT:
+#######
+
+aacute			\d225
+eacute			\d233
+iacute			\d237
+oacute			\d243
+uacute			\d250
+
+Aacute			\d193
+Eacute			\d201
+Iacute			\d205
+Oacute			\d211
+Uacute			\d218
+
+agrave			\d224
+egrave			\d232
+igrave			\d236
+ograve			\d242
+ugrave			\d249
+
+Agrave			\d192
+Egrave			\d200
+Igrave			\d204
+Ograve			\d210
+Ugrave			\d217
+
+acircunflex		\d226
+ecircunflex		\d234
+icircunflex		\d238
+ocircunflex		\d244
+ucircunflex		\d251
+
+Acircunflex		\d194
+Ecircunflex		\d202
+Icircunflex		\d206
+Ocircunflex		\d212
+Ucircunflex		\d219
+
+adieresis		\d228
+edieresis		\d235
+idieresis		\d239
+odieresis		\d246
+udieresis		\d252
+ydieresis		\d253
+
+Adieresis		\d196
+Edieresis		\d203
+Idieresis		\d207
+Odieresis		\d214
+Udieresis		\d220
+Ydieresis		\d221
+
+atilde			\xe4
+otilde			\xf5
+
+Atilde			\xc3
+Otilde			\xd5
+
+ntilde			\d241
+Ntilde			\d209
+
+questdown		\d191
+exclamdown		\d161
+
+Aring			\d197
+aring			\d229
+
+Ccedilla		\d199
+ccedilla		\d231
+Oslash			\d216
+oslash			\d248
+AE				\d198
+ae				\d230
+OE				\xd7
+oe				\xf7
+germandbls		\d223
+AUSTRAL			A
+cents			\d162
+
+# Lineas simples
+VERT			ALTERNATE x
+RIGHT			ALTERNATE u
+LEFT			ALTERNATE n
+UR				ALTERNATE k
+LL				ALTERNATE m
+BOT				ALTERNATE v
+TOP				ALTERNATE w
+HORIZ			ALTERNATE q
+CEN				+
+LR				ALTERNATE j
+UL				ALTERNATE l
+
+# Lineas dobles
+D_VERT			ALTERNATE x
+D_RIGHT			ALTERNATE u
+D_LEFT			ALTERNATE n
+D_UR			ALTERNATE k
+D_LL			ALTERNATE m
+D_BOT			ALTERNATE v
+D_TOP			ALTERNATE w
+D_HORIZ			ALTERNATE q
+D_CEN			+
+D_LR			ALTERNATE j
+D_UL			ALTERNATE l
+
+# Lineas dobles y simples
+DS_TOP			ALTERNATE w
+DS_BOT			ALTERNATE v
+DS_LEFT			ALTERNATE n
+DS_RIGHT		ALTERNATE u
+
+# Otros caracteres
+SHADOW			ALTERNATE a
+#BULLET			ALTERNATE
+#BLOCK			ALTERNATE
+RARROW			\d187
+LARROW			\d171
+UARROW			\^
+DARROW			v

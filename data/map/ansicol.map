@@ -1,0 +1,310 @@
+# $Id: ansicol.map,v 1.1.1.1 1996/04/16 18:50:06 gustavof Exp $
+#
+# Master_Solutions terminal description file.
+#
+# Consola ansi para XENIX con color
+#
+# Formato
+# INPUT:
+# CODIGO_TECLA_FUNCION	SECUENCIA	TEXTO_DE_AYUDA
+#
+# OUTPUT:
+# codigo_de_simbolo	[Atributos] valor
+#
+
+INPUT:
+
+PROCESS			\E[Q			F5
+END				\E[F			Fin
+REMOVE			\E[R			F6
+IGNORE			\E[T			F8
+ENTER			^M				Intro
+
+CURS_UP			\E[A			Cursor arriba
+CURS_DOWN		\E[B			Cursor abajo
+CURS_RIGHT		\E[C			Cursor der.
+CURS_LEFT		\E[D			Cursor izq.
+PAGE_UP			\E[I			Re Pag
+PAGE_DOWN		\E[G			Pg Dn
+PAGE_LEFT		\E[U			F9
+PAGE_RIGHT		\E[V			F10
+
+BACKSPACE		\b				<===
+UNDO			\E[S			F7
+INSERT			\E[L			Insert
+DELETE			\177			Supr
+CLEAR_FLD		\E[p			(Shift)+Supr
+TAB				\t				Tab
+
+APL_HELP		\E[N			F2
+HELP			\E[M			F1
+REDRAW			^L				CTRL-L
+SERVICES		\E[O			F3
+KEYCONF			^K				CTRL-K
+INTERRUPT		^|				CTRL-|
+SUSPEND			\E[P			F4
+META			\E[H			Inicio
+CTRLX			^X				CTRL-X
+
+AF_1			\E1				Esc 1
+AF_2			\E2				Esc 2
+AF_3			\E3				Esc 3
+AF_4			\E4				Esc 4
+
+\033			\E\E			Esc-Esc
+
+#	caracteres	linguisticos.
+
+aacute			'a				'a
+eacute			'e				'e
+iacute			'i				'i
+oacute			'o				'o
+uacute			'u				'u
+
+Aacute			'A				'A
+Eacute			'E				'E
+Iacute			'I				'I
+Oacute			'O				'O
+Uacute			'U				'U
+
+agrave			`a				`a
+egrave			`e				`e
+igrave			`i				`i
+ograve			`o				`o
+ugrave			`u				`u
+
+Agrave			`A				`A
+Egrave			`E				`E
+Igrave			`I				`I
+Ograve			`O				`O
+Ugrave			`U				`U
+
+acircunflex		\^a				\^a
+ecircunflex		\^e				\^e
+icircunflex		\^i				\^i
+ocircunflex		\^o				\^o
+ucircunflex		\^u				\^u
+
+Acircunflex		\^A				\^A
+Ecircunflex		\^E				\^E
+Icircunflex		\^I				\^I
+Ocircunflex		\^O				\^O
+Ucircunflex		\^U				\^U
+
+adieresis		:a				:a
+edieresis		:e				:e
+idieresis		:i				:i
+odieresis		:o				:o
+udieresis		:u				:u
+ydieresis		:y				:y
+
+Adieresis		:A				:A
+Edieresis		:E				:E
+Idieresis		:I				:I
+Odieresis		:O				:O
+Udieresis		:U				:U
+Ydieresis		:Y				:Y
+
+ntilde			'n				'n
+atilde			~a				~a
+otilde			~o				~o
+ccedilla		'c				'c
+
+Ntilde			'N				'N
+Atilde			~A				~A
+Otilde			~O				~O
+Ccedilla		'C				'C
+
+questdown		'?				'?
+exclamdown		'!				'!
+
+\:				::				::
+\'				''				''
+\`				``				``
+\^				\^\^			\^\^
+\~				~~	~~
+\\				\\\\			\\\\
+
+Aring			\\A*			\\A*
+aring			\\a*			\\a*
+Oslash			\\O\\			\\O\\
+oslash			\\o\\			\\o\\
+AE				\\AE			\\AE
+ae				\\ae			\\ae
+OE				\\OE			\\OE
+oe				\\oe			\\oe
+germandbls		's				's
+
+# Lineas simples
+VERT			'.				'.
+HORIZ			'0				'0
+LL				'1				'1
+BOT				'2				'2
+LR				'3				'3
+LEFT			'4				'4
+CEN				'5				'5
+RIGHT			'6				'6
+UL				'7				'7
+TOP				'8				'8
+UR				'9				'9
+
+# Lineas dobles
+D_VERT			\\.				\\.
+D_HORIZ			\\0				\\0
+D_LL			\\1				\\1
+D_BOT			\\2				\\2
+D_LR			\\3				\\3
+D_LEFT			\\4				\\4
+D_CEN			\\5				\\5
+D_RIGHT			\\6				\\6
+D_UL			\\7				\\7
+D_TOP			\\8				\\8
+D_UR			\\9				\\9
+
+# Lineas dobles y simples
+DS_BOT			:2				:2
+DS_LEFT			:4				:4
+DS_RIGHT		:6				:6
+DS_TOP			:8				:8
+
+#	Otros	caracteres
+BLOCK			'\d32			'(SPACE)
+BULLET			'-				'-
+SHADOW			'#				'#
+UARROW			\\\E[A			\\ Cursor Arriba
+DARROW			\\\E[B			\\ Cursor Abajo
+RARROW			\\\E[C			\\ Cursor Derecha
+LARROW			\\\E[D			\\ Cursor Izquierda
+AUSTRAL			\\A=			\\A=
+cents			\\c				\\c
+
+OUTPUT:
+aacute			\d160
+eacute			\d130
+iacute			\d161
+oacute			\d162
+uacute			\d163
+
+#Aacute			\===
+Eacute			\x90
+#Iacute			\===
+#Oacute			\===
+#Uacute			\===
+
+agrave			\d133
+egrave			\d138
+igrave			\d141
+ograve			\d149
+ugrave			\d151
+
+#Agrave			\===
+#Egrave			\===
+#Igrave			\===
+#Ograve			\===
+#Ugrave			\===
+
+acircunflex		\d131
+ecircunflex		\d136
+icircunflex		\d140
+ocircunflex		\d147
+ucircunflex		\d150
+
+#Acircunflex	\===
+#Ecircunflex	\===
+#Icircunflex	\===
+#Ocircunflex	\===
+#Ucircunflex	\===
+
+adieresis		\d132
+edieresis		\d137
+idieresis		\d139
+odieresis		\d148
+udieresis		\d129
+ydieresis		\d152
+
+Adieresis		\d142
+#Edieresis		\===
+#Idieresis		\===
+Odieresis		\d153
+Udieresis		\d154
+Ydieresis		\x98
+
+ntilde			\d164
+Ntilde			\d165
+questdown		\d168
+exclamdown		\d173
+
+Aring			\x8F
+aring			\x86
+
+Ccedilla		\x80
+ccedilla		\x87
+#Oslash			\---
+#oslash			\---
+AUSTRAL			A
+cents			\x9B
+AE				\x92
+ae				\x91
+#OE				\---
+#oe				\---
+germandbls		\xE1
+
+# Lineas simples
+VERT			\xB3
+RIGHT			\xB4
+UR				\xBF
+LL				\xC0
+BOT				\xC1
+TOP				\xC2
+LEFT			\xC3
+HORIZ			\xC4
+CEN				\xC5
+LR				\xD9
+UL				\xDA
+
+# Lineas dobles
+D_VERT			\d186
+D_RIGHT			\xB9
+D_UR			\d187
+D_LL			\d200
+D_BOT			\d202
+D_TOP			\d203
+D_LEFT			\xCC
+D_HORIZ			\d205
+D_CEN			\d206
+D_LR			\d188
+D_UL			\d201
+
+# Lineas dobles y simples
+DS_TOP			\xD1
+DS_BOT			\xCF
+DS_LEFT			\xC7
+DS_RIGHT		\xB6
+
+#	Otros	caracteres
+
+SHADOW			\xB1
+BULLET			\xFA
+BLOCK			\xFE
+RARROW			>
+LARROW			<
+UARROW			\^
+DARROW			v
+
+COLORS:
+
+RED				\E[31m
+GREEN			\E[32m
+YELLOW			\E[33m
+BLUE			\E[34m
+MAGENTA			\E[35m
+CYAN			\E[36m
+WHITE			\E[37m
+
+RED_BG			\E[41;1m
+GREEN_BG		\E[42m
+YELLOW_BG		\E[43m
+BLUE_BG			\E[44m
+MAGENTA_BG		\E[45m
+CYAN_BG			\E[46;1m
+WHITE_BG		\E[47m

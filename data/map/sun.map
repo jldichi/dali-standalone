@@ -1,0 +1,296 @@
+# $Id: sun.map,v 1.1.1.1 1996/04/16 18:50:07 gustavof Exp $
+#
+# Master_Solutions terminal description file.
+#
+# Consola SUN para Sunview
+#
+# Formato
+# INPUT:
+# CODIGO_TECLA_FUNCION	SECUENCIA	TEXTO_DE_AYUDA
+#
+# OUTPUT:
+# codigo_de_simbolo	[Atributos] valor
+#
+
+INPUT:
+
+PROCESS			\E[228z			F5
+END				\E[220z			End
+REMOVE			\E[229z			F6
+IGNORE			\E[231z			F8
+ENTER			\E[250z			Enter
+ENTER           ^J              Return
+
+CURS_UP			\E[A			\d172
+CURS_DOWN		\E[B			\d173
+CURS_RIGHT		\E[C			\d175
+CURS_LEFT		\E[D			\d174
+PAGE_UP			\E[216z			PgUp
+PAGE_DOWN		\E[222z			PgDn
+PAGE_LEFT		\E[232z			F9
+PAGE_RIGHT		\E[233z			F10
+
+BACKSPACE		\b				<===
+UNDO			\E[230z			F7
+INSERT			\E[247z			Ins
+DELETE			\E[249z			Delete
+DELETE			\177			Delete
+# CLEAR_FLD		\E[p			(Shift)+Supr
+TAB				\t				Tab
+
+APL_HELP		\E[225z			F2
+HELP			\Eh			Esc h
+HELP			\E[224z			F1
+HELP			\E[235z			F12
+REDRAW			^L				CTRL-L
+SERVICES		\E[226z			F3
+KEYCONF			^K				CTRL-K
+INTERRUPT		^|				CTRL-|
+SUSPEND			\E[227z			F4
+META			\E[214z			Home
+CTRLX			^X				CTRL-X
+
+AF_1			\E1				Esc 1
+AF_2			\E2				Esc 2
+AF_3			\E3				Esc 3
+AF_4			\E4				Esc 4
+
+\033			\E\E			Esc-Esc
+
+# Caracteres linguisticos.
+
+aacute			'a				'a
+eacute			'e				'e
+iacute			'i				'i
+oacute			'o				'o
+uacute			'u				'u
+
+Aacute			'A				'A
+Eacute			'E				'E
+Iacute			'I				'I
+Oacute			'O				'O
+Uacute			'U				'U
+
+agrave			`a				`a
+egrave			`e				`e
+igrave			`i				`i
+ograve			`o				`o
+ugrave			`u				`u
+
+Agrave			`A				`A
+Egrave			`E				`E
+Igrave			`I				`I
+Ograve			`O				`O
+Ugrave			`U				`U
+
+acircunflex		\^a				\^a
+ecircunflex		\^e				\^e
+icircunflex		\^i				\^i
+ocircunflex		\^o				\^o
+ucircunflex		\^u				\^u
+
+Acircunflex		\^A				\^A
+Ecircunflex		\^E				\^E
+Icircunflex		\^I				\^I
+Ocircunflex		\^O				\^O
+Ucircunflex		\^U				\^U
+
+adieresis		:a				:a
+edieresis		:e				:e
+idieresis		:i				:i
+odieresis		:o				:o
+udieresis		:u				:u
+ydieresis		:y				:y
+
+Adieresis		:A				:A
+Edieresis		:E				:E
+Idieresis		:I				:I
+Odieresis		:O				:O
+Udieresis		:U				:U
+Ydieresis		:Y				:Y
+
+ntilde			'n				'n
+atilde			~a				~a
+otilde			~o				~o
+ccedilla		'c				'c
+
+Ntilde			'N				'N
+Atilde			~A				~A
+Otilde			~O				~O
+Ccedilla		'C				'C
+
+questdown		'?				'?
+exclamdown		'!				'!
+
+\:				::				::
+\'				''				''
+\`				``				``
+\^				\^\^			\^\^
+\~				~~	~~
+\\				\\\\			\\\\
+
+Aring			\\A*			\\A*
+aring			\\a*			\\a*
+Oslash			\\O\\			\\O\\
+oslash			\\o\\			\\o\\
+AE				\\AE			\\AE
+ae				\\ae			\\ae
+OE				\\OE			\\OE
+oe				\\oe			\\oe
+germandbls		's				's
+
+# Lineas simples
+VERT			'.				'.
+HORIZ			'0				'0
+LL				'1				'1
+BOT				'2				'2
+LR				'3				'3
+LEFT			'4				'4
+CEN				'5				'5
+RIGHT			'6				'6
+UL				'7				'7
+TOP				'8				'8
+UR				'9				'9
+
+# Lineas dobles
+D_VERT			\\.				\\.
+D_HORIZ			\\0				\\0
+D_LL			\\1				\\1
+D_BOT			\\2				\\2
+D_LR			\\3				\\3
+D_LEFT			\\4				\\4
+D_CEN			\\5				\\5
+D_RIGHT			\\6				\\6
+D_UL			\\7				\\7
+D_TOP			\\8				\\8
+D_UR			\\9				\\9
+
+# Lineas dobles y simples
+DS_BOT			:2				:2
+DS_LEFT			:4				:4
+DS_RIGHT		:6				:6
+DS_TOP			:8				:8
+
+#	Otros	caracteres
+BLOCK			'\d32			'(SPACE)
+BULLET			'-				'-
+SHADOW			'#				'#
+UARROW			\\\E[A			\\ \d172
+DARROW			\\\E[B			\\ \d173
+RARROW			\\\E[C			\\ \d175
+LARROW			\\\E[D			\\ \d174
+AUSTRAL			\\A=			\\A=
+cents			\\c				\\c
+
+OUTPUT:
+aacute			\d225
+eacute			\d233
+iacute			\d237
+oacute			\d243
+uacute			\d250
+
+Aacute			\xc1
+Eacute			\xc9
+Iacute			\xcd
+Oacute			\xd3
+Uacute			\xda
+
+agrave			\d133
+egrave			\d138
+igrave			\d141
+ograve			\d149
+ugrave			\d151
+
+Agrave			\xc0
+Egrave			\xc8
+Igrave			\xcc
+#Ograve			\===
+#Ugrave			\===
+
+acircunflex		\d131
+ecircunflex		\d136
+icircunflex		\d140
+ocircunflex		\d147
+ucircunflex		\d150
+
+Acircunflex	\xc2
+Ecircunflex	\xca
+#Icircunflex	\===
+#Ocircunflex	\===
+#Ucircunflex	\===
+
+adieresis		\d132
+edieresis		\d137
+idieresis		\d139
+odieresis		\d148
+udieresis		\d252
+ydieresis		\x80
+
+Adieresis		\xc4
+Edieresis		\xcb
+#Idieresis		\===
+Odieresis		\d153
+Udieresis		\d154
+Ydieresis		\x98
+
+ntilde			\d241
+Ntilde			\d209
+questdown		\xbf
+exclamdown		\xa1
+
+Aring			\xc5
+aring			\x86
+
+Ccedilla		\xc7
+ccedilla		\x87
+#Oslash			\---
+#oslash			\---
+AUSTRAL			\xa0
+cents			\xa2
+AE				\xc6
+ae				\x91
+#OE				\---
+#oe				\---
+germandbls		\xdf
+
+# Lineas simples
+VERT			\x82
+RIGHT			\x88
+UR				\x8b
+LL				\x83
+BOT				\x84
+TOP				\x8a
+LEFT			\x86
+HORIZ			\x81
+CEN				\x87
+LR				\x85
+UL				\x89
+
+# Lineas dobles
+D_VERT			\x8d
+D_RIGHT			\x93
+D_UR			\x96
+D_LL			\x8e
+D_BOT			\x8f
+D_TOP			\x95
+D_LEFT			\x91
+D_HORIZ			\x8c
+D_CEN			\x92
+D_LR			\x90
+D_UL			\x94
+
+# Lineas dobles y simples
+DS_TOP			\x9a
+DS_BOT			\x97
+DS_LEFT			\x98
+DS_RIGHT		\x99
+
+#	Otros	caracteres
+
+SHADOW			\x80
+BULLET			\x9b
+BLOCK			\x7f
+RARROW			\x9e
+LARROW			\x9f
+UARROW			\x9c
+DARROW			\x9d

@@ -1,0 +1,303 @@
+# $Id: vt220sp.map,v 1.1.1.1 1996/04/16 18:50:08 gustavof Exp $
+#
+# Archivo de descripcion de asignaciones en terminal.
+#
+# Terminal vt220 8 bits.
+#
+# Configuracion para el teclado espaniol.
+#
+# Formato
+# INPUT:
+# CODIGO_TECLA_FUNCION	SECUENCIA	TEXTO_DE_AYUDA
+#
+# OUTPUT:
+# codigo_de_simbolo	[Atributos] valor
+#
+
+INPUT:
+PROCESS			\E[29~			Ejecutar
+END				\EOS			PF4
+REMOVE			\E[17~			F6
+IGNORE			\E[19~			F8
+ENTER			^M				Enter o Validar
+
+CURS_UP			\E[A			Cursor arriba
+CURS_DOWN		\E[B			Cursor abajo
+CURS_RIGHT		\E[C			Cursor der.
+CURS_LEFT		\E[D			Cursor izq.
+
+PAGE_UP			\E[5~			Pantall. previa
+PAGE_DOWN		\E[6~			Prox. pantall.
+PAGE_LEFT		\E[20~			F9
+PAGE_RIGHT		\E[21~			F10
+
+BACKSPACE		\177			< x |
+UNDO			\E[18~			F7
+INSERT			\E[2~			Insertar
+DELETE			\E[3~			Borrar
+CLEAR_FLD		\E[31~			F17
+TAB				\t				-->|
+
+APL_HELP		\EOQ			PF2
+HELP			\E[P			PF1
+HELP			\E[28~			Ayuda
+
+REDRAW			^l				CTRL-L
+SERVICES		\EOR			PF3
+KEYCONF			^k				CTRL-k
+INTERRUPT		^|				CTRL-|
+SUSPEND			\E[4~			Seleccionar
+META			\E[1~			Localizar
+CTRLX			^x				CTRL-X
+
+AF_1			\E[23~			F11
+AF_2			\E[24~			F12
+AF_3			\E[25~			F13
+AF_4			\E[26~			F14
+
+\033			\E\E			Esc-Esc
+
+# Caracteres linguisticos.
+
+aacute			\d225			'a
+eacute			\d233			'e
+iacute			\d237			'i
+oacute			\d243			'o
+uacute			\d250			'u
+
+Aacute			\d193			'A
+Eacute			\d201			'E
+Iacute			\d205			'I
+Oacute			\d211			'O
+Uacute			\d218			'U
+
+agrave			\d224			`a
+egrave			\d232			`e
+igrave			\d236			`i
+ograve			\d242			`o
+ugrave			\d249			`u
+
+Agrave			\d192			`A
+Egrave			\d200			`E
+Igrave			\d204			`I
+Ograve			\d210			`O
+Ugrave			\d217			`U
+
+acircunflex		\d226			\^a
+ecircunflex		\d234			\^e
+icircunflex		\d238			\^i
+ocircunflex		\d244			\^o
+ucircunflex		\d251			\^u
+
+Acircunflex		\d194			\^A
+Ecircunflex		\d202			\^E
+Icircunflex		\d206			\^I
+Ocircunflex		\d212			\^O
+Ucircunflex		\d219			\^U
+
+adieresis		\d228			Dieresis a
+edieresis		\d235			Dieresis e
+idieresis		\d239			Dieresis i
+odieresis		\d246			Dieresis o
+udieresis		\d252			Dieresis u
+ydieresis		\d253			Dieresis y
+
+Adieresis		\d196			Dieresis A
+Edieresis		\d203			Dieresis E
+Idieresis		\d207			Dieresis I
+Odieresis		\d214			Dieresis O
+Udieresis		\d220			Dieresis U
+Ydieresis		\d221			Dieresis Y
+
+atilde			\d227			~a
+otilde			\d245			~o
+
+Atilde			\d195			~A
+Otilde			\d213			~O
+
+aring			\d229			Componer * a
+Aring			\d197			Componer * A
+
+Ccedilla		\d199			Componer , C
+ccedilla		\d231			\d231
+Oslash			\d216			Componer O /
+oslash			\d248			Componer o /
+cents			\d222			Componer c /
+AE				\d198			Componer A E
+ae				\d230			Componer a e
+OE				\d215			Componer O E
+oe				\d247			Componer o e
+germandbls		\d223			Componer S S
+
+ntilde			\d241			\d241
+Ntilde			\d209			\d209
+questdown		\d191			Componer ? ?
+exclamdown		\d161			Componer ! !
+\'				\'				' SPACE
+\`				\`				` SPACE
+\~				\~				~ SPACE
+\^				\^				\^ SPACE
+\\				\\\\			\\\\
+
+# Lineas simples
+VERT			\\.				\\.
+HORIZ			\\0				\\0
+LL				\\1				\\1
+BOT				\\2				\\2
+LR				\\3				\\3
+LEFT			\\4				\\4
+CEN				\\5				\\5
+RIGHT			\\6				\\6
+UL				\\7				\\7
+TOP				\\8				\\8
+UR				\\9				\\9
+
+# Lineas dobles
+D_VERT			\\=.			\\=.
+D_HORIZ			\\=0			\\=0
+D_LL			\\=1			\\=1
+D_BOT			\\=2			\\=2
+D_LR			\\=3			\\=3
+D_LEFT			\\=4			\\=4
+D_CEN			\\=5			\\=5
+D_RIGHT			\\=6			\\=6
+D_UL			\\=7			\\=7
+D_TOP			\\=8			\\=8
+D_UR			\\=9			\\=9
+
+# Lineas dobles y simples
+DS_BOT			\\:2			\\:2
+DS_LEFT			\\:4			\\:4
+DS_RIGHT		\\:6			\\:6
+DS_TOP			\\:8			\\:8
+
+#	Otros	caracteres
+BLOCK			\\\d32			\\ Space
+BULLET			\\-				\\-
+SHADOW			\\#				\\#
+UARROW			\\\E[A			\\ Cursor Arriba
+DARROW			\\\E[B			\\ Cursor Abajo
+RARROW			\\\E[C			\\ Cursor Derecha
+LARROW			\\\E[D			\\ Cursor Izquierda
+AUSTRAL			\\A=			\\A=
+
+OUTPUT:
+# Caracteres espanioles.
+aacute			\d225
+eacute			\d233
+iacute			\d237
+oacute			\d243
+uacute			\d250
+
+Aacute			\d193
+Eacute			\d201
+Iacute			\d205
+Oacute			\d211
+Uacute			\d218
+
+agrave			\d224
+egrave			\d232
+igrave			\d236
+ograve			\d242
+ugrave			\d249
+
+Agrave			\d192
+Egrave			\d200
+Igrave			\d204
+Ograve			\d210
+Ugrave			\d217
+
+acircunflex		\d226
+ecircunflex		\d234
+icircunflex		\d238
+ocircunflex		\d244
+ucircunflex		\d251
+
+Acircunflex		\d194
+Ecircunflex		\d202
+Icircunflex		\d206
+Ocircunflex		\d212
+Ucircunflex		\d219
+
+adieresis		\d228
+edieresis		\d235
+idieresis		\d239
+odieresis		\d246
+udieresis		\d252
+ydieresis		\d253
+
+Adieresis		\d196
+Edieresis		\d203
+Idieresis		\d207
+Odieresis		\d214
+Udieresis		\d220
+Ydieresis		\d221
+
+atilde			\d227
+otilde			\d245
+
+Atilde			\d195
+Otilde			\d213
+
+aring			\d229
+Aring			\d197
+
+ntilde			\d241
+Ntilde			\d209
+
+questdown		\d191
+exclamdown		\d161
+
+Ccedilla		\d199
+ccedilla		\d231
+Oslash			\d216
+oslash			\d248
+cents			\d222
+AE				\d198
+ae				\d230
+OE				\d215
+oe				\d247
+germandbls		\d223
+
+# Lineas simples
+VERT			ALTERNATE \d120
+RIGHT			ALTERNATE \d117
+UR				ALTERNATE \d107
+LL				ALTERNATE \d109
+BOT				ALTERNATE \d118
+TOP				ALTERNATE \d119
+LEFT			ALTERNATE \d116
+HORIZ			ALTERNATE \d113
+CEN				ALTERNATE \d110
+LR				ALTERNATE \d106
+UL				ALTERNATE \d108
+
+# Lineas dobles
+D_VERT			ALTERNATE \d120
+D_RIGHT			ALTERNATE \d117
+D_UR			ALTERNATE \d107
+D_LL			ALTERNATE \d109
+D_BOT			ALTERNATE \d118
+D_TOP			ALTERNATE \d119
+D_LEFT			ALTERNATE \d116
+D_HORIZ			ALTERNATE \d113
+D_CEN			ALTERNATE \d110
+D_LR			ALTERNATE \d106
+D_UL			ALTERNATE \d108
+
+# Lineas dobles simples
+
+DS_RIGHT		ALTERNATE \d117
+DS_LEFT			ALTERNATE \d116
+DS_BOT			ALTERNATE \d118
+DS_TOP			ALTERNATE \d119
+
+# Otros caracteres graficos.
+BULLET			ALTERNATE \d126
+SHADOW			ALTERNATE \d97
+BLOCK			REVERSE \d32
+UARROW			ALTERNATE \d94
+DARROW			ALTERNATE \d96
+LARROW			ALTERNATE \d60
+RARROW			ALTERNATE \d62
+AUSTRAL			\d65
