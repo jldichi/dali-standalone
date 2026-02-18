@@ -341,7 +341,8 @@ void DaliView::chgStrCursor(Int len, const String newtext)
 	Int col = cursor.column();
 
 	// borro el text
-	for (Int i = 0; i < len; i++)
+	Int i;
+	for (i = 0; i < len; i++)
 		cursor.delChar();
 
 	// inserto el nuevo texto
@@ -458,7 +459,8 @@ void DaliView::insNode()
 		return;
 	}
 
-	for (DaliView *aux=head; aux->next; aux=aux->next)
+	DaliView *aux;
+	for (aux=head; aux->next; aux=aux->next)
 		;
 
 	aux->next = this;
@@ -474,7 +476,8 @@ void DaliView::delNode()
 		return;
 	}
 
-	for (DaliView *aux=head; aux->next && aux->next!=this; aux=aux->next)
+	DaliView *aux;
+	for (aux=head; aux->next && aux->next!=this; aux=aux->next)
 		;
 
 	aux->next = aux->next->next;
