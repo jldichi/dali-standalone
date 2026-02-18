@@ -57,6 +57,7 @@ file(GLOB LIBIDEA_ILIST    src/lib/elib/ilist/*.cc)
 file(GLOB LIBIDEA_OSFILE   src/lib/elib/osfile/*.cc)
 file(GLOB LIBIDEA_STREAM   src/lib/elib/stream/*.cc)
 file(GLOB LIBIDEA_DBROWSER src/lib/elib/dbrowser/*.cc)
+file(GLOB LIBIDEA_PASSWORD src/lib/elib/password/*.cc)
 file(GLOB LIBIDEA_MESSAGE  src/lib/message/*.cc)
 file(GLOB LIBIDEA_MSGTABLE src/lib/msgtable/*.cc)
 file(GLOB LIBIDEA_OUTPUT   src/lib/output/*.cc)
@@ -97,6 +98,7 @@ add_library(idea STATIC
     ${LIBIDEA_OSFILE}
     ${LIBIDEA_STREAM}
     ${LIBIDEA_DBROWSER}
+    ${LIBIDEA_PASSWORD}
     ${LIBIDEA_MESSAGE}
     ${LIBIDEA_MSGTABLE}
     ${LIBIDEA_OUTPUT}
