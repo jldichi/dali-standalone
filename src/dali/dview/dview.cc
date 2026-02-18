@@ -608,7 +608,7 @@ DaliView::DaliView(String f, bool isTemp)
 	stmode = ST_FULL;
 
     // Special case: ibuild files are footers
-	if (f.field(-1, ".") == "ib")
+	if (String(f.field(-1, ".")) == "ib")
 		footer	= true;
 }
 
