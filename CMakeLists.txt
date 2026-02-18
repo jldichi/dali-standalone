@@ -219,6 +219,7 @@ target_link_libraries(dali
     m
     crypt
     pthread
+    tinfo
 )
 
 # Try static linking for portability
