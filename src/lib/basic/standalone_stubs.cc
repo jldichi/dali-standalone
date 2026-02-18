@@ -10,8 +10,6 @@
 #pragma implementation "objectid.h"
 #include <essentia/objectid.h>
 #include <ideafix/priv/ixsystem.h>
-#include <local/istream.h>
-#include <local/dirview.h>
 
 // --- IxSystem permission check ---
 // Always return true: standalone editor doesn't need license checks
@@ -47,111 +45,6 @@ SocketConnection::~SocketConnection() { }
 
 Int SocketConnection::send(Int, const char *) { return ERR; }
 Int SocketConnection::receive(Int, char *) { return ERR; }
-
-// --- Stream classes ---
-// Base implementations missing from codebase (originally in IdeaFix core lib)
-
-Stream::Stream(short n)
-	: size(n), cnt(n), state(0)
-{
-	base = ptr = new char[n];
-	offset = 0;
-}
-
-Stream::~Stream()
-{
-	delete[] base;
-}
-
-void Stream::reset()
-{
-	ptr = base;
-	cnt = size;
-	state = 0;
-	offset = 0;
-}
-
-void Stream::clearError()
-{
-	state = 0;
-}
-
-InputStream &InputStream::get(String &, char)
-{
-	state |= END_OF_INPUT;
-	return *this;
-}
-
-InputStream &InputStream::unget(char)
-{
-	return *this;
-}
-
-char InputStream::fill()
-{
-	state |= END_OF_INPUT;
-	return 0;
-}
-
-InputStream &InputStream::operator>>(Num &)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(Int)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(const char *s)
-{
-	if (s) while (*s) { if (--cnt < 0) flush(); *ptr++ = *s++; }
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(const void *)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(const Num &)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(const String &s)
-{
-	return *this << toCharPtr(s);
-}
-
-OutputStream &OutputStream::operator<<(Date)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(Time)
-{
-	return *this;
-}
-
-OutputStream &OutputStream::operator<<(OutputStreamFunc f)
-{
-	return f(*this);
-}
-
-void OutputStream::flush() { }
-void OutputStream::endMsg() { }
-void OutputStream::closeMsg() { }
-Int OutputStream::pause() { return 0; }
-Int OutputStream::pause(const String &, const String &) { return 0; }
-
-OutputStream &flush(OutputStream &s) { s.flush(); return s; }
-OutputStream &endl(OutputStream &s) { s << '\n'; s.flush(); return s; }
-OutputStream &endMsg(OutputStream &s) { s.endMsg(); return s; }
-
-// --- DirView stubs ---
-DirView::DirView() { }
-DirView::~DirView() { }
 
 // --- libwm library stamp ---
 class libwm {
