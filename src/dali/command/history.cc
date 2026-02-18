@@ -84,7 +84,8 @@ bool History::reAlloc(Int len)
 
 	Command **aux = (Command **)tr_new char[len*sizeof(Command*)];
 
-	for (Int j=0, i=floor; i != ind; i = (i+1)%maxsize, j++)
+	Int j, i;
+	for (j=0, i=floor; i != ind; i = (i+1)%maxsize, j++)
 		aux[j] = list[i];
 
 	aux[j] = list[ind];

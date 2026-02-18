@@ -67,6 +67,9 @@ public:
 	inline static Int storeLength();
 };
 
+// DALI-STANDALONE: Forward declaration for ::cmp qualified lookup in GCC 13
+Int cmp(const ObjectId &p1, const ObjectId &p2);
+
 #include <essentia/objectid.icc>
 
 #endif // OBJECTID_H

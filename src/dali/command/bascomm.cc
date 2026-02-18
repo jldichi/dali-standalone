@@ -409,9 +409,10 @@ bool BraceBlock::redo()
 	text 		= cursor().value();
     
     // Search for correct column to insert '{'
- 	for (Int i = text.length() - 1; i > 0 && isSpace(text[i]); i--) 
+ 	Int i;
+ 	for (i = text.length() - 1; i > 0 && isSpace(text[i]); i--)
  		;
-    
+
  	if (i>0) {
  	    cursor().goToCol(i+1);
  		cView->insChar(' ');

@@ -39,6 +39,10 @@ String operator+(const String &s1, const char *cs);
 String toStr(const char *fmt, va_list ap);
 String toStr(const String &fmt, va_list ap);
 
+// DALI-STANDALONE: Forward declarations for cmp (::cmp qualified lookup in GCC 13)
+Int cmp(const String &csr, const char *cs);
+Int cmp(const String &csr, const String &s);
+
 // String class
 
 class String {

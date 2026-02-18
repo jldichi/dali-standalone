@@ -194,6 +194,8 @@ Num toNum(UnInt j);
 Num toNum(double k);
 Num toNum(const char *cs);
 Num toNum(const String &str);
+Num ldNum(FILE *f);
+void stNum(FILE *f, const Num &n);
 
 // DALI-STANDALONE: Global cmp for primitive Int type (needed by HashTab macro in hashtab.h)
 inline Int cmp(Int a, Int b) { return a == b ? 0 : (a < b ? -1 : 1); }
@@ -503,5 +505,21 @@ public:
 	void store(char *&buff) const;
 	static Boolean load(const char *&buff);
 };
+
+// DALI-STANDALONE: Forward declarations for cmp/hashVal (friend functions need
+// these for ::cmp qualified lookup in GCC 13 - ADL doesn't find inline friends)
+Int cmp(const Num &a, const Num &b);
+Int cmp(const Date &a, const Date &b);
+Int cmp(const Time &a, const Time &b);
+Int cmp(const Boolean &a, const Boolean &b);
+Int hashVal(const Num &a, Int modulo);
+Int hashVal(const Date &a, Int modulo);
+Int hashVal(const Time &a, Int modulo);
+Boolean toBoolean(Int i);
+Boolean toBoolean(const Num &v);
+Boolean toBoolean(const String &s);
+Int toInt(const Boolean &t);
+const char *toCharPtr(Boolean t);
+String toString(Boolean t);
 
 #endif

@@ -156,6 +156,8 @@ list(FILTER WINAPP_WINCMD EXCLUDE REGEX "histcmd\\.cc$")
 list(FILTER WINAPP_WINCMD EXCLUDE REGEX "adblkcmd\\.cc$")
 list(FILTER WINAPP_WINCMD EXCLUDE REGEX "cmdhist\\.cc$")
 file(GLOB WINAPP_WINAPP  src/winapp/winapp/*.cc)
+# DALI-STANDALONE: filecmd.cc is an incompatible WinApp file command variant (uses Bool type)
+list(FILTER WINAPP_WINAPP EXCLUDE REGEX "filecmd\\.cc$")
 file(GLOB WINAPP_LOG     src/winapp/log/*.cc)
 
 add_library(wapp STATIC

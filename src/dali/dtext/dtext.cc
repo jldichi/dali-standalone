@@ -522,12 +522,12 @@ DaliText::DaliText(String f, bool isTemp)
 	}
 
 	// Check for troff source files
-	if (filename.field(-1, ".") == "mm") 
+	if (String(filename.field(-1, ".")) == "mm")
 		ttype |= T_TROFF;
 
 	// Check for troff source files
-	if ( (filename.field(-1, ".") == "tex") 
-		|| (filename.field(-1, ".") == "latex"))
+	if ( (String(filename.field(-1, ".")) == "tex")
+		|| (String(filename.field(-1, ".")) == "latex"))
 		ttype |= T_TEX;
 
 	cview = 0;
@@ -622,12 +622,12 @@ void DaliText::setFile(const String &f, bool load_new_file)
 		filename 	= f;
         
         // Check for troff source files
-		if (filename.field(-1, ".") == "mm") 
+		if (String(filename.field(-1, ".")) == "mm")
 			ttype |= T_TROFF;
 
 		// Check for troff source files
-		if ( (filename.field(-1, ".") == "tex") 
-			|| (filename.field(-1, ".") == "latex"))
+		if ( (String(filename.field(-1, ".")) == "tex")
+			|| (String(filename.field(-1, ".")) == "latex"))
 			ttype |= T_TEX;
 
 		mkFiles();

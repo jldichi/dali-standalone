@@ -40,12 +40,18 @@ struct MsgFileNode {
 	MsgFileNode(Int s, const String &mN) 
 		: section(s), msgName(mN) { }
 
-	friend Int cmp(const MsgFileNode &n1, const MsgFileNode &n2)
-			{ return n1.section != n2.section ? n1.section - n2.section :
-					 cmp(n1.msgName, n2.msgName); }
-	friend Int hashVal(const MsgFileNode &n, Int module)
-			{ return ((n.section<<16) + hashVal(n.msgName,module))%module; }
+	friend Int cmp(const MsgFileNode &n1, const MsgFileNode &n2);
+	friend Int hashVal(const MsgFileNode &n, Int module);
 };
+
+// DALI-STANDALONE: Define cmp/hashVal outside class for ::cmp visibility in HashTab macro
+Int cmp(const MsgFileNode &n1, const MsgFileNode &n2) {
+	return n1.section != n2.section ? n1.section - n2.section :
+			cmp(n1.msgName, n2.msgName);
+}
+Int hashVal(const MsgFileNode &n, Int module) {
+	return ((n.section<<16) + hashVal(n.msgName,module)) % module;
+}
 
 declare2(HashTab,MsgFileNode,Int);
 implement2(HashTab,MsgFileNode,Int);

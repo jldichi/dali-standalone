@@ -704,7 +704,7 @@ bool DbgWatchBreaks::redo()
 		Int dspn = ERR;
 		if (stViewer.execute() != REJECT_EXIT && (dspn = stViewer.currOpt())) {
 			String dspln = *Debugger::bwList.elem(dspn);
-			if (dspln(4, 10) == "breakpoint") {
+			if (String(dspln(4, 10)) == "breakpoint") {
 				String nline = dspln.field(-1, ":");
 				Editor::debugger->setAttr(toInt(nline)-1, false);
 			}
