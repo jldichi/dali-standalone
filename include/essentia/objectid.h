@@ -45,8 +45,7 @@ public:
 
 	inline bool operator==(const ObjectId &p) const;
 	inline bool operator!=(const ObjectId &p) const;
-	friend Int cmp(const ObjectId &p1, const ObjectId &p2)
-	{ return p1.cId != p2.cId ? p1.cId - p2.cId : p1.iId - p2.iId; }
+	friend Int cmp(const ObjectId &p1, const ObjectId &p2);
 	PObject *operator*() const;
 	PObject *operator->() const;
 	inline bool isNull() const;
@@ -67,8 +66,9 @@ public:
 	inline static Int storeLength();
 };
 
-// DALI-STANDALONE: Forward declaration for ::cmp qualified lookup in GCC 13
-Int cmp(const ObjectId &p1, const ObjectId &p2);
+// DALI-STANDALONE: Defined outside class for ::cmp qualified lookup in GCC 13
+inline Int cmp(const ObjectId &p1, const ObjectId &p2)
+{ return p1.cId != p2.cId ? p1.cId - p2.cId : p1.iId - p2.iId; }
 
 #include <essentia/objectid.icc>
 
