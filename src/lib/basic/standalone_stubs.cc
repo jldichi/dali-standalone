@@ -6,6 +6,8 @@
 #include <ifound.h>
 #include <ifound/str.h>
 #include <essentia/sockconn.h>
+// Force emission of inline functions from objectid.h
+#pragma implementation "objectid.h"
 #include <essentia/objectid.h>
 #include <ideafix/priv/ixsystem.h>
 #include <local/istream.h>
@@ -45,16 +47,6 @@ SocketConnection::~SocketConnection() { }
 
 Int SocketConnection::send(Int, const char *) { return ERR; }
 Int SocketConnection::receive(Int, char *) { return ERR; }
-
-// --- ObjectId cmp ---
-// The inline friend definition in objectid.h doesn't produce an out-of-line
-// symbol due to #pragma interface. Provide explicit definition here.
-Int cmp(const ObjectId &p1, const ObjectId &p2)
-{
-	return p1.classId() != p2.classId()
-		? p1.classId() - p2.classId()
-		: p1.instId() - p2.instId();
-}
 
 // --- Stream classes ---
 // Base implementations missing from codebase (originally in IdeaFix core lib)
