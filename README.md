@@ -1,38 +1,30 @@
 # DALI Standalone Editor
 
-DALI standalone build - a multi-window text editor extracted from the IdeaFix610
-framework to run as an independent executable on any Linux system.
+DALI 1.5.8 — Editor de texto multi-ventana para terminal, extraído del
+framework IdeaFix 6.1.0 (InterSoft) para funcionar como ejecutable
+independiente en Linux.
 
-## Prerequisites
+## Requisitos
 
-- Linux (any modern distribution)
-- GCC/G++ (version 5 or higher recommended)
+- Linux (cualquier distribución moderna)
+- GCC/G++ 5 o superior
 - CMake 3.10+
 - make
+- libtinfo (parte de ncurses)
 
-On Debian/Ubuntu:
-```bash
-sudo apt install build-essential cmake
-```
-
-On RHEL/Fedora:
-```bash
-sudo dnf install gcc gcc-c++ cmake make
-```
-
-## Build Instructions
-
-### Step 1: Copy source files from IdeaFix610
+### Debian / Ubuntu
 
 ```bash
-chmod +x setup.sh
-./setup.sh /path/to/ideafix610
+sudo apt install build-essential cmake libncurses-dev
 ```
 
-This copies all required source files and headers from the IdeaFix610 tree
-into `src/` and `include/` directories.
+### RHEL / Fedora
 
-### Step 2: Build
+```bash
+sudo dnf install gcc gcc-c++ cmake make ncurses-devel
+```
+
+## Compilación
 
 ```bash
 mkdir build && cd build
@@ -40,68 +32,86 @@ cmake ..
 make -j$(nproc)
 ```
 
-The resulting executable will be at `build/dali`.
+El ejecutable se genera en `build/dali`.
 
-### Step 3 (Optional): Static build for maximum portability
-
-```bash
-mkdir build-static && cd build-static
-cmake -DSTATIC_BUILD=ON ..
-make -j$(nproc)
-```
-
-### Step 4: Install
+También se puede usar el script de conveniencia:
 
 ```bash
-sudo make install    # Installs to /usr/local/bin/dali
+./compilar.sh
 ```
 
-Or just copy the binary:
-```bash
-cp build/dali /usr/local/bin/
-```
-
-## Terminal Map Files
-
-DALI reads terminal key definitions from `map/$TERM.map` files. You need to
-copy the map directory from IdeaFix610:
+## Instalación
 
 ```bash
-cp -r /path/to/ideafix610/etc/map ~/.dali/map
+sudo cp build/dali /usr/local/bin/
 ```
 
-Or set the search path via the DALI configuration.
+O con CMake:
 
-## How It Works
+```bash
+cd build && sudo make install
+```
 
-The original IdeaFix610 uses a client-server architecture where:
-- A **Window Manager (WM)** process manages the terminal
-- **DALI** connects to the WM via System V IPC (message queues + semaphores)
+## Uso
 
-This standalone build uses the WM's **standalone mode** (`wmalone.cc`) which
-embeds the window management directly in the DALI process, eliminating the
-need for IPC and the separate WM server.
+```bash
+dali archivo.txt                  # Abrir un archivo
+dali archivo1.c archivo2.c        # Abrir múltiples archivos
+dali -t nombre_tag                # Abrir por tag
+dali -w workspace.wsp             # Abrir workspace
+dali --help                       # Ver todas las opciones
+```
 
-The key change: `WiConnect()` from `wmalone.cc` calls `w_init()` directly
-(which calls `WmSetStdAlone()`) instead of opening IPC channels.
+### Opciones
 
-## Architecture
+| Opción             | Descripción                          |
+|--------------------|--------------------------------------|
+| `-b`, `--hide-banner` | No mostrar el banner de inicio    |
+| `-d`, `--default`     | Ignorar archivo de configuración dalirc |
+| `-t`, `--tag STR`     | Abrir un tag                      |
+| `-s`, `--shell STR`   | Ejecutar comando shell            |
+| `-w`, `--wsp STR`     | Abrir ambiente de trabajo         |
+| `-V`, `--version`     | Mostrar versión                   |
+| `-H`, `--help`        | Mostrar ayuda                     |
+
+## Arquitectura
+
+El IdeaFix original usa una arquitectura cliente-servidor donde un proceso
+Window Manager (WM) maneja la terminal y DALI se conecta vía IPC (System V
+message queues + semaphores).
+
+Esta versión standalone embebe el WM directamente en el proceso DALI usando
+`wmalone.cc`, eliminando la necesidad de IPC y del servidor WM separado.
 
 ```
-dali (executable)
-  |
-  +-- dali_editor (DALI-specific editor logic)
-  |     command/, dsensor/, dtext/, dview/, edhelp/, misc/, flock/
-  |
-  +-- wapp (WinApp - window application framework)
-  |     winobj/, window/, views/, wincmd/
-  |
-  +-- wm (Window Manager - embedded in-process)
-  |     lib/ (wmalone.cc, wmsetfun.cc, wmoutput.cc, wmgetc.cc, ...)
-  |
-  +-- ixwi (WI interface - function wrappers)
-  |     wirut.cc (calls ExecWm -> WmStdAlone -> direct functions)
-  |
-  +-- idea (Foundation library)
-        String, List, RegExp, OsFile, types, utilities
+dali (ejecutable)
+├── dali_editor    Editor: comandos, sensores, texto, vistas, ayuda
+├── wapp           WinApp: menús, diálogos, botones, vistas editables
+├── wm             Window Manager embebido (termios + termcap)
+├── ixwi           Interfaz WI: wrappers de funciones de ventana
+└── idea           Biblioteca base: String, List, RegExp, OsFile, etc.
 ```
+
+## Estructura del proyecto
+
+```
+dali-standalone/
+├── src/
+│   ├── dali/          Editor principal (38 archivos)
+│   ├── winapp/        Framework de ventanas (53 archivos)
+│   ├── wm/lib/        Window Manager embebido (22 archivos)
+│   ├── ixwi/          Interfaz WI (20 archivos)
+│   └── lib/           Biblioteca base (208 archivos)
+├── include/           Headers (416 archivos)
+├── data/
+│   ├── spanish/       Mensajes en español
+│   ├── english/       Mensajes en inglés
+│   └── map/           Mapas de teclado por terminal (30+)
+├── CMakeLists.txt     Sistema de build
+├── compilar.sh        Script de compilación
+└── .gitignore
+```
+
+## Licencia
+
+Copyright InterSoft (c) 1988-2015. Todos los derechos reservados.
