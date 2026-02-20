@@ -239,4 +239,34 @@ if(STATIC_BUILD)
     target_link_libraries(dali -static)
 endif()
 
-install(TARGETS dali DESTINATION bin)
+# ---------------------------------------------------------------------------
+# Installation rules
+# ---------------------------------------------------------------------------
+# Binary goes to /usr/lib/dali/ (wrapper script goes to /usr/bin/)
+install(TARGETS dali DESTINATION lib/dali)
+
+# Wrapper script as /usr/bin/dali
+install(PROGRAMS packaging/dali-wrapper.sh DESTINATION bin RENAME dali)
+
+# Data files
+install(DIRECTORY data/spanish/ DESTINATION share/dali/spanish)
+install(DIRECTORY data/english/ DESTINATION share/dali/english)
+install(DIRECTORY data/map/     DESTINATION share/dali/map)
+
+# ---------------------------------------------------------------------------
+# CPack - .deb package generation
+# ---------------------------------------------------------------------------
+set(CPACK_PACKAGE_NAME "dali")
+set(CPACK_PACKAGE_VERSION "1.5.8")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Multi-window terminal text editor")
+set(CPACK_PACKAGE_DESCRIPTION "DALI is a multi-window text editor for terminals, extracted from the IdeaFix 6.1.0 framework to run as a standalone application on Linux.")
+set(CPACK_PACKAGE_CONTACT "InterSoft")
+set(CPACK_PACKAGE_VENDOR "InterSoft")
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libtinfo6 | libtinfo5")
+set(CPACK_DEBIAN_PACKAGE_SECTION "editors")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+
+include(CPack)
